@@ -1,3 +1,23 @@
+
+
+One other advantage is the compatibility and upgradability. There are **hundreds** of STM32 variants to choose from, and they mostly have the same pinout for a given package type. That means should you find the chip sufficient, you can simply replace it with a more powerful one without changing the circuit design
+
+And let's not forget this is only one of the entry level STM32 chips we're talking about here, 
+
+
+
+
+
+
+
+
+As a result, if you want to develop your own product or something else it makes more sense to use a STM32 than aging old arduino.
+
+It's all well and good, and most people are perfectly content with that. However, for some there are still reasons to dive deeper into the world of embedded systems. It could be career opportunities, performance issues, or just pure interest about how it all works below the surface. 
+
+Whatever it is, if you look at the actual chip on most Arduinos, you'll find an ATmega328P, an aging decade old 8-bit chip with tiny amount of system memory, limited peripherals, and a leisurely clock speed of 16MHz. As a result, in commercial situations 8-bitters like those have been mostly relegated to cost-sensitive applications like cheap toys. And the world has moved on to 32-bit microcontrollers.
+
+
 It is sufficient for most hobby projects that simply doesn't need that much processing power, however, in professional situations that do, it is rather archaic and inadequate. As a result, 8-bit microcontrollers have been mostly relegated to cost-sensitive applications like cheap toys 
 
 And when it comes to embedded processors, it's all about ARM. They don't produce the chips themselves, instead they design the processor architectures and license them out to other companies where they can make further customizations and have them made
