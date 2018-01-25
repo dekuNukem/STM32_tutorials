@@ -2,9 +2,9 @@
 
 Do you already have some experience with Arduino, and want to step up the game into proper ARM embedded system developments? If so, you're in the right place!
 
-We're going to take a look how to get started with STM32 microcontrollers. To lower the entry barrier, we'll be using softwares that are free, and only $4 worth of hardwares.
+We're going to take a look how to get started with STM32 microcontrollers. And to lower the entry barrier, we'll be using softwares that are free, and only $4 worth of hardwares.
 
-This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to get your started quickly and ease the transitioning from Arduino to a lower level development environment.
+This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to get your started quickly and ease the transition from Arduino to a lower level environment.
 
 ## Why STM32?
 
@@ -14,7 +14,7 @@ It's all well and good, and most people are perfectly content with that. However
 
 Whatever it is, if you look at the actual chip on most Arduinos, you'll find an ATmega328P, an aging decade old 8-bit chip with tiny amount of system memory, limited peripherals, and a leisurely clock speed of 16MHz. As a result, in commercial situations 8-bitters like those have been mostly relegated to cost-sensitive applications like cheap toys. And the world has moved on to 32-bit microcontrollers.
 
-Most of the 32-bit microcontrollers today uses ARM Cortex-M architectures, examples include STMicroelectronics' STM32 line, NXP's LPC line, Atmel's own SAM line, and just about every IoT chip out there today. Those 32-bit chips tends to run much faster, have great deal of more memory and peripherals, and even cheaper than comparative 8-bit chips.
+Most of the 32-bit microcontrollers today uses ARM Cortex-M architecture, examples include STMicroelectronics' STM32 line, NXP's LPC line, Atmel's own SAM line, and just about every IoT chip out there today. Those 32-bit chips tends to run much faster, have great deal of more memory and peripherals, and even cheaper than comparative 8-bit chips.
 
 To demonstrate, here is a comparison between Arduino and my go-to STM32 chip, STM32F072C8T6:
 
