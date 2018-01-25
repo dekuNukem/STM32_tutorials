@@ -1,0 +1,74 @@
+It is sufficient for most hobby projects that simply doesn't need that much processing power, however, in professional situations that do, it is rather archaic and inadequate. As a result, 8-bit microcontrollers have been mostly relegated to cost-sensitive applications like cheap toys 
+
+And when it comes to embedded processors, it's all about ARM. They don't produce the chips themselves, instead they design the processor architectures and license them out to other companies where they can make further customizations and have them made
+
+
+
+It's all well and good, and most people are perfectly content with that. However, for some there are reasons to dive deeper into the world of embedded systems. It could be from interest
+and positively slow clock speed of 16MHz
+Arduino is more of a gateway drug to embedded systems, and they 
+All in all, there is a whole different world underneath 
+some hooked and wants to learn more
+arduino is not enough
+
+Faster
+Cheaper
+Future proof, product family
+more professional
+debugging support
+
+
+Now there are many good reasons to stay inside the Arduino ecosystem. After all, it kickstarted the "maker" revolution in the first place. Its consistent hardware, easy to use IDE, and most important of all, the extensive community support meant more people could start creating what want, and the abstraction layer meant that they don't have to worry about the nitty-gritty of pouring over datasheets and manually configuring peripherals.
+Now there are many good reasons to stay inside the Arduino ecosystem. After all, it kickstarted the "maker" revolution in the first place. Its consistent hardware, simple IDE, and the extensive community support meant it's easier than ever for people to start creating what they want, and the abstraction layer meant that they don't have to worry about the nitty-gritty of what's actually happening at a lower level like manually configuring peripherals.
+
+
+We'll take a look at the differences between Arduino and STM32, 
+
+
+
+If so, this guide is specifically designed with you in mind! We're going to
+
+A big problem I found transitioning from Arduino to STM32
+
+This guide is designed to be as detailed and as easy to follow as possible, that means:
+
+* Using free and readily available software
+
+* $5 worth of hardware (dev board and pr) 
+
+
+
+# STM32 the easy way
+
+A step-by-step tutorial on getting started with STM32 development
+
+## Purpose
+
+Do you already have some experience with Arduino, and wanting to step up the game into proper ARM embedded system developments?
+
+This guide is for people who already have some experience with Arduino, and wanting to step up the game into proper ARM embedded system developments.
+
+This tutorial is designed to be detailed and easy to follow. The software we're using will be free and easy to install, and the STM32 board and programmer together will only cost $5(!) including shipping.
+
+Note that this is not meant to be a comprehensive guide that touches on every aspects of STM32, instead it aims to get 
+
+ provides a number of detailed and basic examples and 
+
+## how to use this guide
+
+## why STM32
+	
+comparison
+nodebugging
+
+## STM32 parts naming conventions
+
+## ..
+
+blink
+read button
+uart tx
+uart rx
+uart rx with interrupt
+spi sd card
+
