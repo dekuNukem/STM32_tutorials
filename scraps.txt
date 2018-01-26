@@ -1,4 +1,51 @@
+All the STM32 chips have long names, luckily it's pretty easy to make sense of them and get a general feeling of its capability, here's an example:
 
+
+
+
+# STM32F042K6T6
+
+Now to break it down:
+
+### STM32
+
+Brand name, always there.
+
+### F0
+
+Product family. The first letter is product type, F is standard, L is Low Power, H for High Performance.
+
+The number indicates what ARM processor core is it using:
+
+| STM32 Series |   ARM Core   |
+|--------------|--------------|
+| F7, H7       | Cortex-M7F   |
+| F4, F3, L4   | Cortex-M4F   |
+| F2, F1, L1   | Cortex-M3    |
+| L0           | Cortex-M0+   |
+| F0           | Cortex-M0    |
+
+Generally speaking, the higher the number, the better the performance and the variety of peripherals, but also more expensive. F0 is more than adequate for most projects.
+
+### 42
+
+Specific Features. Within the same family, the higher the number, the more feature-packed it will be. For example F072 will have much more peripherals than F031. Look at the datasheet for details.
+
+### K
+
+Pin count. K is 32 pins, C is 48 pins, R is 64 pins, etc.
+
+### 6
+
+Flash memory size. 6 is 32KB, 8 is 64KB, B is 128KB, etc.
+
+### T
+
+Package type. T is QFP, P is TSSOP, etc.
+
+### 6
+
+As you can see, the STM32 blows the ol' Arduino out of the water in just about every single aspect.
 
 One other advantage is the compatibility and upgradability. There are **hundreds** of STM32 variants to choose from, and they mostly have the same pinout for a given package type. That means should you find the chip sufficient, you can simply replace it with a more powerful one without changing the circuit design
 
@@ -6,7 +53,7 @@ And let's not forget this is only one of the entry level STM32 chips we're talki
 
 
 
-
+No doubt a lot Arduino tinkerers have entertained the thought of going pro, however
 
 
 
