@@ -20,21 +20,21 @@ To demonstrate, here is a comparison between Arduino and my go-to STM32 chip, ST
 
 ![Alt text](resources/images/intro_comp.png)
 
-I think the table speaks for itself. And here's a brief summary:
+I think the result speaks for itself. And here's a brief summary:
 
 ### Advantages:
 
 #### High performance 
 
-Even the cost-oriented F0 series beats the Arduino in terms of power and peripherals. As a result, you'll be able to develop larger and more sophisticated programs, with better performance and more connectivity options.
+Even the cost-oriented F0 series beats the Arduino in terms of power and peripherals. As a result, you'll be able to develop larger and more sophisticated programs, with better performance and more connectivity options. RTOS becomes an valid option too.
 
 #### Full debugging support
 
-Hardware debugging is supported on all STM32 chips, than means you have single stepping, breakpoints, memory viewer, all the usual stuff. No need to rely on ```println()``` like on Arduino anymore.
+Hardware debugging is supported on all STM32 chips, that means you have single stepping, breakpoints, memory viewer, all the usual stuff. No need to rely on ```println()``` like on Arduino anymore.
 
 #### Versatile, Reusable and Future-proof:
 
-There are **hundreds** of STM32 variants to choose from. You can go from 50 cents STM32F0 up to 400MHz STM32H7. All of them uses the same tool and code structure so it's trivially easy to port between them. They also mostly have the same pinout for a given package type, so you can simply drop in a more powerful chip without changing the circuit design should the needs arises.
+There are **hundreds** of STM32 variants to choose from. You can go from 50 cents STM32F0 up to 400MHz STM32H7. All of them uses the same tool and code structure so it's trivially easy to port between them. They also mostly have the same pinout for a given package type, so you can simply drop in a more powerful chip without changing the circuit design should the need arises.
 
 #### Integrated Bootloader
 
@@ -54,11 +54,11 @@ It seems that there aren't many guides that give a concise and clear instruction
 
 #### Board choices
 
-You'll want to get a dev board to learn the basics, and there simply aren't many around. ST makes a few themselves, and there are some cheap ones on eBay. We'll touch on this problem later, but know that it's not that much big of a problem for now.
+You'll want to get a dev board to learn the basics, and there simply aren't many around. ST makes a few themselves, and there are some cheap ones on eBay. We'll touch on this problem later.
 
 #### Community and library support
 
-It's obvious that STM32 doesn't have as many community members as Arduino does, and as a result there aren't as many ready-to-use libraries available. Hopefully this guide will help with that, and we'll take a look at how to write your own libraries and converting existing Arduino libraries in a later lesson.
+It's obvious that STM32 doesn't have as many community members as Arduino does, and as a result there aren't as many ready-to-use libraries available. We'll take a look at how to write your own libraries as well as converting existing Arduino libraries in a later lesson.
 
 ### Conclusion
 
@@ -70,7 +70,7 @@ Here is the official naming convention:
 
 ![Alt text](resources/images/naming.png)
 
-You can also tell what ARM processor core a chip is using by looking at the 2 characters just after ```STM32```:
+By looking at the 2 characters just after ```STM32```, you can also tell what ARM processor core a chip is using:
 
 | STM32 Series |   ARM Core   |
 |--------------|--------------|
@@ -83,5 +83,7 @@ You can also tell what ARM processor core a chip is using by looking at the 2 ch
 Now you're able to eyeball the capability of a chip by just looking at the feature numbers.
 
 Generally speaking, the higher the number, the better the performance and the variety of peripherals, but also more expensive. F0 is more than adequate for most projects.
+
+catalog here
 
 ## What you'll need

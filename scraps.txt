@@ -26,7 +26,7 @@ The number indicates what ARM processor core is it using:
 | F0           | Cortex-M0    |
 
 Generally speaking, the higher the number, the better the performance and the variety of peripherals, but also more expensive. F0 is more than adequate for most projects.
-
+http://www.st.com/content/st_com/en/about/media-center/press-item.html/t3934.html
 ### 42
 
 Specific Features. Within the same family, the higher the number, the more feature-packed it will be. For example F072 will have much more peripherals than F031. Look at the datasheet for details.
