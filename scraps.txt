@@ -1,3 +1,4 @@
+In this introductory lesson I will give a brief description about STM32 and what you need for this tutorial, and we'll start coding properly from next lesson.
 
 
 

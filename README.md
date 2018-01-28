@@ -2,11 +2,7 @@
 
 Do you already have some experience with Arduino, and want to step up the game into proper ARM embedded system developments? If so, you're in the right place!
 
-We're going to take a look how to get started with STM32 microcontrollers using the free STM32Cube and Keil MDK-ARM IDE. And to further lower the entry barrier, only $4 worth of hardwares is needed.
-
-This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and provide you with knowledge on finding solution for unknown problems on your own before letting you loose.
-
-In this introductory lesson I will give a brief description about STM32 and what you need for this tutorial, and we'll start coding properly from next lesson.
+We're going to take a look how to get started with STM32 microcontrollers using STM32Cube and Keil MDK-ARM IDE, and only $4 worth of hardwares. This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and provide you with knowledge on finding solutions for unknown problems on your own before letting you loose.
 
 ## The case of Arduino
 
@@ -78,7 +74,7 @@ It's obvious that STM32's community isn't as vibrant as Arduino's, and as a resu
 
 ## STM32 naming schemes
 
-Each STM32 chip has a rather long name like `STM32F042K6T6`. However it's well structured, and here is the official naming convention: 
+Since there are hundreds of STM32 chips out there, I think it would be a good idea to know how they are named. Here is the official naming convention: 
 
 ![Alt text](resources/images/naming.png)
 
