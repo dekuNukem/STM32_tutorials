@@ -2,6 +2,7 @@ All the STM32 chips have long names, luckily it's pretty easy to make sense of t
 
 
 
+in order to ease the transition from Arduino to a lower level environment
 
 # STM32F042K6T6
 
