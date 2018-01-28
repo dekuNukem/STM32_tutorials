@@ -1,5 +1,6 @@
 All the STM32 chips have long names, luckily it's pretty easy to make sense of them and get a general feeling of its capability, here's an example:
 
+If you buy one programmer and one board the total cost would be less than 5 dollars including shipping, although I do recommend getting 2 of each so you have spares. And even then it's less than 10 dollars.
 
 
 in order to ease the transition from Arduino to a lower level environment

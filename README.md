@@ -72,7 +72,7 @@ It's obvious that STM32's community isn't as vibrant as Arduino's, and as a resu
 
 ## STM32 naming schemes
 
-Each STM32 chip has a rather long name like `STM32F042K6T6`. However it's actually structured, and here is the official naming convention: 
+Each STM32 chip has a rather long name like `STM32F042K6T6`. However it's well structured, and here is the official naming convention: 
 
 ![Alt text](resources/images/naming.png)
 
@@ -94,9 +94,40 @@ Note how you can eyeball the capability by just looking at the feature numbers. 
 
 Now let's take a look at what you actually need to get started on STM32 development. Turns out, it's surprising little:
 
-We're going to use the STM32F030F4P6 development board
+### ST-Link v2 Programmer
 
-![Alt text](resources/images/board_annotated.jpg)
+You need one of these in order to upload programs into the STM32 chip. Fortunately they are all over ebay and dirt cheap (usually less than $3 including shipping). Just search [ST Link v2 on ebay](https://www.ebay.com/sch/i.html?_from=R40&_nkw=st+link+v2) and it should look like this:
+
+![Alt text](resources/images/stlink.jpg)
+
+### STM32F030F4P6 development board
+
+This is the development board that we'll be using throughout this tutorial. You can find it all over ebay by [searching "STM32F030F4P6"](https://www.ebay.com/sch/i.html?_from=R40&_nkw=stm32f030f4p6). They are even cheaper at less than 2 dollars, and should look like this:
+
+![Alt text](resources/images/ebayboard.jpg)
+
+We'll get into details about this board in the next lesson.
+
+### USB Serial adapter
+
+You probably already have one if you have been playing with Arduinos. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other serial chips like CH340 or FTDI works too, it's just a matter of personal preference.
+
+
+## Next steps
+
+That's pretty much it for the introduction! For now you should get an idea about the advantages of 32-bit microprocessors, and should should have ordered the required hardwares from ebay. They usually take 1 or 2 weeks to arrive although you can pay more for faster shipping. 
+
+You only need 1 programmer, 1 board, and 1 USB serial adaptor to get started, although I do recommend getting 2 of each so you have spares. And even then it would cost less than 10 dollars.
+
+We'll take a look at the details of the dev board, the softwares you need, how to hook everything up, and write your own blink program in the next lesson.
+
+CLICK ME TO GO TO NEXT LESSON
+
+
+
+
+
+
 
 
 
