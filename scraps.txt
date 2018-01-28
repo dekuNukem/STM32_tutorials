@@ -1,3 +1,28 @@
+
+
+
+
+
+If everything works, congrats! You can move on to the next software now. [**OPTIOINAL**] However if you're not hurry we can try something else: You might notice there is already something in the flash memory, let's erase it. Click on the eraser button then confirm:
+
+![Alt text](resources/eraseconfirm.png)
+
+After a few seconds the whole chip will be erased and everything back to 0xFF, which is how it comes out of the factory:
+
+![Alt text](resources/erased.png)
+
+Again, this is not strictly necessary, since the chip gets erased every time you upload a new firmware anyway, but it's nice to get familiar with the tool, and there are more in the "Target" menu that you can play with.
+
+anyway, that's the first one done, good job!
+
+
+
+
+
+
+also install the driver for the ST-LINK programmer you just bought. You can use it to
+
+
 All the STM32 chips have long names, luckily it's pretty easy to make sense of them and get a general feeling of its capability, here's an example:
 
 If you buy one programmer and one board the total cost would be less than 5 dollars including shipping, although I do recommend getting 2 of each so you have spares. And even then it's less than 10 dollars.

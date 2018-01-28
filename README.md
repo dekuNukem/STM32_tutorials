@@ -2,9 +2,11 @@
 
 Do you already have some experience with Arduino, and want to step up the game into proper ARM embedded system developments? If so, you're in the right place!
 
-We're going to take a look how to get started with STM32 microcontrollers. And to lower the entry barrier, we'll be using softwares that are free, and only $4 worth of hardwares.
+We're going to take a look how to get started with STM32 microcontrollers using the free STM32Cube and Keil MDK-ARM IDE. And to further lower the entry barrier, only $4 worth of hardwares is needed.
 
-This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics and provide you with knowledge on finding solution for unknown problems on your own, before letting you loose.
+This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and provide you with knowledge on finding solution for unknown problems on your own before letting you loose.
+
+In this introductory lesson I will give a brief description about STM32 and what you need for this tutorial, and we'll start coding properly from next lesson.
 
 ## The case of Arduino
 
@@ -42,13 +44,17 @@ Hardware debugging is supported on all STM32 chips, that means you have single s
 
 There are **hundreds** of STM32 variants to choose from. You can go from 50 cents STM32F0 up to 400MHz STM32H7. All of them uses the same tool and code structure so it's trivially easy to port between them. They also mostly have the same pinout for a given package type, so you can simply drop in a more powerful chip without changing the circuit design should the need arises.
 
+#### Integrated Bootloader
+
+All STM32s have built-in bootloader for uploading firmware without using a programmer. This can be done through Serial, USB or even I2C, SPI and CAN bus, all without taking up user flash memory like Arduino does.
+
 #### 5V tolerant
 
 All digital pins are 5V tolerant, so you can safely hook them up to legacy systems.
 
-#### Integrated Bootloader
+#### Cost effective
 
-All STM32s have built-in bootloader for uploading firmware without using a programmer. This can be done through Serial, USB or even I2C, SPI and CAN bus, all without taking up user flash memory like Arduino does.
+If you're designing a product and making own circuit board, using a STM32 chip is much cheaper, compact, and clean than plopping a whole Arduino on it, especially if you're doing a production run.
 
 ### Disadvantages:
 
@@ -96,13 +102,13 @@ Now let's take a look at what you actually need to get started on STM32 developm
 
 ### ST-Link v2 Programmer
 
-You need one of these in order to upload programs into the STM32 chip. Fortunately they are all over ebay and dirt cheap (usually less than $3 including shipping). Just search [ST Link v2 on ebay](https://www.ebay.com/sch/i.html?_from=R40&_nkw=st+link+v2) and it should look like this:
+You need one to upload programs into the STM32 chip. Fortunately they are all over ebay and dirt cheap (usually less than $3 including shipping). Just search [ST Link v2 on ebay](https://www.ebay.com/sch/i.html?_from=R40&_nkw=st+link+v2) and it should look like this:
 
 ![Alt text](resources/images/stlink.jpg)
 
 ### STM32F030F4P6 development board
 
-This is the development board that we'll be using throughout this tutorial. You can find it all over ebay by [searching "STM32F030F4P6"](https://www.ebay.com/sch/i.html?_from=R40&_nkw=stm32f030f4p6). They are even cheaper at less than 2 dollars, and should look like this:
+This is the board we'll be using throughout this tutorial. You can find it by [searching "STM32F030F4P6"](https://www.ebay.com/sch/i.html?_from=R40&_nkw=stm32f030f4p6). They are even cheaper at less than 2 dollars, and should look like this:
 
 ![Alt text](resources/images/ebayboard.jpg)
 
@@ -112,16 +118,15 @@ We'll get into details about this board in the next lesson.
 
 You probably already have one if you have been playing with Arduinos. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other serial chips like CH340 or FTDI works too, it's just a matter of personal preference.
 
-
 ## Next steps
 
-That's pretty much it for the introduction! For now you should get an idea about the advantages of 32-bit microprocessors, and should should have ordered the required hardwares from ebay. They usually take 1 or 2 weeks to arrive although you can pay more for faster shipping. 
+That's pretty much it for the introduction! For now you should have an understanding about the advantages of 32-bit microprocessors, and ordered the required hardwares from ebay. They usually take 1 or 2 weeks to arrive, although you can pay more for faster shipping. 
 
 You only need 1 programmer, 1 board, and 1 USB serial adaptor to get started, although I do recommend getting 2 of each so you have spares. And even then it would cost less than 10 dollars.
 
 We'll take a look at the details of the dev board, the softwares you need, how to hook everything up, and write your own blink program in the next lesson.
 
-CLICK ME TO GO TO NEXT LESSON
+[CLICK ME TO GO TO NEXT LESSON](000_intro_blinkLED/README.md)
 
 
 
