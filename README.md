@@ -86,14 +86,26 @@ By looking at the 2 characters just after ```STM32```, you can also tell what AR
 | L0           | Cortex-M0+   |
 | F0           | Cortex-M0    |
 
-Note how you can eyeball the capability of a chip by just looking at the feature numbers. Generally speaking, the higher the number, the better the performance and the variety of peripherals, but also more expensive.
+Note how you can eyeball the capability by just looking at the feature numbers. Generally speaking, the higher the number, the better the performance and the variety of peripherals, but also more expensive.
 
 [Click here](resources/datasheets/STM32_product_selection_guide.pdf) for a spec sheet for all STM32 chips.
 
 ## What you need
 
-Now let's take a look at what you actually need to get started on STM32 development.
+Now let's take a look at what you actually need to get started on STM32 development. Turns out, it's surprising little:
 
-Turns out, it's surprising little:
+We're going to use the STM32F030F4P6 development board
 
 ![Alt text](resources/images/board_annotated.jpg)
+
+
+
+
+
+
+
+
+
+
+
+
