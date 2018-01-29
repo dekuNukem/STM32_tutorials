@@ -8,7 +8,11 @@ This is the most important lesson of them all since it walks you through the ent
 
 ## The chip
 
-We will be using the **STM32F030F4P6** chip throughout this tutorial series. Out of the hundreds of STM32 variants, this is actually the cheapest and most basic chip available. Now it might sound counterintuitive to start from the bottom of the line, but I do have some very good reasons:
+We will be using the **STM32F030F4P6** chip throughout this tutorial series. Out of the hundreds of STM32 variants, this is actually the cheapest and most basic chip available. And here is its specs:
+
+![Alt text](resources/spec.png)
+
+Now it might sound counterintuitive to start from the bottom of the line, but I do have some very good reasons:
 
 * They are cheap. A single chip is 50 cents, and a compete dev board is only $1.5.
 
@@ -27,7 +31,7 @@ Unlike Arduino where pins are referred to by simply a number(pin 1, pin 2...), G
 
 As a result, GPIO pins on STM32 are named like `PXY`, which stand for 'Port X pin Y'. Due to size limits not all chips will have all the ports, and not every port will have all its 16 pins. In this case, most of the pins are from port A(PA0 to PA14). Port B only has 1 pin(PB1), and Port F has 2(PF0 and PF1).
 
-There are also some non-GPIO pins common to all STM32 that are worth mentioning:
+There are also some non-GPIO pins common to all STM32 chips that are worth mentioning:
 
 | Pin name | Function                                             |
 |----------|------------------------------------------------------|
@@ -42,7 +46,7 @@ That pretty much covers all you need to know for the moment. Let's move on to th
 
 ## The dev board
 
-By now you should have all three pieces of hardwares ready: the ST-Link v2 programmer, USB serial adapter, and the dev board itself:
+By now you should have all three pieces of hardwares ready: the dev board itself, the ST-Link v2 programmer, and the USB serial adapter:
 
 ![Alt text](resources/all3.jpg)
 
@@ -50,7 +54,7 @@ Let's take a closer look at the dev board itself with added annotations:
 
 ![Alt text](resources/board_annotated.jpg)
 
-All in all a cheap, simple, and versatile little board. Something to note:
+All in all a clean, simple, and versatile little board. Something to note:
 
 * All pins have been broken out on the header.
 
@@ -58,7 +62,7 @@ All in all a cheap, simple, and versatile little board. Something to note:
 
 * All STM32 chips run at 3.3V, but are 5V tolerant on *digital* pins.
 
-* Don't worry about the BOOT0 selector, leave it on the default GND side.
+* Don't worry about the BOOT0 selector, leave it on the default GND side. (aka normal startup)
 
 ## Hookup
 
@@ -90,7 +94,7 @@ Click the blue "get software" button at the bottom of the page:
 
 ![Alt text](resources/getutil.png)
 
-It will then ask for your name and email. Give it some fake name and [generate a fake email](https://www.guerrillamail.com) to get the download link. Check the email and download the software from the link inside.
+It will then ask for your name and email. Give it some fake name and [generate a fake email](https://www.guerrillamail.com) to get the download link.
 
 Run the installer, it will ask you to install the driver, click install.
 
