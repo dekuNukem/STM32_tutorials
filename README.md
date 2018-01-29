@@ -2,7 +2,7 @@
 
 Do you already have some experience with Arduino, and want to step up the game into proper ARM embedded system developments? If so, you're in the right place!
 
-We're going to take a look how to get started with STM32 microcontrollers using STM32Cube and Keil MDK-ARM, and only $4 worth of hardwares.
+We're going to take a look how to get started with STM32 microcontrollers using STM32Cube and Keil MDK-ARM, which is considered the official way, and only $4 worth of hardwares.
 
 This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and provide you with knowledge on finding solutions for unknown problems on your own before letting you loose.
 

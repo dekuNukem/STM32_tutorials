@@ -30,7 +30,11 @@ After it's done, plug in the programmer with the board into a USB port. Windows 
 
 PHOTO HERE OF PROGRAMMER PLUGGED INTO LAPTOP
 
-Then open up the STM32 ST-LINK utility you just installed, click the connect button. If your wiring is correct, the memory content should now appear in the main window:
+Then open up the STM32 ST-LINK utility you just installed, click the connect button. 
+
+![Alt text](resources/beforeconnect.png)
+
+If your wiring is correct, the memory content should now appear in the main window:
 
 ![Alt text](resources/connected.png)
 
