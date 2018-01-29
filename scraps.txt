@@ -21,8 +21,13 @@ Again, this is not strictly necessary, since the chip gets erased every time you
 anyway, that's the first one done, good job!
 
 
+All the GPIO pins starts with "P" like PA1, PA2... etc. 
+* Every single pin on this STM32 has been broken out on the header, even though some are already used on the board itself. It's not necessarily a bad thing, you just have to beware of it. Namely PF0 and PF1 has a crystal oscillator on it, PA4 has an LED, and NRST has a button.
 
 
+
+Each GPIO pin can be used for peripheral functions as well like UART and I2C, but we'll worry about that later.
+Note that there are multiple packages in the same F030 family, 
 
 
 also install the driver for the ST-LINK programmer you just bought. You can use it to

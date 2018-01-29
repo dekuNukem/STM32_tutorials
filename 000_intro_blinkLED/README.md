@@ -1,6 +1,76 @@
 # Lesson 000: Board Detail, Softwares, and Blinking LED
 
-In this Lesson we're going to take a look at
+Previous lesson: [Introduction and required hardwares](../README.md)
+
+In this lesson we're going to take a detailed look at the chip and the dev board, learn how to hook it up to the programmer, install required softwares, set up the microcontroller, and finally write our very own "Blink" program!
+
+This is the most important lesson of them all since it walks you through the entire process in detail.
+
+## The chip
+
+We will be using the **STM32F030F4P6** chip throughout this tutorial series. Out of the hundreds of STM32 variants, this is actually the cheapest and most basic chip available. Now it might sound counterintuitive to start from the bottom of the line, but I do have some very good reasons:
+
+* They are cheap. A single chip is 50 cents, and a compete dev board is only $1.5.
+
+* They are simple enough for first timers to get going quickly. 
+
+* Despite the lowly status, they are still very capable and contain all the basic peripherals we're going to cover.
+
+* All you learned working with this chip also applies to all other STM32 chips, so you can easily step up after you're done.
+
+
+Now let's take a look at the pinout of this chip, taken from [the datasheet](../resources/datasheets/stm32f030f4p6.pdf):
+
+![Alt text](resources/tssop20pinout.png)
+
+Unlike Arduino where pins are referred to by simply a number(pin 1, pin 2...), GPIO pins on bare microcontrollers like STM32 usually has a *port* and *number* associated with them. A *port* is a set of pins that are organized internally and can be controlled together. In STM32, GPIO ports are named alphabetically starting from A, and each port can have up to 16 pins from 0 to 15.
+
+As a result, GPIO pins on STM32 are named like `PXY`, which stand for 'Port X pin Y'. Due to size limits not all chips will have all the ports, and not every port will have all its 16 pins. In this case, most of the pins are from port A(PA0 to PA14). Port B only has 1 pin(PB1), and Port F has 2(PF0 and PF1).
+
+There are also some non-GPIO pins common to all STM32 that are worth mentioning:
+
+| Pin name | Function                                             |
+|----------|------------------------------------------------------|
+| VSS      | Ground                                               |
+| VDD      | 3.3V Supply                                          |
+| VDDA     | Analog supply for ADC and DAC. Usually equal to VDD. |
+| VBAT     | Battery input for RTC and low-power backups	      |
+| NRST     | Active low reset. Pulled up internally.              |
+| Boot0    | Boot mode. Low: normal startup, High: run bootloader |
+
+That pretty much covers all you need to know for the moment. Let's move on to the dev board.
+
+## The dev board
+
+By now you should have all three pieces of hardwares ready: the ST-Link v2 programmer, USB serial adapter, and the dev board itself:
+
+![Alt text](resources/all3.jpg)
+
+Let's take a closer look at the dev board itself with added annotations:
+
+![Alt text](resources/board_annotated.jpg)
+
+All in all a cheap, simple, and versatile little board. Something to note:
+
+* All pins have been broken out on the header.
+
+* The micro USB connector is for power only, since this chip doesn't have USB capability.
+
+* All STM32 chips run at 3.3V, but are 5V tolerant on *digital* pins.
+
+* Don't worry about the BOOT0 selector, leave it on the default GND side.
+
+## Hookup
+
+Now let's hook it up to the programmer so we can upload our programs into it. Plug the 4 wires into `SWDIO`, `GND`, `SWCLK` and `3.3V` pins on the programmer:
+
+![Alt text](resources/stlinkheader.jpg)
+
+And connect the other end accordingly into the programming header on the dev board.
+
+![Alt text](resources/hookup.jpg)
+
+That's it! Hope that wasn't too hard for you. The programmer also powers the board when it's plugged in.
 
 ## Softwares
 
@@ -26,15 +96,17 @@ Run the installer, it will ask you to install the driver, click install.
 
 ![Alt text](resources/utilinstall.png)
 
-After it's done, plug in the programmer with the board into a USB port. Windows should install some drivers automatically, wait for it to finish.
+After it's done, plug in the programmer with the board into a USB port:
 
-PHOTO HERE OF PROGRAMMER PLUGGED INTO LAPTOP
+![Alt text](resources/plugged_in.jpg)
 
-Then open up the STM32 ST-LINK utility you just installed, click the connect button. 
+If your wiring is correct, the power LED should light up. The user LED might start blinking as well if the seller burned a demo into it, which is kind of a spoiler, but let's ignore that for now.
+
+Windows should install some drivers automatically, wait for it to finish. Then open up the STM32 ST-LINK utility you just installed, click the connect button. 
 
 ![Alt text](resources/beforeconnect.png)
 
-If your wiring is correct, the memory content should now appear in the main window:
+If the hookup is still correct, the memory content should now appear in the main window:
 
 ![Alt text](resources/connected.png)
 
@@ -42,7 +114,7 @@ If everything works, congrats! You can move on to the next software now. There a
 
 ### STM32CubeMX
 
-STM32CubeMX is an interactive configuration tool and code generator. It lets you set up the microcontroller in a straightforward graphical interface, and then generates required initialization code so you don't have to write any. Pretty neat!
+STM32CubeMX is an interactive configuration tool and code generator. It lets you set up the microcontroller in a straightforward graphical interface, then generates the initialization code so you don't have to write any. Pretty neat!
 
 Just like the first one, go to the official link below, click the blue "Get Software" button near the bottom, and download it:
 
@@ -52,7 +124,7 @@ Inside the zip there are 3 copies for different platforms. You'll want to run th
 
 ![Alt text](resources/threeopt.png)
 
-If you don't have Java if will ask you to install that as well. After it's all said and done, we can move on to the third and final software.
+If you don't have Java it will ask you to install it. After it's all said and done, we can move on to the third and final software.
 
 ### Keil MDK-ARM
 
