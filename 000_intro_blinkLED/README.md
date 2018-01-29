@@ -42,21 +42,18 @@ If everything works, congrats! You can move on to the next software now. There a
 
 ### STM32CubeMX
 
-STM32CubeMX is an interactive configuration tool and code generator. It lets you set up the microcontroller in a straightforward graphical interface, and then generates all the code for you in C so you don't have to write any. Pretty neat!
+STM32CubeMX is an interactive configuration tool and code generator. It lets you set up the microcontroller in a straightforward graphical interface, and then generates required initialization code so you don't have to write any. Pretty neat!
 
 Just like the first one, go to the official link below, click the blue "Get Software" button near the bottom, and download it:
 
 http://www.st.com/en/development-tools/stm32cubemx.html
 
-Inside the zip it actually contains 3 copies for different platforms. You'll want to run the windows one:
+Inside the zip there are 3 copies for different platforms. You'll want to run the windows one:
 
 ![Alt text](resources/threeopt.png)
 
-If you don't have Java if will ask you to install that as well. After it's all said and done, try open it up and see if it works:
-
-![Alt text](resources/cubehome.png)
-
-Feel free to close it as we'll come back to this later, for now we'll move on to the third and final software.
+If you don't have Java if will ask you to install that as well. After it's all said and done, we can move on to the third and final software.
 
 ### Keil MDK-ARM
 
+This is one of the 

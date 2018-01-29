@@ -1,6 +1,10 @@
 In this introductory lesson I will give a brief description about STM32 and what you need for this tutorial, and we'll start coding properly from next lesson.
 
+try open it up and see if it works:
 
+![Alt text](resources/cubehome.png)
+
+Feel free to close it as we'll come back to this later, for now
 
 
 
