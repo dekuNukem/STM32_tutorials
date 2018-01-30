@@ -4,7 +4,7 @@ Previous lesson: [Introduction and required hardwares](../README.md)
 
 In this lesson we're going to take a detailed look at the chip and the dev board, learn how to hook it up to the programmer, install required softwares, set up the microcontroller, and finally write our very own "Blink" program!
 
-This is the most important lesson of them all since it walks you through the entire process in detail.
+That's quite a bit of work, and it's going to take a while. However, this is the most important lesson of them all since it walks you through the entire process in detail. And you can use it on any other STM32 variant you want once you persevere.
 
 ## The chip
 
@@ -180,7 +180,7 @@ Double click the listing to select this chip:
 
 ![Alt text](resources/cubeblank.png)
 
-On the left side is a list of available peripherals on this chip, and on the right side is a illustration of the chip itself. You can zoom in/out using mouse wheel, move it around with left click, and rotate it with the buttons on the toolbar above to suit your needs.
+Now we're in a nice chip configuration view! On the left side is a list of available peripherals, and on the right side is a illustration of the chip itself. You can zoom in/out using mouse wheel, move it around with left click, and rotate it with the buttons on the toolbar above to suit your needs.
 
 We do need to configure a few peripherals, so let's begin.
 
@@ -246,11 +246,11 @@ A crystal oscillator is usually utilized for external clocks, as is the case wit
 
 #### Configuring the Clock Tree
 
-Now we're ready for the clock tree! Click `Clock Configuration` tab:
+We're ready for the clock tree! Click `Clock Configuration` tab:
 
 ![Alt text](resources/cubeclktree.png)
 
-Now this is some properly heady stuff. Don't worry though, I provided a completed set up below. Follow the yellow path and I'll explain along the way:
+Now this is some proper heady stuff. Don't worry though, I provided a completed set-up below. Follow the yellow path and I'll explain along the way:
 
 ![Alt text](resources/cubeclkanno.png)
 
@@ -266,9 +266,7 @@ Next we encounter a clock divider. 8MHz is already pretty slow so we leave it at
 
 ![Alt text](resources/cubehse3.png)
 
-Next we run into the `PLL source Mux`. We use PLL(Phase Locked Loop) to multiply the input to 48MHz so the chip can run at full speed. 
-
-Here we choose which clock goes into the PLL, in this case the HSE.
+Next we run into the `PLL source Mux`. We use PLL(Phase Locked Loop) to multiply the input to 48MHz so the chip can run at full speed. Here we choose which clock goes into the PLL, in this case the HSE.
 
 ![Alt text](resources/cubehse4.png)
 
