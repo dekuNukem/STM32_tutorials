@@ -1,3 +1,12 @@
+Since we're using the 8MHz external crystal and we want to run the chip at max clock rate of 48MHz, we need to enlist the help of the PLL. Short for Phase Locked Loop, it can multiply a clock signal to a higher frequency.
+We want to run the chip at max frequency of 48MHz, and the HSE is only 8MHz.
+
+So we're using the 8MHz external crystal on the dev board, and the max clock frequency of the chip is 48MHz
+
+Remember we were using the external clock from the 8MHz crystal on the dev board? That's why we selected HSE on the first mux on the yellow path. 
+
+At the first mux along the yellow path (PLL Source Mux) we select what clock signal goes into the PLL, as we're using the external 8MHz crystal we
+
 Check the email and download the software from the link inside.
 In this introductory lesson I will give a brief description about STM32 and what you need for this tutorial, and we'll start coding properly from next lesson.
 
@@ -25,7 +34,7 @@ anyway, that's the first one done, good job!
 All the GPIO pins starts with "P" like PA1, PA2... etc. 
 * Every single pin on this STM32 has been broken out on the header, even though some are already used on the board itself. It's not necessarily a bad thing, you just have to beware of it. Namely PF0 and PF1 has a crystal oscillator on it, PA4 has an LED, and NRST has a button.
 
-
+All STM32 have internal clocks as well, but they're generally less accurate.
 
 Each GPIO pin can be used for peripheral functions as well like UART and I2C, but we'll worry about that later.
 Note that there are multiple packages in the same F030 family, 
