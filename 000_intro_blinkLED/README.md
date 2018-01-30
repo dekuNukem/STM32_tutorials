@@ -252,7 +252,7 @@ We're ready for the clock tree! Click `Clock Configuration` tab:
 
 Now this is some proper heady stuff. Don't worry though, I provided a completed set-up below. Follow the yellow path and I'll explain along the way:
 
-![Alt text](resources/cubeclkanno.png)
+![Alt text](resources/cubeclk_anno.png)
 
 We start from the very beginning of the yellow path.
 
