@@ -276,12 +276,10 @@ Here at PLL we choose how many times to multiply the input clock. We have 8MHz a
 
 Now we arrive at `System Clock Mux`, which determines what to use to clock the entire system. PLL output in this case.
 
-If your external clock is fast enough you can also skip the PLL and use HSE directly here.
-
 ![Alt text](resources/cubehse6.png)
 
 Now the 48MHz system clock is being distributed to a number of system buses and peripherals. There's no need to worry about the details here, just keep everything under the max frequency and it'll be fine.
 
 That's pretty much it! I hope it made sense. The clock tree might be more complicated on higher end STM32 chips, but the basic principle still stands.
 
-Altertitively, this is the path you take if you want to use internal oscilatora.
+As a bonus, click here to see the path using the internal oscillator.
