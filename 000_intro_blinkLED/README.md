@@ -283,3 +283,5 @@ If your external clock is fast enough you can also skip the PLL and use HSE dire
 Now the 48MHz system clock is being distributed to a number of system buses and peripherals. There's no need to worry about the details here, just keep everything under the max frequency and it'll be fine.
 
 That's pretty much it! I hope it made sense. The clock tree might be more complicated on higher end STM32 chips, but the basic principle still stands.
+
+Altertitively, this is the path you take if you want to use internal oscilatora.
