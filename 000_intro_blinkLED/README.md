@@ -1,10 +1,10 @@
-# Lesson 000: Board Detail, Softwares, and Blinking LED
+# Lesson 000: A Complete Walkthrough of Board Detail, Softwares, and Blinking LED.
 
 Previous lesson: [Introduction and required hardwares](../README.md)
 
 In this lesson we're going to take a detailed look at the chip and the dev board, learn how to hook it up to the programmer, install required softwares, set up the microcontroller, and finally write our very own "Blink" program!
 
-That's quite a bit of work, and it's going to take a while. However, this is the most important lesson of them all since it walks you through the entire process in detail. And you can use it on any other STM32 variant you want once you persevere.
+That's quite a bit of work, and it's going to take a while. However, this is the most important lesson of them all since it walks you through the entire process in detail. Once you persevere, you can use it on any other STM32 variant you want.
 
 ## The chip
 
@@ -282,4 +282,179 @@ Now the 48MHz system clock is being distributed to a number of system buses and 
 
 That's pretty much it! I hope it made sense. The clock tree might be more complicated on higher end STM32 chips, but the basic principle still stands.
 
-As a bonus, click here to see the path using the internal oscillator.
+As an exercise, try figure out how to use the HSI through PLL as the system clock. Click here to see the answer.
+
+#### Peripheral Configurations
+
+We're almost there! Click the "Configuration" tab for the, well, configuration view. Here you can adjust the settings of all peripherals that you enabled on the first page. Since we only enabled a GPIO, click the `GPIO` button.
+
+![Alt text](resources/cubeconfig.png)
+
+One the new window, select a pin to change its setting.
+
+There actually isn't much to change in this case, but it would help to get familiar with the options:
+
+![Alt text](resources/cubegpioconfig.png)
+
+GPIO Output level: High or Low. The initial output level of the pin.
+
+GPIO Mode: Push-Pull or Open-Drain. In short PP can drive a signal both high and low, while OD can only pull the signal low. Read more [here](https://learn.adafruit.com/adafruit-1-wire-gpio-breakout-ds2413/open-drain-gpio) and [here](https://en.wikipedia.org/wiki/Open_collector).
+
+Pull-up/Pull-down: [Read more about it here](https://learn.sparkfun.com/tutorials/pull-up-resistors), for output we use neither.
+
+Maximum output speed: Sets the slew rate of output signal. Leave it to default setting.
+
+Click OK to go back, that was all the configuration done, we can finally generate our code now!
+
+#### Generating the code
+
+Now we'll have the STM32CubeMX generate all the initialization code so we don't have to write any.
+
+To begin click `Project` menu then `Settings`:
+
+![Alt text](resources/cubesetting.png)
+
+Enter a project name and select its location, select `MDK-ARM V5` as our IDE, don't touch anything else:
+
+![Alt text](resources/cubesat1.png)
+
+Go to `Code Generator` page, and select `copy only the necessary library files`. It's not strictly necessary but I like to keep it clean.
+
+![Alt text](resources/cubesat2.png)
+
+Click OK. If it's the first time running, it will ask you to download a firmware package, confirm and wait for it to finish.
+
+After all that we finally get to generate the code! Click `Generate Code` under `Project` menu:
+
+![Alt text](resources/cubecode.png)
+
+Hooray!
+
+![Alt text](resources/cubecode1.png)
+
+You can find the generated code in the folder you selected. The `.ioc` file is the STM32CubeMX project you've been working on, and the MDK project is inside `MDK-ARM` folder.
+
+![Alt text](resources/cubefile.png)
+
+Anyway, click `Open Project` to launch the Keil IDE.
+
+![Alt text](resources/cubecode2.png)
+
+### (Finally) My First STM32 Program
+
+#### First time setup:
+
+If it's the first time MDK is running, the "Pack Installer" will pop up again and ask you to install another package:
+
+![Alt text](resources/mdkpac.png)
+
+Confirm and wait for it to finish.
+
+If you see this afterwards, click `Yes`:
+
+![Alt text](resources/mdkerr.png)
+
+Then select our chip from the list:
+
+![Alt text](resources/mdksel.png)
+
+After all that, you're be greeted with this:
+
+![Alt text](resources/mdkhome.png)
+
+There are a few things we need to change. Click `Flash` menu then `Configure Flash Tools`
+
+![Alt text](resources/mdkmenu.png)
+
+Then the `Settings` button:
+
+![Alt text](resources/mdksat.png)
+
+First uncheck `Verify` then check `Reset and Run`. This allows your program to start running right away after uploading instead of having to press the reset button every time.
+
+If the `Programming Algorithm` box is empty, press the `Add` button and select the `STM32F0xx 16kB Flash` entry and press `Add`.
+
+![Alt text](resources/mdkcheck.png)
+
+Press `OK` a few times to go back to the main screen.
+
+#### Coding Blink
+
+Find and open `main.c` by expanding the folders and double clicking on the file:
+
+![Alt text](resources/mdkmain.png)
+
+Skim through the code, you'll find the code generator left comments that you put your own code inbetween. As a rule:
+
+### ALWAYS PUT YOUR CODE BETWEEN `/* USER CODE BEGIN */` AND `/* USER CODE END */` 
+
+This way, your code will be persevered during subsequent STM32Cube code regenerations. You can use the built-in editor, however if you prefer using an external editor you might want to [turn on the file auto-reload](mdk_auto_reload.md).
+
+Let's take a look at the `main()` function.
+
+```
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+  /* USER CODE END 1 */
+
+  /* MCU Configuration----------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  /* USER CODE BEGIN 2 */
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+  /* USER CODE END WHILE */
+  /* USER CODE BEGIN 3 */
+  }
+  /* USER CODE END 3 */
+}
+
+```
+
+It's apparent that the generated code first initializes all peripherals, then go into a loop doing nothing. It also left plenty of user code spaces, so let's fill them in with our first "blink" program.
+
+Right away we have a problem: Arduino has `digitalWrite()`, what do we use here? The answer to this, and in fact every other peripheral is to **look at the available functions in the corresponding HAL driver header file**. They are located in `project_folder/Drivers/STM32F0xx_HAL_Driver/Inc`
+
+HAL stands for Hardware Abstraction Layer. STM32 HAL library is a open source library written by ST and recommended for all new projects. The function call stays the same across different families and parts, and you don't have to worry about manipulating registers. This means the code is easy to understand and easy to port as well.
+
+Since this is GPIO, let's take a look what functions are available in `stm32f0xx_hal_gpio.h`, after scrolling down a bit we see:
+
+![Alt text](resources/mdkgpio.png)
+
+The first 3 looks promising, and particularly the `HAL_GPIO_WritePin`
+
+
+
+We also need a delay function like Arduino's `delay()`, here it is called `HAL_Delay()`. It runs off the sysTick timer and is in milliseconds.
+
+Let's take a look at the completed blink code snippet:
+
+```
+HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+HAL_Delay(200);
+HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+HAL_Delay(200);
+```
+
+Pretty straightforward. The first argument of `HAL_GPIO_WritePin` is the GPIO port, which is a marco called `GPIOA`, it can also be `GPIOB`, `GPIOC`, etc. The second argument is the pin number, since it's PA4 
+
+
+

@@ -6,6 +6,12 @@ We're going to take a look how to get started with STM32 microcontrollers using 
 
 This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and provide you with knowledge on finding solutions for unknown problems on your own before letting you loose.
 
+## Perquisites
+
+Experience with Arduino
+
+Basic C
+
 ## The case of Arduino
 
 Now there are many good reasons to stay inside the Arduino ecosystem. After all, it kickstarted the "maker" revolution in the first place. The consistent hardware, simple IDE, and the excellent community support meant it's easier than ever for people to start creating what they want, and the abstraction layer shielded them from the low-level nitty-gritties like peripheral configuration and fuse settings.
