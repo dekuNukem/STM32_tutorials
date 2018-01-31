@@ -130,7 +130,7 @@ You only need 1 programmer, 1 board, and 1 USB serial adaptor to get started, al
 
 We'll take a look at the details of the dev board, the softwares you need, how to hook everything up, and write your own blink program in the next lesson.
 
-[CLICK ME TO GO TO NEXT LESSON](000_intro_blinkLED/README.md)
+[CLICK ME TO GO TO NEXT LESSON](lesson000_intro_blinkLED/README.md)
 
 
 

@@ -1,4 +1,4 @@
-# Lesson 000: A Complete Walkthrough of Board Detail, Softwares, and Blinking LED.
+# Lesson 000: A Complete Walkthrough of Board Detail, Software Setup, and Blinking LED.
 
 Previous lesson: [Introduction and required hardwares](../README.md)
 
@@ -282,7 +282,7 @@ Now the 48MHz system clock is being distributed to a number of system buses and 
 
 That's pretty much it! I hope it made sense. The clock tree might be more complicated on higher end STM32 chips, but the basic principle still stands.
 
-As an exercise, try figure out how to use the HSI through PLL as the system clock. Click here to see the answer.
+As an exercise, try figure out how to use the HSI for a 48MHz system clock. [Click here](resources/cubehhsi.png) to see the answer.
 
 #### Peripheral Configurations
 
