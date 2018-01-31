@@ -8,7 +8,7 @@ That's quite a bit of work, and it's going to take a while. However, this is the
 
 ## The chip
 
-We will be using the **STM32F030F4P6** chip throughout this tutorial series. Out of the hundreds of STM32 variants, this is actually the cheapest and most basic chip available. And here is its specs:
+We will be using the **STM32F030F4P6** throughout this tutorial series. Out of the hundreds of STM32 variants, this is actually the cheapest and most basic chip available. And here is its specs:
 
 ![Alt text](resources/spec.png)
 
@@ -40,7 +40,7 @@ There are also some non-GPIO pins common to all STM32 chips that are worth menti
 | VDDA     | Analog supply for ADC and DAC. Usually equal to VDD. |
 | VBAT     | Battery input for RTC and low-power backups	      |
 | NRST     | Active low reset. Pulled up internally.              |
-| Boot0    | Boot mode. Low: normal startup, High: run bootloader |
+| BOOT0    | Boot mode. Low: normal startup, High: run bootloader |
 
 That pretty much covers all you need to know for the moment. Let's move on to the dev board.
 
@@ -72,7 +72,7 @@ Plug the 4 wires into `SWDIO`, `GND`, `SWCLK` and `3.3V` pins on the programmer:
 
 ![Alt text](resources/stlinkheader.jpg)
 
-And connect the other end accordingly into the programming header on the dev board.
+And plug the other end accordingly into the programming header on the dev board.
 
 ![Alt text](resources/hookup.jpg)
 
@@ -138,7 +138,7 @@ Keil is considered one of the "standard" IDEs in embedded development, it has a 
 
 There is a silver lining however, as ST provides a **free license for all STM32F0 parts** with no code size limit at all. The aim is to get more people into STM32, and I guess it's working.
 
-Anyway, F0 is more than capable for the majority if projects, you can it have up to 100 pins, 256KB flash, and 32KB of RAM. And when you do grow out of the F0 series, you can set up the open source arm-gcc compiler and get rid of the license issue all together.
+Anyway, F0 is more than capable for the majority of projects, you can it have up to 100 pins, 256KB flash, and 32KB of RAM. And when you do grow out of the F0 series, you can set up the open source arm-gcc compiler and get rid of the license issue all together.
 
 Go to the offcial link below, fill in the form and download the installer. Again, use a [fake identity](http://www.fakenamegenerator.com/) to protect your privacy:
 
@@ -190,7 +190,7 @@ First up we need to enable SWD in order to upload the firmware into the chip. Ex
 
 ![Alt text](resources/cubeswd.png)
 
-You can see the PA14 and PA13 pins are automatically highlighted on the right side, indicating they are being used.
+PA14 and PA13 pins are automatically highlighted on the right side, indicating they are being used.
 
 #### Enable External Clock Source
 
@@ -282,7 +282,7 @@ Now the 48MHz system clock is being distributed to a number of system buses and 
 
 That's pretty much it! I hope it made sense. The clock tree might be more complicated on higher end STM32 chips, but the basic principle still stands.
 
-As an exercise, try figure out how to use the HSI for a 48MHz system clock. [Click here](resources/cubehhsi.png) to see the answer.
+As an exercise, try figure out how to use the HSI for a 48MHz system clock. [Click here](resources/cubehsi.png) to see the answer.
 
 #### Peripheral Configurations
 
@@ -300,7 +300,7 @@ GPIO Output level: High or Low. The initial output level of the pin.
 
 GPIO Mode: Push-Pull or Open-Drain. In short PP can drive a signal both high and low, while OD can only pull the signal low. Read more [here](https://learn.adafruit.com/adafruit-1-wire-gpio-breakout-ds2413/open-drain-gpio) and [here](https://en.wikipedia.org/wiki/Open_collector).
 
-Pull-up/Pull-down: [Read more about it here](https://learn.sparkfun.com/tutorials/pull-up-resistors), for output we use neither.
+Pull-up/Pull-down: [Read about it here](https://learn.sparkfun.com/tutorials/pull-up-resistors), for output we don't use any pulls at all.
 
 Maximum output speed: Sets the slew rate of output signal. Leave it to default setting.
 
@@ -318,7 +318,7 @@ Enter a project name and select its location, select `MDK-ARM V5` as our IDE, do
 
 ![Alt text](resources/cubesat1.png)
 
-Go to `Code Generator` page, and select `copy only the necessary library files`. It's not strictly necessary but I like to keep it clean.
+Go to `Code Generator` page, and select `Copy only the necessary library files`. It's not strictly necessary but I like to keep it clean.
 
 ![Alt text](resources/cubesat2.png)
 
@@ -358,7 +358,7 @@ Then select our chip from the list:
 
 ![Alt text](resources/mdksel.png)
 
-After all that, you're be greeted with this:
+After all that, you'll be greeted with this:
 
 ![Alt text](resources/mdkhome.png)
 
@@ -388,7 +388,7 @@ Skim through the code, you'll find the code generator left comments that you put
 
 ### ALWAYS PUT YOUR CODE BETWEEN `/* USER CODE BEGIN */` AND `/* USER CODE END */` 
 
-This way, your code will be persevered during subsequent STM32Cube code regenerations. You can use the built-in editor, however if you prefer using an external editor you might want to [turn on the file auto-reload](mdk_auto_reload.md).
+This way, your code will be preserved during subsequent STM32Cube code regenerations. You can use the built-in editor, however if you prefer using an external editor you might want to [turn on the file auto-reload](mdk_auto_reload.md).
 
 Let's take a look at the `main()` function.
 
