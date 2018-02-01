@@ -254,6 +254,8 @@ Now this is some proper heady stuff. Don't worry though, I provided a completed 
 
 ![Alt text](resources/cubeclk_anno.png)
 
+The max clock rate for STM32F0 is 48MHz, so we aim to run a 48MHz system clock. However the crystal on our board is only 8MHz, so we need a way to multiply it up to 48MHz. We use the build-in PLL(Phase Locked Loop) to do exactly that, and the multiplied clock is then used as the system clock. 
+
 We start from the very beginning of the yellow path.
 
 ![Alt text](resources/cubehse1.png)
@@ -266,19 +268,19 @@ Next we encounter a clock divider. 8MHz is already pretty slow so we leave it at
 
 ![Alt text](resources/cubehse3.png)
 
-Next we run into the `PLL source Mux`. We use PLL(Phase Locked Loop) to multiply the input to 48MHz so the chip can run at full speed. Here we choose which clock goes into the PLL, in this case the HSE.
+Next we run into the `PLL source Mux`, which chooses which clock goes into the PLL, in this case the HSE.
 
 ![Alt text](resources/cubehse4.png)
 
-Here at PLL we choose how many times to multiply the input clock. We have 8MHz and want 48MHz, so 6 it is.
+Here inside PLL we choose how many times to multiply the input clock. We have 8MHz and want 48MHz, so 6 it is.
 
 ![Alt text](resources/cubehse5.png)
 
-Now we arrive at `System Clock Mux`, which determines what to use to clock the entire system. PLL output in this case.
+Now we arrive at `System Clock Mux`, which determines what to use to clock the entire system. In this case we pick the 48MHz PLL output.
 
 ![Alt text](resources/cubehse6.png)
 
-Now the 48MHz system clock is being distributed to a number of system buses and peripherals. There's no need to worry about the details here, just keep everything under the max frequency and it'll be fine.
+Now the system clock is 48MHz, and is being distributed to a number of system buses and peripherals. There's no need to worry about the details here, just keep everything under the max frequency and it'll be fine.
 
 That's pretty much it! I hope it made sense. The clock tree might be more complicated on higher end STM32 chips, but the basic principle still stands.
 
