@@ -384,11 +384,11 @@ Find and open `main.c` by expanding the folders and double clicking on the file:
 
 ![Alt text](resources/mdkmain.png)
 
-Skim through the code, you'll find the code generator left comments that you put your own code inbetween. As a rule:
+Skim through the code, you'll find the code generator left tons of comments. As a rule:
 
 ### ALWAYS PUT YOUR CODE BETWEEN `/* USER CODE BEGIN */` AND `/* USER CODE END */` 
 
-This way, your code will be preserved during subsequent STM32Cube code regenerations. You can use the built-in editor, however if you prefer using an external editor you might want to [turn on the file auto-reload](mdk_auto_reload.md).
+This way, if you regenerate the code after making changes in STM32CubeMX, your own code will be preserved, while everything outside will be overwritten.
 
 Let's take a look at the `main()` function.
 
@@ -396,6 +396,7 @@ Let's take a look at the `main()` function.
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -404,48 +405,97 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
   /* USER CODE END WHILE */
+
   /* USER CODE BEGIN 3 */
   }
+
   /* USER CODE END 3 */
 }
-
 ```
 
-It's apparent that the generated code first initializes all peripherals, then go into a loop doing nothing. It also left plenty of user code spaces, so let's fill them in with our first "blink" program.
+It looks pretty long but mostly just comments. The generated code first do some initialization, then go into a loop doing nothing. It's up to us to write the actual program, in this case Blinking the LED on PA4.
 
-Right away we have a problem: Arduino has `digitalWrite()`, what do we use here? The answer to this, and in fact every other peripheral is to **look at the available functions in the corresponding HAL driver header file**. They are located in `project_folder/Drivers/STM32F0xx_HAL_Driver/Inc`
+Right away we have a problem: Arduino has `digitalWrite()`, what do we use here? To answer this question we first need to get to know the library that we're using.
 
-HAL stands for Hardware Abstraction Layer. STM32 HAL library is a open source library written by ST and recommended for all new projects. The function call stays the same across different families and parts, and you don't have to worry about manipulating registers. This means the code is easy to understand and easy to port as well.
+##### The STM32 HAL libraries
 
-Since this is GPIO, let's take a look what functions are available in `stm32f0xx_hal_gpio.h`, after scrolling down a bit we see:
+STM32 HAL(Hardware Abstraction Layer) library is a open source library written by ST and recommended for all new projects. It provides a complete set of APIs that stay consistent throughout the STM32 lines. This simplifies the coding, and improves portability to other devices as well. This is also what STM32CubeMX generates.
+
+All the driver files are in `project_folder/Drivers/STM32F0xx_HAL_Driver`. Each peripheral has their own `.c` and `.h` files. The trick here then is simple:
+
+### To see what you can do with a peripheral, just look at what functions are available in the corresponding HAL driver files
+
+Usually the `.h` file is enough, although there are detailed documentation in the `.c` file too, so try not miss that.
+
+Take GPIO in this case for example. First let's take a look at [stm32f0xx_hal_gpio.h](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h). After scrolling down a bit we see:
 
 ![Alt text](resources/mdkgpio.png)
 
-The first 3 looks promising, and particularly the `HAL_GPIO_WritePin`
+The first 3 looks promising. To see how to use it we look at the details in the corresponding [stm32f0xx_hal_gpio.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c), there is a general description at the beginning, and you can search for a particular function for its usage.
 
+For `HAL_GPIO_WritePin()`, we have:
 
+```
+/**
+  * @brief  Set or clear the selected data port bit.
+  * @note   This function uses GPIOx_BSRR and GPIOx_BRR registers to allow atomic read/modify
+  *         accesses. In this way, there is no risk of an IRQ occurring between
+  *         the read and the modify access.
+  *
+  * @param  GPIOx where x can be (A..H) to select the GPIO peripheral for STM32F0 family
+  * @param  GPIO_Pin specifies the port bit to be written.
+  *          This parameter can be one of GPIO_PIN_x where x can be (0..15).
+  * @param  PinState specifies the value to be written to the selected bit.
+  *          This parameter can be one of the GPIO_PinState enum values:
+  *            @arg GPIO_PIN_RESET: to clear the port pin
+  *            @arg GPIO_PIN_SET: to set the port pin
+  * @retval None
+  */
 
-We also need a delay function like Arduino's `delay()`, here it is called `HAL_Delay()`. It runs off the sysTick timer and is in milliseconds.
+void HAL_GPIO_WritePin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState)
+...
 
-Let's take a look at the completed blink code snippet:
+```
+
+As a result, if we want PA4 to output HIGH (3.3V), we call:
+
+`HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);`
+
+And for LOW (0V), we call:
+
+`HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);`
+
+That wasn't too bad was it? And don't forget you can use this method to find out about other peripherals too.
+
+Now we have the GPIO sorted out, we need a delay function. Every STM32 has a SysTick timer soley for timekeeping, and it is usually configured to increment every 1ms. The timing functions are in [stm32f0xx_hal.h](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h) and [stm32f0xx_hal.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c). There are quite a lot of code in those two files though, so I'll just put them here:
+
+For delay you'll want to call `HAL_Delay()`. This is equivalent to the `delay()` function in Arduino, and similarly the argument is in milliseconds.
+
+You can also call `HAL_GetTick()` to get how long in milliseconds the chip has been running. This is equivalent to the `millis()` function in Arduino.
+
+That's all we need for the Blink! In the end we have:
 
 ```
 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
@@ -454,7 +504,105 @@ HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
 HAL_Delay(200);
 ```
 
-Pretty straightforward. The first argument of `HAL_GPIO_WritePin` is the GPIO port, which is a marco called `GPIOA`, it can also be `GPIOB`, `GPIOC`, etc. The second argument is the pin number, since it's PA4 
+The code sets PA4 to HIGH for 200ms, then sets it to LOW for 200ms. When run in a loop it blinks the LED on PA4.
 
+Now we just have to put it in the loop in `main()` inside `main.c`:
+
+```
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration----------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  /* USER CODE BEGIN 2 */
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+
+  /* USER CODE END WHILE */
+
+  /* USER CODE BEGIN 3 */
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+    HAL_Delay(200);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+    HAL_Delay(200);
+  }
+  /* USER CODE END 3 */
+
+}
+
+```
+
+I put it between `/* USER CODE BEGIN 3 */` and `/* USER CODE END 3 */`, you can put it before `/* USER CODE END WHILE */` too. Just make sure it's in the right place and inside the `/* USER CODE */` blocks. [Click here](sample_code/Src/main.c) to see the finished file.
+
+All that's left is to compile and upload the program. Press `F7` to start compiling, it might take a while for the first time, eventually it will finish:
+
+![Alt text](resources/mdkcompile.png)
+
+It tells you the memory resources usage, you can [read the details here](https://stackoverflow.com/questions/5430284/rom-and-ram-in-arm), but in short, `ROM usage = code + RO + RW`, `RAM usage = RW + ZI`. Remember we have 16KB of ROM and 4KB of RAM on the chip we're using.
+
+Press `F8` to start uploading the program into the STM32 chip, should take only a few seconds:
+
+![Alt text](resources/mdkdone.png)
+
+The program should start running right away, if not try pressing the reset button. Anyway, the result: 
+
+![Alt text](resources/blinking.gif)
+
+Congratulations! This has been a long journey but you've finally made it, welcome to the world of 32-bit ARM embedded systems!
+
+Getting started was the hardest part, now that you've done it, things are only going to get easier. We'll cover a few other essentials in the upcoming lessons, but for now go spend a moment to bask in the magnificent radiance of a blinking light on a $1.5 circuit board.
+
+## Extra Tips
+
+Remember we named our PA4 pin `USER_LED` in the STM32CubeMX? You might think I forgot about it, but fear not! [Take a look at main.h](sample_code/Inc/main.h), and you'll find it generated some custom defines:
+
+```
+#define USER_LED_Pin GPIO_PIN_4
+#define USER_LED_GPIO_Port GPIOA
+```
+
+As a result, instead of:
+
+`HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);`
+
+You can write:
+
+`HAL_GPIO_WritePin(USER_LED_GPIO_Port, USER_LED_Pin, GPIO_PIN_SET);`
+
+The result will be the same but the intention is more clear. 
+
+You'll find all your custom names in `main.h`, try using them to make the code more readable.
+
+## Homework
+
+Here's an exercise for you: Instead of using `HAL_GPIO_WritePin()`, try using the `HAL_GPIO_TogglePin()` to make the light blink.
+
+Read about its usage in [stm32f0xx_hal_gpio.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c) and see what you can do with it.
+
+## Next Steps
 
 

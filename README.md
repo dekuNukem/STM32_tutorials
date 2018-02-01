@@ -2,15 +2,48 @@
 
 Do you already have some experience with Arduino, and want to step up the game into proper ARM embedded system developments? If so, you're in the right place!
 
-We're going to take a look how to get started with STM32 microcontrollers using STM32Cube and Keil MDK-ARM, which is considered the official way, and only $4 worth of hardwares.
+We're going to take a look how to get started with STM32 microcontrollers using STM32Cube and Keil MDK-ARM, which is considered "canon", and only $4 worth of hardwares.
 
-This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and provide you with knowledge on finding solutions for unknown problems on your own before letting you loose.
+This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and teaches you to figure things out yourself.
 
 ## Perquisites
 
-Experience with Arduino
+#### Experience with Arduino or other embedded systems
 
-Basic C
+As the purpose of this guide is to help you step up from Arduino to STM32, it is assumed that you have an understanding of basic concepts like GPIO, UART, etc, and simple circuits.
+
+#### Programming in C
+
+We'll be using plain C as well, so it's nice to have some experience with that.
+
+## What you need
+
+You do need to buy some hardwares, luckily they are dirt cheap, and you only need 1 of each to get started. Although I do recommend getting 2 of each for spares. They usually take 1 or 2 weeks to arrive, and you can pay more for faster shipping. 
+
+### ST-Link v2 Programmer
+
+You need it to upload programs into the STM32 chip. Fortunately they are all over ebay and dirt cheap (usually less than $3 including shipping). Just search [ST Link v2 on ebay](https://www.ebay.com/sch/i.html?_from=R40&_nkw=st+link+v2) and it should look like this:
+
+![Alt text](resources/images/stlink.jpg)
+
+### STM32F030F4P6 development board
+
+This is the board we'll be using throughout this tutorial. You can find it by [searching "STM32F030F4P6"](https://www.ebay.com/sch/i.html?_from=R40&_nkw=stm32f030f4p6). They are even cheaper at less than 2 dollars, and should look like this:
+
+![Alt text](resources/images/ebayboard.jpg)
+
+We'll get into details about this board in the next lesson.
+
+### USB Serial adapter
+
+You probably already have one if you've been playing with Arduinos before. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other serial chips like CH340 or FTDI also works. It's just a matter of preference.
+
+## What now?
+
+If you can't wait to get started, [click me to go to the next lesson](lesson000_intro_blinkLED/README.md).
+
+If you're not in a hurry, I suggest keep reading while I talk about the issue of Arduino, the upcoming trend of 32-bit microcontrollers, and the naming scheme of STM32 parts.
+
 
 ## The case of Arduino
 
@@ -100,39 +133,13 @@ Note how you can eyeball the capability by just looking at the feature numbers. 
 
 [Click here](resources/datasheets/STM32_product_selection_guide.pdf) for a spec sheet for all STM32 chips.
 
-## What you need
-
-Now let's take a look at what you actually need to get started on STM32 development. Turns out, it's surprising little:
-
-### ST-Link v2 Programmer
-
-You need one to upload programs into the STM32 chip. Fortunately they are all over ebay and dirt cheap (usually less than $3 including shipping). Just search [ST Link v2 on ebay](https://www.ebay.com/sch/i.html?_from=R40&_nkw=st+link+v2) and it should look like this:
-
-![Alt text](resources/images/stlink.jpg)
-
-### STM32F030F4P6 development board
-
-This is the board we'll be using throughout this tutorial. You can find it by [searching "STM32F030F4P6"](https://www.ebay.com/sch/i.html?_from=R40&_nkw=stm32f030f4p6). They are even cheaper at less than 2 dollars, and should look like this:
-
-![Alt text](resources/images/ebayboard.jpg)
-
-We'll get into details about this board in the next lesson.
-
-### USB Serial adapter
-
-You probably already have one if you have been playing with Arduinos. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other serial chips like CH340 or FTDI works too, it's just a matter of personal preference.
-
 ## Next steps
 
-That's pretty much it for the introduction! For now you should have an understanding about the advantages of 32-bit microprocessors, and ordered the required hardwares from ebay. They usually take 1 or 2 weeks to arrive, although you can pay more for faster shipping. 
-
-You only need 1 programmer, 1 board, and 1 USB serial adaptor to get started, although I do recommend getting 2 of each so you have spares. And even then it would cost less than 10 dollars.
+That's pretty much it for the introduction! For now you should have an understanding about the advantages of 32-bit microprocessors, and ordered the required hardwares from ebay. 
 
 We'll take a look at the details of the dev board, the softwares you need, how to hook everything up, and write your own blink program in the next lesson.
 
 [CLICK ME TO GO TO NEXT LESSON](lesson000_intro_blinkLED/README.md)
-
-
 
 
 
