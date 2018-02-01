@@ -386,7 +386,7 @@ Find and open `main.c` by expanding the folders and double clicking on the file:
 
 ![Alt text](resources/mdkmain.png)
 
-Skim through the code, you'll find the code generator left tons of comments. As a rule:
+Skim through the code, you'll find the code generator left tons of comment blocks. As a rule:
 
 ### ALWAYS PUT YOUR CODE BETWEEN `/* USER CODE BEGIN */` AND `/* USER CODE END */` 
 
@@ -443,7 +443,7 @@ Right away we have a problem: Arduino has `digitalWrite()`, what do we use here?
 
 ##### The STM32 HAL libraries
 
-STM32 HAL(Hardware Abstraction Layer) library is a open source library written by ST and recommended for all new projects. It provides a complete set of APIs that stay consistent throughout the STM32 lines. This simplifies the coding, and improves portability to other devices as well. This is also what STM32CubeMX generates.
+STM32 HAL(Hardware Abstraction Layer) library is a open source library written by ST and recommended for all new projects, and is what STM32CubeMX generates. It provides a complete set of APIs that stay consistent throughout the STM32 lines. This simplifies the coding and improves portability as well.
 
 All the driver files are in `project_folder/Drivers/STM32F0xx_HAL_Driver`. Each peripheral has their own `.c` and `.h` files. The trick here then is simple:
 
@@ -455,7 +455,7 @@ Take GPIO in this case for example. First let's take a look at [stm32f0xx_hal_gp
 
 ![Alt text](resources/mdkgpio.png)
 
-The first 3 looks promising. To see how to use it we look at the details in the corresponding [stm32f0xx_hal_gpio.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c), there is a general description at the beginning, and you can search for a particular function for its usage.
+The first 3 looks promising. To see how to use it we look at the details in the corresponding [stm32f0xx_hal_gpio.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c), there is a general description at the beginning, and you can also search a particular function for its usage.
 
 For `HAL_GPIO_WritePin()`, we have:
 

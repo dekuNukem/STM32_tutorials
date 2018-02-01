@@ -10,7 +10,7 @@ This tutorial is designed to be detailed and easy to follow. However, it is **NO
 
 #### Experience with Arduino or other embedded systems
 
-As the purpose of this guide is to help you step up from Arduino to STM32, it is assumed that you have an understanding of basic concepts like GPIO, UART, etc, and simple circuits.
+As the purpose of this guide is to help you step up from Arduino to STM32, it is assumed that you have an understanding of basic microcontroller peripherals like GPIO, UART, etc, and simple digital circuits.
 
 #### Programming in C
 
@@ -22,7 +22,7 @@ You do need to buy some hardwares, luckily they are dirt cheap, and you only nee
 
 ### ST-Link v2 Programmer
 
-You need it to upload programs into the STM32 chip. Fortunately they are all over ebay and dirt cheap (usually less than $3 including shipping). Just search [ST Link v2 on ebay](https://www.ebay.com/sch/i.html?_from=R40&_nkw=st+link+v2) and it should look like this:
+You need this to upload programs into the STM32 chip. Fortunately they are all over ebay and dirt cheap (usually less than $3 including shipping). Just search [ST Link v2 on ebay](https://www.ebay.com/sch/i.html?_from=R40&_nkw=st+link+v2) and it should look like this:
 
 ![Alt text](resources/images/stlink.jpg)
 
