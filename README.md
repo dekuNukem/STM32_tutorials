@@ -6,7 +6,7 @@ We're going to take a look how to get started with STM32 microcontrollers using 
 
 This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and teaches you to figure things out yourself.
 
-## Perquisites
+## Prerequisites
 
 #### Experience with Arduino or other embedded systems
 
