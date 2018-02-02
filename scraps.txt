@@ -1,44 +1,12 @@
-```
-int main(void)
-{
-  /* USER CODE BEGIN 1 */
-  /* USER CODE END 1 */
+You ask the peripheral to do something, and the peripheral will let you know when its finished via interrupt.
 
-  /* MCU Configuration----------------------------------------------------------*/
+dramatically in I/O heavy situations
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+## Headers
 
-  /* USER CODE BEGIN Init */
-  /* USER CODE END Init */
+For this and subsequent lessons you do need to solder on the headers that came with the board, so that we can connect external components to it. It's a pretty easy job, and if you don't have the tools, try your local hackerspace or universities.
 
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  /* USER CODE BEGIN 2 */
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-
-  /* USER CODE END WHILE */
-  /* USER CODE BEGIN 3 */
-
-  }
-  /* USER CODE END 3 */
-}
-
-```
-
-
-
+![Alt text](resources/headers.jpg)
 
 Since we're using the 8MHz external crystal and we want to run the chip at max clock rate of 48MHz, we need to enlist the help of the PLL. Short for Phase Locked Loop, it can multiply a clock signal to a higher frequency.
 We want to run the chip at max frequency of 48MHz, and the HSE is only 8MHz.
