@@ -1,12 +1,12 @@
-# Lesson 000: A Complete Walkthrough of Board Detail, Software Setup, and Blinking LED.
+# Lesson 0: A Complete Walkthrough of Board Detail, Software Setup, and Blinking LED.
 
-Previous lesson: [Introduction and required hardwares](../README.md)
+Previous lesson: [Landing page and required hardwares](../README.md)
 
 In this lesson we're going to take a detailed look at the chip and the dev board, learn how to hook it up to the programmer, install required softwares, set up the microcontroller, and finally write our very own "Blink" program!
 
 That's quite a bit of work, and it's going to take a while. However, this is the most important lesson of them all since it walks you through the entire process in detail. Once you persevere, you can use it on any other STM32 variant you want.
 
-## The chip
+## The Chip
 
 We will be using the **STM32F030F4P6** throughout this tutorial series. Out of the hundreds of STM32 variants, this is actually the cheapest and most basic chip available. And here is its specs:
 
@@ -44,7 +44,7 @@ There are also some non-GPIO pins common to all STM32 chips that are worth menti
 
 That pretty much covers all you need to know for the moment. Let's move on to the dev board.
 
-## The dev board
+## The Dev Board
 
 By now you should have all three pieces of hardwares ready: the dev board itself, the ST-Link v2 programmer, and the USB serial adapter:
 
@@ -158,9 +158,9 @@ That's it! All three program installed. We're ready to actually start writing ou
 
 The simple blinking LED is the "hello world" of embedded systems. It's probably your first Arduino program, and we're going to do it all over again with STM32. The process involves configuring the chip in STM32CubeMX, generating the initialization code, writing your own code, and compile then upload. This process is the same with any STM32 chips.
 
-### Chip configuration in STM32CubeMX
+### Chip Configuration in STM32CubeMX
 
-#### Selecting the target chip
+#### Selecting Target Chip
 
 Open up STM32CubeMX and click `New Project`:
 
@@ -344,7 +344,7 @@ Anyway, click `Open Project` to launch the Keil IDE.
 
 ### (Finally) My First STM32 Program
 
-#### First time setup:
+#### First Time Setup:
 
 If it's the first time MDK is running, the "Pack Installer" will pop up again and ask you to install another package:
 
@@ -360,7 +360,7 @@ Then select our chip from the list:
 
 ![Alt text](resources/mdksel.png)
 
-After all that, you'll be greeted with this:
+If it still says device not found, ignore it. After all that, you'll be greeted with this:
 
 ![Alt text](resources/mdkhome.png)
 
@@ -441,7 +441,7 @@ It looks pretty long but mostly just comments. The generated code first do some 
 
 Right away we have a problem: Arduino has `digitalWrite()`, what do we use here? To answer this question we first need to get to know the library that we're using.
 
-##### The STM32 HAL libraries
+##### The STM32 HAL Libraries
 
 STM32 HAL(Hardware Abstraction Layer) library is a open source library written by ST and recommended for all new projects, and is what STM32CubeMX generates. It provides a complete set of APIs that stay consistent throughout the STM32 lines. This simplifies the coding and improves portability as well.
 
@@ -578,6 +578,12 @@ Congratulations! This has been a long journey but you've finally made it, welcom
 
 Getting started was the hardest part, now that you've done it, things are only going to get easier. We'll cover a few other essentials in the upcoming lessons, but for now go spend a moment to bask in the magnificent radiance of a blinking light on a $1.5 circuit board.
 
+## SAVE SAVE SAVE
+
+Don't forget to save your project, but most importantly, always use the `Save All` button. This saves all the project settings we changed in addition to files.
+
+![Alt text](resources/mdksave.png)
+
 ## Extra Tips
 
 Remember we named our PA4 pin `USER_LED` in the STM32CubeMX? You might think I forgot about it, but fear not! [Take a look at main.h](sample_code/Inc/main.h), and you'll find it generated some custom defines:
@@ -605,6 +611,18 @@ Here's an exercise for you: Instead of using `HAL_GPIO_WritePin()`, try using th
 
 Read about its usage in [stm32f0xx_hal_gpio.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c) and see what you can do with it.
 
+## The Free MDK License
+
+I mentioned before that Keil MDK has a 32KB code size limit unless you pay for a license, and ST provides a free license for all F0 and L0 parts. Obviously the chip we're using only has 16KB of flash, so you don't have to do anything, but if you do start using larger chips, [follow this official guide](http://www2.keil.com/stmicroelectronics-stm32/mdk) to activate your MDK for free. Only follow the `Activation` section since we have already done everything else.
+
+## STM32CubeMX Updates
+
+Sometimes STM32CubeMX will update itself, and you need to run it in Administrator mode to finish the process. To do so right-click the icon and select `Run as Administrator` from the context menu.
+
 ## Next Steps
 
+Now that we have everything set up, the subsequent lessons will be a significantly shorter than this one.
 
+Next up we'll take a look at setting up UART and print "Hello World" over serial. 
+
+Anyway, [CLICK ME TO GO TO NEXT LESSON](../lesson1_serial_helloworld/README.md)

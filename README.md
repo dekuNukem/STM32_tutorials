@@ -40,7 +40,7 @@ You probably already have one if you've been playing with Arduinos before. If yo
 
 ## What now?
 
-If you can't wait to get started, [click me to go to the next lesson](lesson000_intro_blinkLED/README.md).
+If you can't wait to get started, [click me to go to the next lesson](lesson0_intro_blinkLED/README.md).
 
 If you're not in a hurry, I suggest keep reading while I talk about the issue of Arduino, the upcoming trend of 32-bit microcontrollers, and the naming scheme of STM32 parts.
 
@@ -139,7 +139,7 @@ That's pretty much it for the introduction! For now you should have an understan
 
 We'll take a look at the details of the dev board, the softwares you need, how to hook everything up, and write your own blink program in the next lesson.
 
-[CLICK ME TO GO TO NEXT LESSON](lesson000_intro_blinkLED/README.md)
+[CLICK ME TO GO TO NEXT LESSON](lesson0_intro_blinkLED/README.md)
 
 
 
