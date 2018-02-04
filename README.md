@@ -10,7 +10,7 @@ This tutorial is designed to be detailed and easy to follow. However, it is **NO
 
 #### Experience with Arduino or other embedded systems
 
-As the purpose of this guide is to help you step up from Arduino to STM32, it is assumed that you have an understanding of basic microcontroller peripherals like GPIO, UART, etc, and simple digital circuits.
+As the purpose of this guide is to help you step up from Arduino to STM32, it is best that you have an understanding of basic microcontroller peripherals like GPIO, UART, etc, and simple digital circuits.
 
 #### Programming in C
 

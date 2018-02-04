@@ -350,7 +350,7 @@ If it's the first time MDK is running, the "Pack Installer" will pop up again an
 
 ![Alt text](resources/mdkpac.png)
 
-Confirm and wait for it to finish.
+Confirm, look at lower right corner for progress, and wait for it to finish.
 
 If you see this afterwards, click `Yes`:
 
