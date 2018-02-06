@@ -38,6 +38,14 @@ We'll get into details about this board in the next lesson.
 
 You probably already have one if you've been playing with Arduinos before. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other serial chips like CH340 or FTDI also works. It's just a matter of preference.
 
+### Helpful Resources
+
+You might find yourself coming back to these
+
+datasheets 
+datasheets 
+datasheets 
+
 ## What now?
 
 If you can't wait to get started, [click me to go to the next lesson](lesson0_intro_blinkLED/README.md).

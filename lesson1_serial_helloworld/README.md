@@ -20,11 +20,13 @@ This time we expand `USART1` and select `Asynchronous` mode. Two more pins are n
 
 ![Alt text](resources/cubeuart.png)
 
+Normally that would be enough. However, the UART header on our board is actually connected to PA9/PA10 instead of PA2/PA3. **[Follow this short guide](alt_locations.md) to switch them around.**
+
 Next we go to the configuration page. Click the newly appeared button to adjust a few settings.
 
 ![Alt text](resources/cubeconfig.png)
 
-The only thing that actually needs changing is the baud rate, you can set it to whatever you want but I like 115200bps.
+Only thing actually needs changing is the baud rate, 115200bps in this case.
 
 While you're here take a look at the `Advanced Features`, so many options! It even has TX/RX pin swapping for when you forget to cross the wires! What a world we're living in.
 
@@ -57,46 +59,18 @@ HAL_StatusTypeDef HAL_UART_DMAResume(UART_HandleTypeDef *huart);
 HAL_StatusTypeDef HAL_UART_DMAStop(UART_HandleTypeDef *huart);
 ```
 
-That's a lot of choices, but we can break it down to 3 groups: blocking, IT and DMA.
+That's a lot of choices ending in `_Transmit` and `_Receive`. However, they are all suffixed with either nothing, or `_IT`, or `_DMA`. **[Take a look at this guide](hal_io_modes.md) to learn about the I/O modes in STM32 HAL.**
 
-In fact, in HAL you can use most of the I/O peripherals in those 3 ways:
+We'll be using blocking mode in this lesson, and interrupt mode in the upcoming ones. DMA is an advanced topic and currently not covered in this series.
 
-### Blocking Mode:
+The blocking mode TX function is simply:
 
-You ask the peripheral to do something, and then just wait for it to finish.
+`HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);`
 
-Their HAL functions don't usually have suffixes, in this case it's simply called `HAL_UART_Transmit()`.
+First argument is a pointer to an UART device handle. Device handles are structs that hold configuration information. They appear as you enable peripherals and are always found in `main.c` under `/* Private variables --------------*/`
 
-#### Advantages
+Second argument is a pointer to an `uint8_t` array that contains the data you want to send.
 
-It's simple and straightforward to use. In fact this is what we're using in this lesson.
+Third argument is an `uint16_t` number that specifies how many bytes from the above array to send.
 
-#### Drawbacks
-
-Since you can't do anything else while waiting, you're wasting valuable CPU time doing nothing. And as a result the performance takes a hit. And if the peripheral is slow, the waiting time can be significant.
-
-### Interrupt Mode:
-
-You ask the peripheral to do something, and an interrupt will be raised when the task is finished.
-
-Their HAL functions usually ends in `_IT`, in this case it's called `HAL_UART_Transmit_IT()`.
-
-#### Advantages
-
-There is no need for waiting, the function returns immediately and you can do something else while the peripheral is working on your task. This improves the respond time and general performance.
-
-#### Drawbacks
-
-It's slightly more complicated to set up, and can become rather chaotic as the complexity of your program picks up. There are also potential synchronization problems if you're not careful with how the data is accessed.
-
-### DMA Mode:
-
-DMA stands for Direct Memory Access, in short in this mode data is transfered between the memory and peripheral directly without going through CPU at all. This has the best performance and is suitable for very high data transfer rates.
-
-#### Advantages
-
-Since the data is moved directly from memory to the peripheral, this has the fastest transfer rate. And at the same time this frees up CPU, so the performance is not impacted.
-
-#### Drawbacks
-
-DMA is the most complicated to set up and operate
+Last argument is a timeout in milliseconds. The function will return timeout error if time out is exceeded and operation is still not completed. Don't set it too small, 100ms is plenty in this case.
