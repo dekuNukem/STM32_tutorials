@@ -1,3 +1,9 @@
+    HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
+    HAL_UART_Transmit(&huart1, msg, 12, 100);
+
+    // printf("hello world\n");
+    HAL_Delay(200);
+
 You ask the peripheral to do something, and the peripheral will let you know when its finished via interrupt.
 
 dramatically in I/O heavy situations

@@ -113,7 +113,7 @@ int main(void)
   /* USER CODE BEGIN 3 */
   	HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
   	printf("hello world\n");
-  	HAL_Delay(200);
+  	HAL_Delay(500);
   }
   /* USER CODE END 3 */
 

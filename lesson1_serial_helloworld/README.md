@@ -2,9 +2,20 @@
 
 Previous lesson: [A Complete Walkthrough of Board Detail, Software Setup, and Blinking LED](../lesson0_intro_blinkLED/README.md)
 
-In this lesson we'll get UART transmit working, then set up `printf()` to print our `hello world` over serial.
+In this lesson we'll set up the UART, then use `printf()` to print our `hello world` over serial. There is no need to elaborate on how important UARTs are in embedded systems, so let's get right to it!
 
-I don't think I need to elaborate on how important UARTs are in embedded systems, so let's get right to it!
+## Recommended Readings
+
+If you need a refresher on serial communications, Speakfun has an [excellent tutorial](https://learn.sparkfun.com/tutorials/serial-communication).
+
+[CoolTerm](http://freeware.the-meiers.org/) is used to view our serial messages, so check out [this guide](https://learn.sparkfun.com/tutorials/terminal-basics/coolterm-windows-mac-linux). Of course you can use your preferred terminal emulators too.
+
+## Hookup
+
+A serial-to-USB adapter is used in this lesson, connect the **RXD on the adapter** to the **TXD on the dev board**, and connect the **GND of dev board and adapter** together. See the brown and black wires below:
+
+![Alt text](resources/hookup.jpg)
+
 
 ## UART setup in STM32CubeMX
 
@@ -26,7 +37,7 @@ Next we go to the configuration page. Click the newly appeared button to adjust 
 
 ![Alt text](resources/cubeconfig.png)
 
-Only thing actually needs changing is the baud rate, 115200bps in this case.
+Only thing actually needs changing is the baud rate, 115200bps is used in this case.
 
 While you're here take a look at the `Advanced Features`, so many options! It even has TX/RX pin swapping for when you forget to cross the wires! What a world we're living in.
 
@@ -54,23 +65,32 @@ HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, uint8_t *pData
 HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_UART_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_DMAPause(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_DMAResume(UART_HandleTypeDef *huart);
-HAL_StatusTypeDef HAL_UART_DMAStop(UART_HandleTypeDef *huart);
 ```
 
 That's a lot of choices ending in `_Transmit` and `_Receive`. However, they are all suffixed with either nothing, or `_IT`, or `_DMA`. **[Take a look at this guide](hal_io_modes.md) to learn about the I/O modes in STM32 HAL.**
 
-We'll be using blocking mode in this lesson, and interrupt mode in the upcoming ones. DMA is an advanced topic and currently not covered in this series.
+We'll be using blocking mode in this lesson, and interrupt mode in the upcoming ones. DMA is an advanced topic and currently not covered in this series. Therefore, we're simply using `HAL_UART_Transmit()`. [Click here for details about this function](HAL_UART_Transmit_details.md).
 
-The blocking mode TX function is simply:
+You can use this function on its own, however since serial is mostly used to print debug messages, it's a better idea to get `printf()` working instead. And all you have to do is provide your own `fputc()` function:
 
-`HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);`
+```
+int fputc(int ch, FILE *f)
+{
+    HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
+    return ch;
+}
+```
+This is called for each character that `printf` is about to print, and in this case it just sends the character through serial.
 
-First argument is a pointer to an UART device handle. Device handles are structs that hold configuration information. They appear as you enable peripherals and are always found in `main.c` under `/* Private variables --------------*/`
+You can put this anywhere in `main.c`, but I like to put it between `/* USER CODE 0 */` block just before `main()` function.
 
-Second argument is a pointer to an `uint8_t` array that contains the data you want to send.
+After that you'll be able to use `printf()` just like everywhere else, but let's get the `hello world` out of the way first:
 
-Third argument is an `uint16_t` number that specifies how many bytes from the above array to send.
+```
+printf("hello world\n");
+HAL_Delay(500);
+```
 
-Last argument is a timeout in milliseconds. The function will return timeout error if time out is exceeded and operation is still not completed. Don't set it too small, 100ms is plenty in this case.
+Put it in the while loop in `main()`, compile and upload it, and observe in CoolTerm:
+
+![Alt text](resources/helloworld.gif)
