@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/Allen/Desktop/test/Inc
+HeaderPath=C:/Users/Allen/Desktop/stm32_the_easy_way/lesson0_intro_blinkLED/sample_code/Inc
 HeaderFiles=stm32f0xx_it.h;stm32f0xx_hal_conf.h;main.h;
-SourcePath=C:/Users/Allen/Desktop/test/Src
+SourcePath=C:/Users/Allen/Desktop/stm32_the_easy_way/lesson0_intro_blinkLED/sample_code/Src
 SourceFiles=stm32f0xx_it.c;stm32f0xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

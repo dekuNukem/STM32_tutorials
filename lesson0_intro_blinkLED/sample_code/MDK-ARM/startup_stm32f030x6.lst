@@ -358,12 +358,12 @@ ARM Macro Assembler    Page 6
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0 --apcs=interw
-ork --depend=test\startup_stm32f030x6.d -otest\startup_stm32f030x6.o -I.\RTE\_t
-est -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\K
-eil\STM32F0xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32F0xx\Include --predefine="
-__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION S
-ETA 524" --predefine="_RTE_ SETA 1" --predefine="STM32F030x6 SETA 1" --list=sta
-rtup_stm32f030x6.lst startup_stm32f030x6.s
+ork --depend=test\startup_stm32f030x6.d -otest\startup_stm32f030x6.o -IC:\Users
+\Allen\Desktop\stm32_the_easy_way\lesson0_intro_blinkLED\sample_code\MDK-ARM\RT
+E -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Kei
+l\STM32F0xx_DFP\1.5.0\Device\Include --predefine="__MICROLIB SETA 1" --predefin
+e="__UVISION_VERSION SETA 517" --predefine="_RTE_ SETA 1" --predefine="STM32F03
+0x6 SETA 1" --list=startup_stm32f030x6.lst startup_stm32f030x6.s
 
 
 
@@ -803,4 +803,4 @@ Symbol: __main
       At line 135 in file startup_stm32f030x6.s
 Comment: __main used once
 2 symbols
-380 symbols in table
+379 symbols in table

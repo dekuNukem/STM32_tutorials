@@ -344,45 +344,9 @@ Anyway, click `Open Project` to launch the Keil IDE.
 
 ### (Finally) My First STM32 Program
 
-#### First Time Setup:
+[Go through this guide](mdk_first_time_setup.md) if this is the very first time Keil MDK is running.
 
-If it's the first time MDK is running, the "Pack Installer" will pop up again and ask you to install another package:
-
-![Alt text](resources/mdkpac.png)
-
-Confirm, look at lower right corner for progress, and wait for it to finish.
-
-If you see this afterwards, click `Yes`:
-
-![Alt text](resources/mdkerr.png)
-
-Then select our chip from the list:
-
-![Alt text](resources/mdksel.png)
-
-If it still says device not found, ignore it. After all that, you'll be greeted with this:
-
-![Alt text](resources/mdkhome.png)
-
-There are a few things we need to change. Click `Flash` menu then `Configure Flash Tools`
-
-![Alt text](resources/mdkmenu.png)
-
-Then the `Settings` button:
-
-![Alt text](resources/mdksat.png)
-
-First uncheck `Verify` then check `Reset and Run`. This allows your program to start running right away after uploading instead of having to press the reset button every time.
-
-If the `Programming Algorithm` box is empty, press the `Add` button and select the `STM32F0xx 16kB Flash` entry and press `Add`.
-
-![Alt text](resources/mdkcheck.png)
-
-Press `OK` a few times to go back to the main screen.
-
-#### Coding Blink
-
-Find and open `main.c` by expanding the folders and double clicking on the file:
+After everything's set up, find and open `main.c` by expanding the folders and double clicking on the file:
 
 ![Alt text](resources/mdkmain.png)
 
@@ -390,9 +354,7 @@ Skim through the code, you'll find the code generator left tons of comment block
 
 ### ALWAYS PUT YOUR CODE BETWEEN `/* USER CODE BEGIN */` AND `/* USER CODE END */` 
 
-This way, if you regenerate the code after making changes in STM32CubeMX, your own code will be preserved, while everything outside will be overwritten.
-
-Let's take a look at the `main()` function.
+This way when you regenerate the code after making changes in STM32CubeMX, your own code will be preserved, while everything outside will be overwritten. Let's take a look at the `main()` function.
 
 ```
 int main(void)
@@ -441,15 +403,20 @@ It looks pretty long but mostly just comments. The generated code first do some 
 
 Right away we have a problem: Arduino has `digitalWrite()`, what do we use here? To answer this question we first need to get to know the library that we're using.
 
-##### The STM32 HAL Libraries
+#### The STM32 HAL Libraries
 
-STM32 HAL(Hardware Abstraction Layer) library is a open source library written by ST and recommended for all new projects, and is what STM32CubeMX generates. It provides a complete set of APIs that stay consistent throughout the STM32 lines. This simplifies the coding and improves portability as well.
+STM32 HAL(Hardware Abstraction Layer) library is a open source library written by ST and recommended for all new projects, and is what STM32CubeMX generates. It provides a complete set of APIs that stay consistent throughout the STM32 lines. This simplifies the coding and improves portability.
 
 All the driver files are in `project_folder/Drivers/STM32F0xx_HAL_Driver`. Each peripheral has their own `.c` and `.h` files. The trick here then is simple:
 
 ### To see what you can do with a peripheral, just look at what functions are available in the corresponding HAL driver files
 
 Usually the `.h` file is enough, although there are detailed documentation in the `.c` file too, so try not miss that.
+
+### Also you can right click on any function name and select "Go to definition" to see its details
+
+![Alt text](resources/def.png)
+
 
 Take GPIO in this case for example. First let's take a look at [stm32f0xx_hal_gpio.h](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_gpio.h). After scrolling down a bit we see:
 
@@ -491,7 +458,7 @@ And for LOW (0V), we call:
 
 That wasn't too bad was it? And don't forget you can use this method to find out about other peripherals too.
 
-Now we have the GPIO sorted out, we need a delay function. Every STM32 has a SysTick timer soley for timekeeping, and it is usually configured to increment every 1ms. The timing functions are in [stm32f0xx_hal.h](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h) and [stm32f0xx_hal.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c). There are quite a lot of code in those two files though, so I'll just put them here:
+Now we have the GPIO sorted out, we need a delay function. Every STM32 has a SysTick timer soley for timekeeping, and is usually configured to increment every 1ms. The timing functions are in [stm32f0xx_hal.h](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h) and [stm32f0xx_hal.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.c). There are quite a lot of code in those two files though, so I'll just put them here:
 
 For delay you'll want to call `HAL_Delay()`. This is equivalent to the `delay()` function in Arduino, and similarly the argument is in milliseconds.
 
@@ -564,7 +531,7 @@ All that's left is to compile and upload the program. Press `F7` to start compil
 
 ![Alt text](resources/mdkcompile.png)
 
-It tells you the memory resources usage, you can [read the details here](https://stackoverflow.com/questions/5430284/rom-and-ram-in-arm), but in short, `ROM usage = code + RO + RW`, `RAM usage = RW + ZI`. Remember we have 16KB of ROM and 4KB of RAM on the chip we're using.
+It tells you the memory usage, you can [read the details here](https://stackoverflow.com/questions/5430284/rom-and-ram-in-arm), but in short, `ROM usage = code + RO + RW`, `RAM usage = RW + ZI`. Remember we have 16KB of ROM and 4KB of RAM on this chip.
 
 Press `F8` to start uploading the program into the STM32 chip, should take only a few seconds:
 
@@ -611,6 +578,8 @@ Here's an exercise for you: Instead of using `HAL_GPIO_WritePin()`, try using th
 
 Read about its usage in [stm32f0xx_hal_gpio.c](sample_code/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c) and see what you can do with it.
 
+[Click me to see the answer](homework_answer.md).
+
 ## The Free MDK License
 
 I mentioned before that Keil MDK has a 32KB code size limit unless you pay for a license, and ST provides a free license for all F0 and L0 parts. Obviously the chip we're using only has 16KB of flash, so you don't have to do anything, but if you do start using larger chips, [follow this official guide](http://www2.keil.com/stmicroelectronics-stm32/mdk) to activate your MDK for free. Only follow the `Activation` section since we have already done everything else.
@@ -625,4 +594,4 @@ Now that we have everything set up, the subsequent lessons will be a significant
 
 Next up we'll take a look at setting up UART and print "Hello World" over serial. 
 
-Anyway, [CLICK ME TO GO TO NEXT LESSON](../lesson1_serial_helloworld/README.md)
+[CLICK ME TO GO TO NEXT LESSON](../lesson1_serial_helloworld/README.md)

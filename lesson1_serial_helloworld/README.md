@@ -16,7 +16,6 @@ A serial-to-USB adapter is used in this lesson, connect the **RXD on the adapter
 
 ![Alt text](resources/hookup.jpg)
 
-
 ## UART setup in STM32CubeMX
 
 We will be reusing the entire project from the last lesson, so just make a new copy of the project folder. After that, double click and open the `.ioc` file.
@@ -80,17 +79,44 @@ int fputc(int ch, FILE *f)
     return ch;
 }
 ```
-This is called for each character that `printf` is about to print, and in this case it just sends the character through serial.
+This is called for each character that `printf` is about to print, and in this case just sends the character through serial.
 
 You can put this anywhere in `main.c`, but I like to put it between `/* USER CODE 0 */` block just before `main()` function.
 
-After that you'll be able to use `printf()` just like everywhere else, but let's get the `hello world` out of the way first:
+After that you'll be able to use `printf()` just like everywhere else, that means we can now get `hello world` out of the way:
 
 ```
 printf("hello world\n");
 HAL_Delay(500);
 ```
 
-Put it in the while loop in `main()`, compile and upload it, and observe in CoolTerm:
+Put it in the while loop in `main()`, compile and upload. You can see the [finished file here](sample_code/Src/main.c).
+
+Launch CoolTerm and select the correct serial port, set the baud rate to 115200 as before, and observe:
+
+![Alt text](resources/coolterm.png)
 
 ![Alt text](resources/helloworld.gif)
+
+Congratulations, you got UART and `printf` working! And this is the proper full-fat `printf` instead of the neutered version in Arduino that doesn't even work with floating numbers!
+
+## Homework
+
+Try printing out the current millisecond every 500ms using formatted `printf`. The results should look like this:
+
+```
+current time: 500
+current time: 1000
+current time: 1500
+.........
+```
+
+As a reminder, you can get the millisecond reading from `HAL_GetTick()`, and [take a look at this](https://fresh2refresh.com/c-programming/c-printf-and-scanf/) if you're not familiar with formatted `printf`.
+
+[Click me to see the answer](homework_answer.md).
+
+## Next Steps
+
+We'll take a look at reading GPIO pins and using external interrupts in the next lesson.
+
+[CLICK ME TO GO TO NEXT LESSON](../lesson1_serial_helloworld/README.md)
