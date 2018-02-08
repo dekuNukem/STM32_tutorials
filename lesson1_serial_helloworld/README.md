@@ -79,9 +79,9 @@ int fputc(int ch, FILE *f)
     return ch;
 }
 ```
-This is called for each character that `printf` is about to print, and in this case just sends the character through serial.
+This is called for each character that `printf` tries to print, and in this case just sends the character through serial.
 
-You can put this anywhere in `main.c`, but I like to put it between `/* USER CODE 0 */` block just before `main()` function.
+You can put this anywhere in `main.c`, but I like to put it inside `/* USER CODE 0 */` block just before `main()` function.
 
 After that you'll be able to use `printf()` just like everywhere else, that means we can now get `hello world` out of the way:
 
@@ -102,7 +102,7 @@ Congratulations, you got UART and `printf` working! And this is the proper full-
 
 ## Homework
 
-Try printing out the current millisecond every 500ms using formatted `printf`. The results should look like this:
+Try printing out the current millisecond once every 500ms using formatted `printf`. The results should look like this:
 
 ```
 current time: 500

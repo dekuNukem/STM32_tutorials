@@ -1,10 +1,8 @@
 # Switching a Peripheral Pin to Alternative Locations
 
-On STM32, most of the I/O peripheral pins have 2 or even 3 alternative locations in order to reduce conflict. 
+On STM32, most of the I/O peripheral pins have 2 or even 3 alternative locations in order to reduce pin usage conflict. In this short guide we'll see how to switch between them in STM32CubeMX.
 
-In this short guide we'll see how to switch between them in STM32CubeMX.
-
-We're going to use UART for example. Looking at the schematic, the TX/RX on the UART header is connected to PA9/PA10 instead of default PA2/PA3 selected by SMT32Cube.
+We're going to use UART for example. Looking at [the schematic](../resources/datasheets/STM32F030F4P6_miniboard_schematics.pdf), the TX/RX on the UART header is connected to PA9/PA10 instead of default PA2/PA3 selected by SMT32Cube:
 
 ![Alt text](resources/sche.png)
 
