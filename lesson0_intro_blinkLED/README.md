@@ -204,11 +204,11 @@ Expand RCC (Reset and Clock Control) node, select `Crystal/Ceramic Resonator` fo
 
 Finally we need to set a GPIO pin to output. We're going to use the LED that's connected to PA4 on our dev board.
 
-*Left* click on PA4 then select `GPIO_Output`:
+***Left*** click on PA4 then select `GPIO_Output`:
 
 ![Alt text](resources/cubepa4.png)
 
-This sets the function of PA4 to GPIO Output, after that *right* click on PA4 again and select `Enter User Label` to give it a fancy name, I'm calling it `USER_LED`.
+This sets the function of PA4 to GPIO Output, after that ***right*** click on PA4 again and select `Enter User Label` to give it a fancy name, I'm calling it `USER_LED`.
 
 ![Alt text](resources/cubename.png)
 
@@ -525,7 +525,7 @@ int main(void)
 
 ```
 
-I put it between `/* USER CODE BEGIN 3 */` and `/* USER CODE END 3 */`, you can put it before `/* USER CODE END WHILE */` too. Just make sure it's in the right place and inside the `/* USER CODE */` blocks. [Click here](sample_code/Src/main.c) to see the finished file.
+I put it between `/* USER CODE BEGIN 3 */` and `/* USER CODE END 3 */`, you can put it just before `/* USER CODE END WHILE */` too. Just make sure it's in the right place and inside the `/* USER CODE */` blocks. [Click here](sample_code/Src/main.c) to see the finished file.
 
 All that's left is to compile and upload the program. Press `F7` to start compiling, it might take a while for the first time, eventually it will finish:
 

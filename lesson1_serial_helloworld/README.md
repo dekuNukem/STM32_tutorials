@@ -18,7 +18,7 @@ A serial-to-USB adapter is used in this lesson, connect the **RXD on the adapter
 
 ## UART setup in STM32CubeMX
 
-We will be reusing the entire project from the last lesson, so just make a new copy of the project folder. After that, double click and open the `.ioc` file.
+We will be reusing the entire project from the last lesson, so just **make a new copy of the project folder**. After that, double click and open the `.ioc` file.
 
 ![Alt text](resources/ioc.png)
 
@@ -42,7 +42,7 @@ While you're here take a look at the `Advanced Features`, so many options! It ev
 
 ![Alt text](resources/cubesetup.png)
 
-That's it for the CubeMX! Make sure the Keil MDK is closed, and regenerate the code: 
+That's it for the CubeMX! **Make sure the Keil MDK is closed**, and regenerate the code: 
 
 ![Alt text](resources/cubecode.png)
 

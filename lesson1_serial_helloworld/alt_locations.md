@@ -6,7 +6,7 @@ We're going to use UART for example. Looking at [the schematic](../resources/dat
 
 ![Alt text](resources/sche.png)
 
-To switch to the alt location, hold down `Control` key and click on the `USART1_TX` pin, you'll see its potential alternative locations highlighted in blue, in this case `PA10`:
+To switch to the alt location, hold down `Control` key and click on the `USART1_RX` pin, you'll see its potential alternative locations highlighted in blue, in this case `PA10`:
 
 ![Alt text](resources/cubealt.png)
 
