@@ -12,7 +12,7 @@ If you need a refresher on serial communications, Speakfun has an [excellent tut
 
 ## Hookup
 
-A serial-to-USB adapter is used in this lesson, connect the **RXD on the adapter** to the **TXD on the dev board**, and connect the **GND of dev board and adapter** together. See the brown and black wires below:
+A serial-to-USB adapter is used in this lesson, connect the **RXD on the adapter** to the **TXD on the dev board**, and connect the **GND of dev board and adapter** together. See the black and white wires below:
 
 ![Alt text](resources/hookup.jpg)
 
@@ -90,7 +90,7 @@ printf("hello world\n");
 HAL_Delay(500);
 ```
 
-Put it in the while loop in `main()`, compile and upload. You can see the [finished file here](sample_code/Src/main.c).
+Put it in the `while` loop in `main()`, compile and upload. You can see the [finished file here](sample_code/Src/main.c).
 
 Launch CoolTerm and select the correct serial port, set the baud rate to 115200 as before, and observe:
 
@@ -119,4 +119,4 @@ As a reminder, you can get the millisecond reading from `HAL_GetTick()`, and [ta
 
 We'll take a look at reading GPIO pins and using external interrupts in the next lesson.
 
-[CLICK ME TO GO TO NEXT LESSON](../lesson1_serial_helloworld/README.md)
+[CLICK ME TO GO TO NEXT LESSON](../lesson2_external_interrupt/README.md)

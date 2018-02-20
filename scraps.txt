@@ -1,3 +1,9 @@
+
+We'll focus more on the interrupt part in order to show you h
+
+External interrupt is useful because you don't have to waste CPU time polling every pin you're using in a loop. Instead a callback function is executed every time the pin changes. This is particularly useful if you're designing a button interface 
+
+
     HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
     HAL_UART_Transmit(&huart1, msg, 12, 100);
 
