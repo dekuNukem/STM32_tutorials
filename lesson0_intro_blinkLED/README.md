@@ -399,7 +399,7 @@ int main(void)
 }
 ```
 
-It looks pretty long but mostly just comments. The generated code first do some initialization, then go into a loop doing nothing. It's up to us to write the actual program, in this case Blinking the LED on PA4.
+It looks pretty long but mostly just comments. The generated code first does some initialization, then go into a loop doing nothing, as is comparable to the `setup()` and `loop()` function in Arduino. Anyway, It's up to us to write the actual program, in this case Blinking the LED on PA4.
 
 Right away we have a problem: Arduino has `digitalWrite()`, what do we use here? To answer this question we first need to get to know the library that we're using.
 
