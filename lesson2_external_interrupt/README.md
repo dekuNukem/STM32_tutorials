@@ -48,7 +48,7 @@ HAL_Delay(500);
 
 Put it in the `while` loop in `main()`, compile and upload. You can see the [finished file here](sample_code_polling/Src/main.c).
 
-Launch coolterm, open the port, press the button, and see the result:
+Launch CoolTerm, open the port, press the button, and see the result:
 
 ![Alt text](resources/butpoll.png)
 
@@ -58,7 +58,7 @@ The simple and straightforward `HAL_GPIO_ReadPin()` is sufficient for most situa
 
 ## External Interrupt
 
-With external interrupts, instead of reading the pin manually at each loop(and wasting CPU time), a callback function is executed when pin state changes. This gives near instant response and does not waste CPU time when idle. This is especially useful when reading short and unpredictable signals like rotary encoders, sound sensors, or laser trip sensors. You can read more about external interrupts on [the Arduino page](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/).
+With external interrupts, instead of reading the pin manually at each loop(and wasting CPU time), a ISR(interrupt service routine), a special kind of function, is executed when pin state changes. This gives near instant response and does not waste CPU time when idle. This is especially useful when reading short and unpredictable signals like rotary encoders, sound sensors, or laser trip sensors. You can read more about external interrupts on [the Arduino page](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/).
 
 STM32 has interrupt capability on every single pin. The only limitation, at least on STM32F0, is the total number of 16 channels. That means if you're using external interrupt on *multiple pins*, their *pin number* has to be different. Here is a simple illustration:
 
@@ -83,15 +83,13 @@ Now we need to **enable** the interrupt, don't forget this step or it won't work
 
 ![Alt text](resources/cubenvic.png)
 
-Check the box of the EXTI interrupt, then give it an priority. 
-
-The *smaller* the number, the *higher* the priority. You typically assign the priority based on the importance of the interrupt.
+Check the box of the EXTI interrupt, then set a priority. The *smaller* the number, the *higher* the priority. You typically assign the priority based on the importance of the interrupt.
 
 ![Alt text](resources/cubenset.png)
 
 That's it! Save and regenerate the code.
 
-Now we have external interrupt on PA3 configured and enabled, so every time there is a falling edge on PA3, an ISR(interrupt service routine) should be called. But where do we write that ISR? As it turns out, HAL has that taken care of as well.
+Now we have external interrupt on PA3 configured and enabled, where do we write the ISR function? As it turns out, HAL has that covered as well.
 
 At the end of [stm32f0xx_hal_gpio.c](sample_code_polling/Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.c), we find:
 
@@ -135,7 +133,7 @@ And that's it for the basics of external interrupts on STM32!
 
 ## Recap
 
-To recap, you configure the pin and enable the interrupt in STM32CubeMX, generate code, then write your own callback function. You'll want to keep it short and compact, read more about the [good ISR practices](https://betterembsw.blogspot.co.uk/2013/03/rules-for-using-interrupts.html) here.
+Configure the pin and enable the interrupt in STM32CubeMX, generate code, then write your own callback function. You'll want to keep it short and compact, read more about the [good ISR practices](https://betterembsw.blogspot.co.uk/2013/03/rules-for-using-interrupts.html) here.
 
 ## Homework
 
@@ -153,7 +151,7 @@ Go back to SMT32CubeMX to add and configure a new pin, regenerate the code. You 
 
 #### Answer
 
-[Click me to see the answer](/homework_answer). The new button is on PA0. Note the new STM32Cube configuration and revised callback function.
+[Click me to see the answer](homework_answer). Note the new STM32Cube configuration and revised callback function. The new button is on PA0.
 
 ## Next Steps
 
