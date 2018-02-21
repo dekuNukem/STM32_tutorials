@@ -38,20 +38,17 @@ We'll get into details about this board in the next lesson.
 
 You probably already have one if you've been playing with Arduinos before. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other serial chips like CH340 or FTDI also works. It's just a matter of preference.
 
-### Helpful Resources
+## How to use this guide
 
-You might find yourself coming back to these
+Click "Download ZIP" on the top right corner to get lesson files, then just follow along on this webpage.
 
-datasheets 
-datasheets 
-datasheets 
+![Alt text](resources/images/dl.png)
 
 ## What now?
 
 If you can't wait to get started, [click me to go to the next lesson](lesson0_intro_blinkLED/README.md).
 
 If you're not in a hurry, I suggest keep reading while I talk about the issue of Arduino, the upcoming trend of 32-bit microcontrollers, and the naming scheme of STM32 parts.
-
 
 ## The case of Arduino
 

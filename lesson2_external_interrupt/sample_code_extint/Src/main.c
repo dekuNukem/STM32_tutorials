@@ -67,6 +67,12 @@ int fputc(int ch, FILE *f)
     HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
     return ch;
 }
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  printf("oh my\n");
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -112,8 +118,6 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
     HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
-    uint8_t result = HAL_GPIO_ReadPin(USER_BUTTON_GPIO_Port, USER_BUTTON_Pin);
-    printf("Button reading is: %d\n", result);
     HAL_Delay(500);
   }
   /* USER CODE END 3 */
@@ -237,11 +241,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  printf("oh dear\n");
-}
 
 /* USER CODE END 4 */
 
