@@ -2,7 +2,7 @@
 
 Previous lesson: [UART and Hello World](../lesson1_serial_helloworld/README.md)
 
-In this lesson we'll explore two ways of reading a GPIO pin, polling and external interrupt. As you shall see, polling is the simplest way but interrupt is ultimately faster and more flexible.
+In this lesson we'll explore two ways of reading a GPIO pin, polling and external interrupt. As you shall see, polling is the simplest way but interrupt is ultimately more flexible and faster.
 
 ## Hookup
 
@@ -22,7 +22,7 @@ Really couldn't get any simpler! When the button is unpressed, PA3 is not connec
 
 ## GPIO Read
 
-Again, we will be reusing the [project from the last lesson](../lesson1_serial_helloworld/sample_code), so make a new copy of the project folder, then open the STM32CubeMX `test.ioc` file.
+Again, we will be reusing the [project from the last lesson](../lesson1_serial_helloworld/sample_code_polling), so **make a new copy of the project folder**. After that, double click and open the STM32CubeMX `test.ioc` file.
 
 This time, we left click on PA3(or whatever pin you're using) and change it to `GPIO_Input`:
 
@@ -70,15 +70,15 @@ STM32 has interrupt capability on every pin. The only limitation, at least on ST
 
 Still, 16 pins is better than Arduino's measly 2 pins, and more than enough for most situations.
 
-We continue work on the project files from the last section, so save a copy if you want. Open up the `test.ioc` file again and left click on PA3 to switch it to `GPIO_EXTI3`. Don't forget to right click and give it a nickname too:
+We continue working on the project files from the last section, so save a copy if you want. Open up the `test.ioc` file again and left click on PA3 to switch it to `GPIO_EXTI3`. Don't forget to right click and give it a nickname too:
 
 ![Alt text](resources/cubexit.png)
 
-Then go to `Configuration` tab and click on `GPIO` button. Select PA3 and change the GPIO mode to `External Interrupt Mode with Falling edge trigger detection`, and enable pull-up:
+Then go to `Configuration` tab and click on `GPIO` button. Select PA3 and change the GPIO mode to `External Interrupt Mode with Falling edge trigger detection`, and enable the pull-up:
 
 ![Alt text](resources/cubeedge.png)
 
-Now we need to **enable** the interrupt, always remember this step when working with interrupts, or it won't work! Click on the NVIC(Nested Vectored Interrupt Controller) button:
+Now we need to **enable** the interrupt, don't forget this step or it won't work! Click on the NVIC(Nested Vectored Interrupt Controller) button:
 
 ![Alt text](resources/cubenvic.png)
 
