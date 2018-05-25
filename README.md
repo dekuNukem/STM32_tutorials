@@ -18,7 +18,7 @@ We'll be using plain C as well, so it's nice to have some experience with that.
 
 ## What you need
 
-You do need to buy some hardwares, luckily they are dirt cheap, and you only need 1 of each to get started. Although I do recommend getting 2 of each for spares. They usually take 1 or 2 weeks to arrive, and you can pay more for faster shipping. 
+You do need to buy some hardwares, luckily they are dirt cheap, and you only need 1 of each to get started. Although I do recommend getting a few more for spares. They usually take 1 or 2 weeks to arrive, and you can pay more for faster shipping. 
 
 ### ST-Link v2 Programmer
 

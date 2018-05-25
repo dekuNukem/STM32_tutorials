@@ -155,4 +155,6 @@ Go back to SMT32CubeMX to add and configure a new pin, regenerate the code. You 
 
 ## Next Steps
 
-That was all the GPIO done
+We'll utilize another interrupt, this time internal, in the next lesson to implement an efficient UART receiving algorithm.
+
+[CLICK ME TO GO TO NEXT LESSON](../lesson3_serial_recv_interrupt/README.md)

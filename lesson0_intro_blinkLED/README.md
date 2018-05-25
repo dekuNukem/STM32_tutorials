@@ -260,7 +260,7 @@ We start from the very beginning of the yellow path.
 
 ![Alt text](resources/cubehse1.png)
 
-We can see HSE is available since we're using an external crystal. The `input frequency` is set to 8MHz, you can change it if you're using a different crystal.
+We can see HSE is available since we enabled it earlier. The `input frequency` is set to 8MHz, you can change it if you're using a different crystal.
 
 ![Alt text](resources/cubehse2.png)
 
@@ -320,7 +320,7 @@ Enter a project name and select its location, select `MDK-ARM V5` as our IDE, do
 
 ![Alt text](resources/cubesat1.png)
 
-Go to `Code Generator` page, and select `Copy only the necessary library files`. It's not strictly necessary but I like to keep it clean.
+Go to `Code Generator` tab, and select `Copy only the necessary library files`. It's not strictly necessary but I like to keep it clean.
 
 ![Alt text](resources/cubesat2.png)
 
