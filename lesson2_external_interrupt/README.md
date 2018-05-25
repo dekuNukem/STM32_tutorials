@@ -2,7 +2,7 @@
 
 Previous lesson: [UART and Hello World](../lesson1_serial_helloworld/README.md)
 
-In this lesson we'll explore two ways of reading a GPIO pin, polling and external interrupt. As you shall see, polling is the simplest way but interrupt is ultimately more flexible and faster.
+In this lesson we'll explore two ways of reading a GPIO pin, polling and external interrupt. As you shall see, polling is the simplest way but interrupt is ultimately faster and more flexible.
 
 ## Hookup
 
@@ -22,7 +22,7 @@ Really couldn't get any simpler! When the button is unpressed, PA3 is not connec
 
 ## GPIO Read
 
-Again, we will be reusing the [project from the last lesson](../lesson1_serial_helloworld/sample_code_polling), so **make a new copy of the project folder**. After that, double click and open the STM32CubeMX `test.ioc` file.
+Again, we will be reusing the [project from the last lesson](../lesson1_serial_helloworld/sample_code), so make a new copy of the project folder, then open the STM32CubeMX `test.ioc` file.
 
 This time, we left click on PA3(or whatever pin you're using) and change it to `GPIO_Input`:
 
@@ -58,28 +58,27 @@ The simple and straightforward `HAL_GPIO_ReadPin()` is sufficient for most situa
 
 ## External Interrupt
 
-With external interrupts, instead of reading the pin manually at each loop(and wasting CPU time), a ISR(interrupt service routine), a special kind of function, is executed when pin state changes. This gives near instant response and does not waste CPU time when idle. This is especially useful when reading short and unpredictable signals like rotary encoders, sound sensors, or laser trip sensors. You can read more about external interrupts on [the Arduino page](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/).
+With external interrupts, instead of reading the pin manually at each loop(and wasting CPU time), an ISR(interrupt service routine) is executed when pin state changes. This gives near instant response and does not waste CPU time when idle. This is especially useful when reading short and unpredictable signals like rotary encoders, sound sensors, or laser trip sensors. You can read more about external interrupts on [the Arduino page](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/).
 
-STM32 has interrupt capability on every single pin. The only limitation, at least on STM32F0, is the total number of 16 channels. That means if you're using external interrupt on *multiple pins*, their *pin number* has to be different. Here is a simple illustration:
+STM32 has interrupt capability on every pin. The only limitation, at least on STM32F0, is the total number of 16 channels. That means if you're using external interrupt on *multiple pins*, their *pin number* has to be different. Here is a simple illustration:
 
 | Interrupt Pin Combo | Valid? | Remarks                                                |
 |---------------------|--------|--------------------------------------------------------|
 | PA0 and PA3         | YES    | Pin 0 and 3 are different                              |
 | PA0 and PC3         | YES    | Pin 0 and 3 are different (Port number doesn't matter) |
 | PA2 and PB2         | NO     | Both pin are 2                                         |
-| PC4 and PD4         | NO     | As above                                               |
 
 Still, 16 pins is better than Arduino's measly 2 pins, and more than enough for most situations.
 
-We continue working on the project files from the last section, so save a copy if you want. Open up the `test.ioc` file again and left click on PA3 to switch it to `GPIO_EXTI3`. Don't forget to right click and give it a nickname too:
+We continue work on the project files from the last section, so save a copy if you want. Open up the `test.ioc` file again and left click on PA3 to switch it to `GPIO_EXTI3`. Don't forget to right click and give it a nickname too:
 
 ![Alt text](resources/cubexit.png)
 
-Then go to `Configuration` tab and click on `GPIO` button. Select PA3 and change the GPIO mode to `External Interrupt Mode with Falling edge trigger detection`, and enable the pull-up:
+Then go to `Configuration` tab and click on `GPIO` button. Select PA3 and change the GPIO mode to `External Interrupt Mode with Falling edge trigger detection`, and enable pull-up:
 
 ![Alt text](resources/cubeedge.png)
 
-Now we need to **enable** the interrupt, don't forget this step or it won't work! Click on the NVIC(Nested Vectored Interrupt Controller) button:
+Now we need to **enable** the interrupt, always remember this step when working with interrupts, or it won't work! Click on the NVIC(Nested Vectored Interrupt Controller) button:
 
 ![Alt text](resources/cubenvic.png)
 
