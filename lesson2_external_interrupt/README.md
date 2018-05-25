@@ -22,7 +22,7 @@ Really couldn't get any simpler! When the button is unpressed, PA3 is not connec
 
 ## GPIO Read
 
-Again, we will be reusing the [project from the last lesson](../lesson1_serial_helloworld/sample_code_polling), so **make a new copy of the project folder**. After that, double click and open the STM32CubeMX `test.ioc` file.
+Again, we will be reusing the [project from the last lesson](../lesson1_serial_helloworld/sample_code), so **make a new copy of the project folder**. After that, double click and open the STM32CubeMX `test.ioc` file.
 
 This time, we left click on PA3(or whatever pin you're using) and change it to `GPIO_Input`:
 
