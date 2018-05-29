@@ -49,7 +49,7 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+uint8_t uart_byte_buf[1];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -67,6 +67,12 @@ int fputc(int ch, FILE *f)
 {
     HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
     return ch;
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  printf("I received: %c\n", uart_byte_buf[0]);
+  HAL_UART_Receive_IT(&huart1, uart_byte_buf, 1);
 }
 /* USER CODE END 0 */
 
@@ -101,19 +107,18 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  printf("running...\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_UART_Receive_IT(&huart1, uart_byte_buf, 1);
   while (1)
   {
-
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
   	HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
-  	printf("hello world\n");
   	HAL_Delay(500);
   }
   /* USER CODE END 3 */

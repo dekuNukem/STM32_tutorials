@@ -109,7 +109,7 @@ __weak void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 }
 ```
 
-Note the `__weak` attribute of this function. That means if you define a function with the **same name and arguments** somewhere else, the compiler will  use the new one instead. This applies to all `__weak` callback functions in HAL. Again, you just need to look at the peripheral driver file and see what you can use.
+Note the `__weak` attribute of this function. That means if you define a function with the **same name and arguments** somewhere else, the compiler will use the new one instead. This applies to all `__weak` callback functions in HAL. Again, you just need to look at the peripheral driver file and see what you can use. Those ISR functions also always ends with `Callback`.
 
 Great, let's write our own `HAL_GPIO_EXTI_Callback` then:
 
