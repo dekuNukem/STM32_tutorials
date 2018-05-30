@@ -12,7 +12,7 @@
 
 ## Introduction
 
-In [Lesson 1](../lesson1_serial_helloworld/README.md) we looked at how to send data via UART. While undeniably important, in a lot of applications we also need to read from UART, which is often the tricky part.
+In [Lesson 1](../lesson1_serial_helloworld/README.md) we looked at how to send data via UART. While undeniably important, a lot of applications requires reading from UART as well, which is often the tricky part.
 
 In this lesson we'll look at utilizing internal interrupts to implement an efficient UART receive algorithm. I'm also going to introduce how to include external files to the current project to reduce clutter. This will also give you an idea on how to write your own libraries that you can reuse between different projects.
 
@@ -91,6 +91,24 @@ Finally we need to write our own callback function, which look like this:
 
 ![Alt text](resources/callback.png)
 
-Remember that the name and arguments has to be exactly the same as the provided `__weak` functions in the library `.c` file. You can put it anywhere, in this case I put it between the `USER CODE 0` block.
+Remember that the name and arguments has to be exactly the same as the provided `__weak` functions in the library `.c` file. You can put it anywhere, in this case I put it between the `USER CODE 0` block. And it simply prints out whatever is received, then start a new interrupted-based UART receive.
 
-As you can see it simply prints out whatever is received, then start a new interrupted-based UART receive.
+That's it! Compile and upload. You can find the finished code [here](sample_code/Src/main.c).
+
+Try out this simple example by sending some characters through the serial monitor, and it will print back what was received. This process is entirely interrupt-based, so no time is wasted when no data is coming.
+
+![Alt text](resources/hello.png)
+
+However, you'll quickly notice that only the first few letters will be printed back. This is because in this ISR we're printing out 14 bytes for each new byte coming in. This takes a huge amount of time, and as a result the new incoming data was dropped.
+
+So again, don't forget to **`Keep your ISR as short as possible`**. Take a look at [good ISR practices](https://betterembsw.blogspot.co.uk/2013/03/rules-for-using-interrupts.html) for a refresher.
+
+What should we do in this case then? One good approach is to simply store the incoming byte in another buffer, then check it periodically in the main loop to see if action is needed. This way the ISR is kept quick and short, reducing the possibility of data loss.
+
+We'll implement this approach in the next section.
+
+## Including External Files
+
+So far we have put all our code in `main.c`. This is fine for simple examples, but in real life projects the complexity will quickly go out of control and create a huge mess. A better solution is to write your code in separate files and include them in `main.c`, just like those [driver files](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc) that we've been looking at.
+
+In this section we'll implement a linear buffer for UART receive as a pair of `.h` and `.c` files, then include and use them in `main.c`.
