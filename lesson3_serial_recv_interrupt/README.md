@@ -8,7 +8,7 @@
 
 [Lesson 2: External Interrupts](../lesson2_external_interrupt/README.md)
 
-**`THIS LESSON`** Lesson 3: Interrupt-based UART Receive
+Lesson 3: Interrupt-based UART Receive and External Files **`THIS LESSON`** 
 
 ## Introduction
 
@@ -46,7 +46,7 @@ HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint3
 
 In this function you must specify how many bytes you want to receive, it will then block until it has received that amount, or timeout.
 
-The trouble is that we usually don't know how much data are coming nor when. So if we use blocking I/O for UART receive, the majority of CPU time is going to be wasted just waiting for data to arrive, and we can't do anything else in the meantime. This is why interrupt mode makes much more sense in this case. The interrupt only fires when new data arrives, and you can carry on doing other tasks in the meantime.
+The trouble is that we usually don't know how much data are coming or when. So when using blocking I/O for UART receive, the majority of CPU time is going to be wasted just waiting for data to arrive, and we can't do anything else. This is why interrupt mode makes much more sense in this case. The interrupt only fires when new data arrives, and you can carry on doing other tasks in the meantime.
 
 ### Interrupt-based UART Receive
 
@@ -61,7 +61,7 @@ Only this time we're going to use interrupt-based IOs that ends in `_IT()`. Spec
 ```
 HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
 ```
-`huart` is the device handle that was generated automatically in `main.c`, `pData` is an array of `unsigned char` where received data is stored, and `Size` is the number of bytes you want to receive. Obviously, the `pData` array should be bigger than `Size`, otherwise buffer overflow may occur.
+`huart` is the device handle that was generated automatically in `main.c`, `pData` is an array of `unsigned char` where received data is stored, and `Size` is the number of bytes you want to receive. Obviously, the size of `pData` array should be bigger than `Size`, otherwise buffer overflow may occur.
 
 Once this function is called, the corresponding callback/ISR will fire when `Size` number of bytes have been received, and they'll be stored in the `pData` buffer.
 
@@ -69,17 +69,17 @@ There are a number of ways of setting this up, and you're free to experiment. Bu
 
 ### ISR/Callbacks
 
-As we touched upon in [the last lesson](../lesson2_external_interrupt/README.md), interrupt callback functions all have a `__weak` attribute, and they always ends with `Callback`. So if you define another function with the **same name and arguments** somewhere else, the compiler will use the new one instead. This is how you should write your own ISR functions.
+As we touched upon in [the last lesson](../lesson2_external_interrupt/README.md), interrupt callback functions all have `__weak` attribute, and alway ends with `Callback`. So if you define another function with the **same name and arguments** somewhere else, the compiler will use the new one instead. This is how you should write your own ISR functions.
 
 We can see a bunch of those weak callback functions in the [stm32f0xx_hal_uart.h](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h):
 
 ![Alt text](resources/uartcallbacks.png)
 
-The names are more or less self-explanatory, and it's easy to see the one we're looking for is `HAL_UART_RxCpltCallback()`.
+The names are more or less self-explanatory, and it's easy to see that `HAL_UART_RxCpltCallback()` is the one we're looking for.
 
 ### Putting it together
 
-First we declare our buffer. Since it only holds one byte, I'm going to call it `uart_byte_buf`. Put it between `USER CODE` comment blocks, in this case the PV section:
+First we declare our buffer. Since it holds only one byte, I'm going to call it `uart_byte_buf`:
 
 ![Alt text](resources/globalv.png)
 
@@ -87,11 +87,11 @@ Then we need to start the interrupted-based UART receive. Call the function befo
 
 ![Alt text](resources/beforeloop.png)
 
-Finally we need to write our own callback function, which look like this:
+Finally we need to write our own callback function. Remember that the name and arguments has to be exactly the same as the provided `__weak` functions in the library `.c` file. You can put it anywhere, in this case I put it between the `USER CODE 0` block:
 
 ![Alt text](resources/callback.png)
 
-Remember that the name and arguments has to be exactly the same as the provided `__weak` functions in the library `.c` file. You can put it anywhere, in this case I put it between the `USER CODE 0` block. And it simply prints out whatever is received, then start a new interrupted-based UART receive.
+It simply prints out whatever is received, then start a new interrupted-based UART receive.
 
 That's it! Compile and upload. You can find the finished code [here](sample_code/Src/main.c).
 
@@ -103,7 +103,7 @@ However, you'll quickly notice that only the first few letters will be printed b
 
 So again, don't forget to **`Keep your ISR as short as possible`**. Take a look at [good ISR practices](https://betterembsw.blogspot.co.uk/2013/03/rules-for-using-interrupts.html) for a refresher.
 
-What should we do in this case then? One good approach is to simply store the incoming byte in another buffer, then check it periodically in the main loop to see if action is needed. This way the ISR is kept quick and short, reducing the possibility of data loss.
+What should we do in this case then? One good approach is to simply store the incoming byte in another buffer, then check it periodically in the main loop. This way the ISR is kept quick and short, reducing the possibility of data loss.
 
 We'll implement this approach in the next section.
 
@@ -112,3 +112,88 @@ We'll implement this approach in the next section.
 So far we have put all our code in `main.c`. This is fine for simple examples, but in real life projects the complexity will quickly go out of control and create a huge mess. A better solution is to write your code in separate files and include them in `main.c`, just like those [driver files](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc) that we've been looking at.
 
 In this section we'll implement a linear buffer for UART receive as a pair of `.h` and `.c` files, then include and use them in `main.c`.
+
+### Recommended Readings
+
+If you need a refresher on including files in C, [here is a simple example](https://stackoverflow.com/questions/7109964/creating-your-own-header-file-in-c).
+
+There is also [a comprehensive guide](resources/CHeaderFileGuidelines.pdf) made by University of Michigan which is much more detailed and technical.
+
+### Preparations
+
+Create an empty `linear_buf.h` file in the `Inc` folder, and `linear_buf.c` in the `Src` folder.
+
+![Alt text](resources/names.png)
+
+As with best practice, we put an include guard in`linear_buf.h`:
+
+```
+#ifndef LINEAR_BUF_H
+#define LINEAR_BUF_H
+
+// code goes here
+
+#endif
+```
+
+Now go back to Keil IDE, right click `Application/User` folder, and select `Add Existing Files to...`
+
+![Alt text](resources/add.png)
+
+Since we'll be adding both `.c` and `.h` files, select `All files` in file type menu.
+
+![Alt text](resources/allfiles.png)
+
+Now go to the respective folders and add both `linear_buf.h` and `linear_buf.c` to our project.
+
+![Alt text](resources/select.png)
+
+Now the new files should appear in the project explorer on the left. And don't forget to actually `#include` the header file in `main.c` between the `USER CODE Includes` block.
+
+![Alt text](resources/included.png)
+
+Press `F7` to compile our project with the new files, and it should do so without error.
+
+![Alt text](resources/compile.png)
+
+### Building it up
+
+So far there is nothing in our pair of `linear_buf` files, and it's up to us to implement it. We want to store the incoming byte from UART in a buffer, and have an easy way to check if some action should be taken.
+
+Let's focus on the buffer part first, while we can simply declare an `char` array, it is cleaner and more modular to put everything into a `struct`, which is what we're doing.
+
+In the header file `linear_buf.h`, between the include guards, we declare a `struct` called `linear_buf`:
+
+```
+#define LB_SIZE 256
+
+typedef struct
+{
+	int16_t curr_index;
+	char buf[LB_SIZE];
+} linear_buf;
+```
+
+The `LB_SIZE` marco denotes the size of the buffer, you can change it depending on your need. Keep in mind that this space is allocated in the RAM, which is 4KB in the board we're using.
+
+Then inside the `linear_buf` struct, we have `curr_index` pointing to the end of data currently in the buffer, as well as the `buf` itself. The operating principle therefore is very simple: 
+
+* Initially the buffer is empty, and `curr_index` points to the first element in the `buf` array:
+
+![Alt text](resources/111.png)
+
+* When a new byte arrives from UART, we store it where `curr_index` is pointing, then increment `curr_index`:
+
+![Alt text](resources/222.png)
+
+* This goes on as more data arrives:
+
+![Alt text](resources/333.png)
+
+* Until all data has been received and stored in the buffer:
+
+![Alt text](resources/444.png)
+
+* At this point we can retrieve the data and reset the buffer, after which the process starts all over again:
+
+![Alt text](resources/111.png)

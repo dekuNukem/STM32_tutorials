@@ -1,4 +1,5 @@
-
+We don't actually have to put anything else in it right now, you can leave the `linear_buf.c` empty as well for the time being.
+Put it between `USER CODE` comment blocks, in this case the PV section:
 We'll focus more on the interrupt part in order to show you h
 
 External interrupt is useful because you don't have to waste CPU time polling every pin you're using in a loop. Instead a callback function is executed every time the pin changes. This is particularly useful if you're designing a button interface 
