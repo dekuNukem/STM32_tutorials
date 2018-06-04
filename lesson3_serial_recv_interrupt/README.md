@@ -111,7 +111,7 @@ We'll implement this approach in the next section.
 
 So far we have put all our code in `main.c`. This is fine for simple examples, but in real life projects the complexity will quickly go out of control and create a huge mess. A better solution is to write your code in separate files and include them in `main.c`, just like those [driver files](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc) that we've been looking at.
 
-In this section we'll implement a linear buffer for UART receive as a pair of `.h` and `.c` files, then include and use them in `main.c`.
+In this section we'll implement a linear buffer as a pair of `.h` and `.c` files, then include and use them in `main.c`.
 
 ### Recommended Readings
 
@@ -158,7 +158,7 @@ Press `F7` to compile our project with the new files, and it should do so withou
 
 ### Building it up
 
-So far there is nothing in our pair of `linear_buf` files, and it's up to us to implement it. We want to store the incoming byte from UART in a buffer, and have an easy way to check if some action should be taken.
+So far there is nothing in our pair of `linear_buf` files, and it's up to us to implement it. We want to store the incoming byte in a buffer, and have an easy way to check if some action should be taken.
 
 Let's focus on the buffer part first, while we can simply declare an `char` array, it is cleaner and more modular to put everything into a `struct`, which is what we're doing.
 
@@ -198,9 +198,9 @@ Then inside the `linear_buf` struct, we have `curr_index` pointing to the end of
 
 ![Alt text](resources/111.png)
 
-We have already set up the buffer, which is the `linear_buf` struct. Now all we need is to write a few companion functions to make it useful.
+We have already set up the buffer, which is the `linear_buf` struct. Now we just need to write a few companion functions to make it useful.
 
-First up is `linear_buf_reset()`, where it wipes the buffer clean and resets the `curr_index`.
+First up is `linear_buf_reset()`. It wipes the buffer clean and resets the `curr_index`.
 
 We write the function body in `linear_buf.c`:
 
@@ -217,9 +217,9 @@ void linear_buf_reset(linear_buf *lb)
 
 It simply sets `curr_index` to 0, then fill the buffer with 0 as well.
 
-We're passing the argument with a pointer, so the target actually gets modified. Of course when playing with pointers you should always check for `NULL`, I omitted it for simplicity's sake, so do add your own when you have the chance.
+We're passing argument by pointer, so the target actually gets modified. Of course when playing with pointers you should always check for `NULL`, I omitted it for simplicity's sake, so do add your own when you have the chance.
 
-Next we need to add the function prototype to the header file to make it usable globally. The FP is exactly the same as the function declaration with a semicolon in the end, so just add this to `linear_buf.h`:
+Next we need to add the function prototype to the header to make it usable globally. The FP is exactly the same as the function declaration, only with a semicolon in the end. So just add this to `linear_buf.h`:
 
 ```
 void linear_buf_reset(linear_buf *lb);
@@ -285,7 +285,7 @@ Before the main loop, start receiving from UART using interrupts:
 
 ![Alt text](resources/lbstart.png)
 
-An interrupt will fire when a byte is received. Inside the ISR callback, we simply store it in our `uart_lb`:
+An interrupt will fire when a byte is received. We simply store it in our `uart_lb`:
 
 ![Alt text](resources/lbint.png)
 
@@ -297,15 +297,15 @@ Type something in the terminal emulator ending with a newline, and the message w
 
 ![Alt text](resources/working.png)
 
-You can find the [competed project here](sample_code_linear_buf/). This is a very simple yet practical implementation of interrupt-based UART receive. It's much faster than polling, frees up CPU time, and has a fast response time.
+You can find the [completed project here](sample_code_linear_buf/). This is a very simple yet practical implementation of interrupt-based UART receive. It's much faster than polling, frees up CPU time, and has a fast response time.
 
-Also, since we wrote everything in external files, we can reuse them whenever we want. This modular and reusable approach is another advantage of breaking code up.
+Also, since we wrote everything in external files, we can reuse them whenever we want by including them in another project.
 
 ### Limitations
 
-I did try to keep the code as simple as possible, as a result there are a number of limitations to keep in mind if you want to use it as-is. After all, it's only 20 lines.
+I did try to keep the code as simple as possible, as a result there are a number of limitations to keep in mind if you want to use this as-is. After all, it's only 20 lines of code.
 
-Since `linear_buf_ready()` only checks the very last byte in the buffer, if new data comes in before this function is called, a previous `\n` might be missed. This can be remedied by checking `linear_buf_ready()` more frequently, or modifying the code to check for every byte in the buffer.
+Since `linear_buf_ready()` only checks the very last byte in the buffer, if new data comes in before this function is called, a previous `\n` might be missed. This can be remedied by checking `linear_buf_ready()` more frequently, or modifying the code to check every byte in the buffer.
 
 The behavior when buffer is full is also not well defined in `linear_buf_add()`, right now it just stops accepting new data, but you can change it depending on your desired outcome.
 
@@ -321,20 +321,22 @@ For example, if we want to access `huart1` device handle inside `main.c` from ou
 
 * Find the declaration of `huart1` in `main.c`, which is `UART_HandleTypeDef huart1;`
 
-* Simply copy that declaration to `linear_buf.h`, then add `extern` in front of it: `extern UART_HandleTypeDef huart1;`
+* Simply copy that declaration into `linear_buf.h`, then add `extern` in front of it: `extern UART_HandleTypeDef huart1;`
 
 * Now you can access `huart1` in `linear_buf.h` and `linear_buf.c` just like before.
 
-Note that you might want to `#include "stm32f0xx_hal.h"` in your own header file too, since it provides the definition of data structures in STM32 HAL libraries.
+Note that you might also want to `#include "stm32f0xx_hal.h"` in your header file, since it provides the definition of data structures in STM32 HAL libraries.
 
 ## Conclusion and Homework
 
 In this lesson we looked at how to use interrupt to efficiently receive data from UART, and how to write and include external files to reduce clutter and improve code reusability. This is imperative as your project picks up complexity.
 
-For the homework, I suggest making some modifications to `linear_buf` files to improve it. Maybe add `NULL` checks for safety, or make some changes to `linear_buf_ready()` and `linear_buf_add()` to suit your particular need. Basically just play with it, it's open ended.
+For the homework, I suggest making some modifications to `linear_buf` files to improve it. Maybe add `NULL` checks for safety, or make some changes to `linear_buf_ready()` and `linear_buf_add()` to suit your particular need. Anything goes, just play with it.
 
 ## Next Steps
 
 Timer and PWM
+
 SPI and I2C
+
 RTOS

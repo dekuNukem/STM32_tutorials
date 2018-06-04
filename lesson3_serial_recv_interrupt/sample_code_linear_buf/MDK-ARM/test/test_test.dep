@@ -493,7 +493,7 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h)(0x59E4A50B)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h)(0x59E4A50B)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x59E4A50C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x59E4A50C)
-I (../Inc/linear_buf.h)(0x5B153291)
+I (../Inc/linear_buf.h)(0x5B154FB0)
 F (../Src/stm32f0xx_it.c)(0x5B0D7BAE)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include-I C:\Users\Allen\Desktop\repos\stm32_the_easy_way\lesson3_serial_recv_interrupt\sample_code_linear_buf\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F030x6 -DUSE_HAL_DRIVER -DSTM32F030x6-o test\stm32f0xx_it.o --omf_browse test\stm32f0xx_it.crf --depend test\stm32f0xx_it.d)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x59E4A50B)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5B0D7BB0)
@@ -553,10 +553,10 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h)(0x59E4A50B)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h)(0x59E4A50B)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x59E4A50C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x59E4A50C)
-F (..\Inc\linear_buf.h)(0x5B153291)()
-F (..\Src\linear_buf.c)(0x5B15329C)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include-I C:\Users\Allen\Desktop\repos\stm32_the_easy_way\lesson3_serial_recv_interrupt\sample_code_linear_buf\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F030x6 -DUSE_HAL_DRIVER -DSTM32F030x6-o test\linear_buf.o --omf_browse test\linear_buf.crf --depend test\linear_buf.d)
+F (..\Inc\linear_buf.h)(0x5B154FB0)()
+F (..\Src\linear_buf.c)(0x5B154E5E)(--c99 -c --cpu Cortex-M0 -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I../Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include-I C:\Users\Allen\Desktop\repos\stm32_the_easy_way\lesson3_serial_recv_interrupt\sample_code_linear_buf\MDK-ARM\RTE-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F0xx_DFP\1.5.0\Device\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F030x6 -DUSE_HAL_DRIVER -DSTM32F030x6-o test\linear_buf.o --omf_browse test\linear_buf.crf --depend test\linear_buf.d)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
-I (../Inc/linear_buf.h)(0x5B153291)
+I (../Inc/linear_buf.h)(0x5B154FB0)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x59E4A50B)
 I (../Inc/stm32f0xx_hal_conf.h)(0x5B0D7BB0)
 I (../Inc/main.h)(0x5B0D7BB0)

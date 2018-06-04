@@ -382,7 +382,6 @@ Section Cross References
     stm32f0xx_hal_msp.o(i.HAL_UART_MspInit) refers to stm32f0xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
     stm32f0xx_hal_msp.o(i.HAL_UART_MspInit) refers to stm32f0xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
     linear_buf.o(i.linear_buf_reset) refers to memseta.o(.text) for __aeabi_memclr
-    linear_buf.o(i.linear_buf_reset) refers to main.o(.bss) for huart1
     system_stm32f0xx.o(i.SystemCoreClockUpdate) refers to uidiv.o(.text) for __aeabi_uidivmod
     system_stm32f0xx.o(i.SystemCoreClockUpdate) refers to system_stm32f0xx.o(.data) for .data
     system_stm32f0xx.o(i.SystemCoreClockUpdate) refers to system_stm32f0xx.o(.constdata) for .constdata
@@ -1088,10 +1087,10 @@ Image Symbol Table
     i.fputc                                  0x08001368   Section        0  main.o(i.fputc)
     i.linear_buf_add                         0x08001380   Section        0  linear_buf.o(i.linear_buf_add)
     i.linear_buf_ready                       0x08001396   Section        0  linear_buf.o(i.linear_buf_ready)
-    i.linear_buf_reset                       0x080013ac   Section        0  linear_buf.o(i.linear_buf_reset)
-    i.main                                   0x080013d8   Section        0  main.o(i.main)
-    .constdata                               0x08001484   Section       16  system_stm32f0xx.o(.constdata)
-    .constdata                               0x08001494   Section        8  system_stm32f0xx.o(.constdata)
+    i.linear_buf_reset                       0x080013aa   Section        0  linear_buf.o(i.linear_buf_reset)
+    i.main                                   0x080013bc   Section        0  main.o(i.main)
+    .constdata                               0x08001468   Section       16  system_stm32f0xx.o(.constdata)
+    .constdata                               0x08001478   Section        8  system_stm32f0xx.o(.constdata)
     .data                                    0x20000000   Section        4  stm32f0xx_hal.o(.data)
     .data                                    0x20000004   Section        1  main.o(.data)
     .data                                    0x20000008   Section        4  system_stm32f0xx.o(.data)
@@ -1246,12 +1245,12 @@ Image Symbol Table
     fputc                                    0x08001369   Thumb Code    18  main.o(i.fputc)
     linear_buf_add                           0x08001381   Thumb Code    22  linear_buf.o(i.linear_buf_add)
     linear_buf_ready                         0x08001397   Thumb Code    20  linear_buf.o(i.linear_buf_ready)
-    linear_buf_reset                         0x080013ad   Thumb Code    38  linear_buf.o(i.linear_buf_reset)
-    main                                     0x080013d9   Thumb Code   132  main.o(i.main)
-    AHBPrescTable                            0x08001484   Data          16  system_stm32f0xx.o(.constdata)
-    APBPrescTable                            0x08001494   Data           8  system_stm32f0xx.o(.constdata)
-    Region$$Table$$Base                      0x0800149c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080014bc   Number         0  anon$$obj.o(Region$$Table)
+    linear_buf_reset                         0x080013ab   Thumb Code    18  linear_buf.o(i.linear_buf_reset)
+    main                                     0x080013bd   Thumb Code   132  main.o(i.main)
+    AHBPrescTable                            0x08001468   Data          16  system_stm32f0xx.o(.constdata)
+    APBPrescTable                            0x08001478   Data           8  system_stm32f0xx.o(.constdata)
+    Region$$Table$$Base                      0x08001480   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080014a0   Number         0  anon$$obj.o(Region$$Table)
     uwTick                                   0x20000000   Data           4  stm32f0xx_hal.o(.data)
     uart_byte_buf                            0x20000004   Data           1  main.o(.data)
     SystemCoreClock                          0x20000008   Data           4  system_stm32f0xx.o(.data)
@@ -1268,26 +1267,26 @@ Memory Map of the image
 
   Image Entry point : 0x080000b1
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000014cc, Max: 0x00004000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000014b0, Max: 0x00004000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000014bc, Max: 0x00004000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000014a0, Max: 0x00004000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x000000b0   Data   RO            3    RESET               startup_stm32f030x6.o
-    0x080000b0   0x00000000   Code   RO         1954  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
-    0x080000b0   0x00000004   Code   RO         2224    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
-    0x080000b4   0x00000004   Code   RO         2227    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
-    0x080000b8   0x00000000   Code   RO         2229    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
-    0x080000b8   0x00000000   Code   RO         2231    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
-    0x080000b8   0x00000008   Code   RO         2232    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
-    0x080000c0   0x00000000   Code   RO         2234    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
-    0x080000c0   0x00000000   Code   RO         2236    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
-    0x080000c0   0x00000004   Code   RO         2225    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
+    0x080000b0   0x00000000   Code   RO         1950  * .ARM.Collect$$$$00000000  mc_p.l(entry.o)
+    0x080000b0   0x00000004   Code   RO         2220    .ARM.Collect$$$$00000001  mc_p.l(entry2.o)
+    0x080000b4   0x00000004   Code   RO         2223    .ARM.Collect$$$$00000004  mc_p.l(entry5.o)
+    0x080000b8   0x00000000   Code   RO         2225    .ARM.Collect$$$$00000008  mc_p.l(entry7b.o)
+    0x080000b8   0x00000000   Code   RO         2227    .ARM.Collect$$$$0000000A  mc_p.l(entry8b.o)
+    0x080000b8   0x00000008   Code   RO         2228    .ARM.Collect$$$$0000000B  mc_p.l(entry9a.o)
+    0x080000c0   0x00000000   Code   RO         2230    .ARM.Collect$$$$0000000D  mc_p.l(entry10a.o)
+    0x080000c0   0x00000000   Code   RO         2232    .ARM.Collect$$$$0000000F  mc_p.l(entry11a.o)
+    0x080000c0   0x00000004   Code   RO         2221    .ARM.Collect$$$$00002712  mc_p.l(entry2.o)
     0x080000c4   0x0000001c   Code   RO            4    .text               startup_stm32f030x6.o
-    0x080000e0   0x0000002c   Code   RO         1957    .text               mc_p.l(uidiv.o)
-    0x0800010c   0x00000024   Code   RO         1961    .text               mc_p.l(memseta.o)
-    0x08000130   0x00000024   Code   RO         2252    .text               mc_p.l(init.o)
+    0x080000e0   0x0000002c   Code   RO         1953    .text               mc_p.l(uidiv.o)
+    0x0800010c   0x00000024   Code   RO         1957    .text               mc_p.l(memseta.o)
+    0x08000130   0x00000024   Code   RO         2248    .text               mc_p.l(init.o)
     0x08000154   0x00000048   Code   RO          896    i.HAL_DMA_Abort_IT  stm32f0xx_hal_dma.o
     0x0800019c   0x00000148   Code   RO         1216    i.HAL_GPIO_Init     stm32f0xx_hal_gpio.o
     0x080002e4   0x0000000c   Code   RO         1220    i.HAL_GPIO_WritePin  stm32f0xx_hal_gpio.o
@@ -1329,7 +1328,7 @@ Memory Map of the image
     0x08000de8   0x0000000c   Code   RO         1797    i.SysTick_Handler   stm32f0xx_it.o
     0x08000df4   0x00000076   Code   RO         1739    i.SystemClock_Config  main.o
     0x08000e6a   0x00000002   PAD
-    0x08000e6c   0x0000005c   Code   RO         1923    i.SystemInit        system_stm32f0xx.o
+    0x08000e6c   0x0000005c   Code   RO         1919    i.SystemInit        system_stm32f0xx.o
     0x08000ec8   0x000000ca   Code   RO         1312    i.UART_AdvFeatureConfig  stm32f0xx_hal_uart.o
     0x08000f92   0x00000012   Code   RO         1313    i.UART_CheckIdleState  stm32f0xx_hal_uart.o
     0x08000fa4   0x00000014   Code   RO         1314    i.UART_DMAAbortOnError  stm32f0xx_hal_uart.o
@@ -1341,20 +1340,19 @@ Memory Map of the image
     0x080011e6   0x00000060   Code   RO         1330    i.UART_WaitOnFlagUntilTimeout  stm32f0xx_hal_uart.o
     0x08001246   0x00000002   PAD
     0x08001248   0x00000010   Code   RO         1798    i.USART1_IRQHandler  stm32f0xx_it.o
-    0x08001258   0x00000020   Code   RO         2030    i.__0printf$2       mc_p.l(printf2.o)
-    0x08001278   0x0000000e   Code   RO         2264    i.__scatterload_copy  mc_p.l(handlers.o)
-    0x08001286   0x00000002   Code   RO         2265    i.__scatterload_null  mc_p.l(handlers.o)
-    0x08001288   0x0000000e   Code   RO         2266    i.__scatterload_zeroinit  mc_p.l(handlers.o)
-    0x08001296   0x000000d2   Code   RO         2037    i._printf_core      mc_p.l(printf2.o)
+    0x08001258   0x00000020   Code   RO         2026    i.__0printf$2       mc_p.l(printf2.o)
+    0x08001278   0x0000000e   Code   RO         2260    i.__scatterload_copy  mc_p.l(handlers.o)
+    0x08001286   0x00000002   Code   RO         2261    i.__scatterload_null  mc_p.l(handlers.o)
+    0x08001288   0x0000000e   Code   RO         2262    i.__scatterload_zeroinit  mc_p.l(handlers.o)
+    0x08001296   0x000000d2   Code   RO         2033    i._printf_core      mc_p.l(printf2.o)
     0x08001368   0x00000018   Code   RO         1741    i.fputc             main.o
     0x08001380   0x00000016   Code   RO         1879    i.linear_buf_add    linear_buf.o
     0x08001396   0x00000014   Code   RO         1880    i.linear_buf_ready  linear_buf.o
-    0x080013aa   0x00000002   PAD
-    0x080013ac   0x0000002c   Code   RO         1881    i.linear_buf_reset  linear_buf.o
-    0x080013d8   0x000000ac   Code   RO         1742    i.main              main.o
-    0x08001484   0x00000010   Data   RO         1924    .constdata          system_stm32f0xx.o
-    0x08001494   0x00000008   Data   RO         1925    .constdata          system_stm32f0xx.o
-    0x0800149c   0x00000020   Data   RO         2262    Region$$Table       anon$$obj.o
+    0x080013aa   0x00000012   Code   RO         1881    i.linear_buf_reset  linear_buf.o
+    0x080013bc   0x000000ac   Code   RO         1742    i.main              main.o
+    0x08001468   0x00000010   Data   RO         1920    .constdata          system_stm32f0xx.o
+    0x08001478   0x00000008   Data   RO         1921    .constdata          system_stm32f0xx.o
+    0x08001480   0x00000020   Data   RO         2258    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000588, Max: 0x00001000, ABSOLUTE)
@@ -1364,8 +1362,8 @@ Memory Map of the image
     0x20000000   0x00000004   Data   RW         1096    .data               stm32f0xx_hal.o
     0x20000004   0x00000001   Data   RW         1744    .data               main.o
     0x20000005   0x00000003   PAD
-    0x20000008   0x00000004   Data   RW         1926    .data               system_stm32f0xx.o
-    0x2000000c   0x00000004   Data   RW         2238    .data               mc_p.l(stdout.o)
+    0x20000008   0x00000004   Data   RW         1922    .data               system_stm32f0xx.o
+    0x2000000c   0x00000004   Data   RW         2234    .data               mc_p.l(stdout.o)
     0x20000010   0x00000172   Zero   RW         1743    .bss                main.o
     0x20000182   0x00000006   PAD
     0x20000188   0x00000400   Zero   RW            1    STACK               startup_stm32f030x6.o
@@ -1378,7 +1376,7 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        86          6          0          0          0       2512   linear_buf.o
+        60          0          0          0          0       2015   linear_buf.o
        406         66          0          1        370       4342   main.o
         28          8        176          0       1024        676   startup_stm32f030x6.o
         94         18          0          4          0       3331   stm32f0xx_hal.o
@@ -1394,9 +1392,9 @@ Image component sizes
         92         14         24          4          0       1279   system_stm32f0xx.o
 
     ----------------------------------------------------------------------
-      4668        326        232         12       1400     281332   Object Totals
+      4640        320        232         12       1400     280835   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        14          0          0          3          6          0   (incl. Padding)
+        12          0          0          3          6          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -1437,15 +1435,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5076        350        232         16       1400     279692   Grand Totals
-      5076        350        232         16       1400     279692   ELF Image Totals
-      5076        350        232         16          0          0   ROM Totals
+      5048        344        232         16       1400     279195   Grand Totals
+      5048        344        232         16       1400     279195   ELF Image Totals
+      5048        344        232         16          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 5308 (   5.18kB)
+    Total RO  Size (Code + RO Data)                 5280 (   5.16kB)
     Total RW  Size (RW Data + ZI Data)              1416 (   1.38kB)
-    Total ROM Size (Code + RO Data + RW Data)       5324 (   5.20kB)
+    Total ROM Size (Code + RO Data + RW Data)       5296 (   5.17kB)
 
 ==============================================================================
 
