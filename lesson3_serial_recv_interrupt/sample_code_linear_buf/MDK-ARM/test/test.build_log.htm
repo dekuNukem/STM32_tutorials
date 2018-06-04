@@ -28,10 +28,13 @@ Project File Date:  05/29/2018
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'test'
 compiling main.c...
-../Inc/linear_buf.h(9): error:  #20: identifier "LB_SIZE" is undefined
-  	char buf[LB_SIZE];
-../Src/main.c: 0 warnings, 1 error
-"test\test.axf" - 1 Error(s), 0 Warning(s).
+compiling linear_buf.c...
+..\Src\linear_buf.c(6): warning:  #174-D: expression has no effect
+  huart1;
+..\Src\linear_buf.c: 1 warning, 0 errors
+linking...
+Program Size: Code=5076 RO-data=232 RW-data=16 ZI-data=1400  
+"test\test.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -49,7 +52,6 @@ Package Vendor: ARM
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:4.3.0
-Target not created.
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

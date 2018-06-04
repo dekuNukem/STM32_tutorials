@@ -8,7 +8,7 @@
 
 [Lesson 2: External Interrupts](../lesson2_external_interrupt/README.md)
 
-Lesson 3: Interrupt-based UART Receive and External Files **`THIS LESSON`** 
+**`THIS LESSON`** Lesson 3: Interrupt-based UART Receive and External Files
 
 ## Introduction
 
@@ -197,3 +197,144 @@ Then inside the `linear_buf` struct, we have `curr_index` pointing to the end of
 * At this point we can retrieve the data and reset the buffer, after which the process starts all over again:
 
 ![Alt text](resources/111.png)
+
+We have already set up the buffer, which is the `linear_buf` struct. Now all we need is to write a few companion functions to make it useful.
+
+First up is `linear_buf_reset()`, where it wipes the buffer clean and resets the `curr_index`.
+
+We write the function body in `linear_buf.c`:
+
+```
+#include <string.h>
+#include "linear_buf.h"
+
+void linear_buf_reset(linear_buf *lb)
+{
+  lb->curr_index = 0;
+  memset(lb->buf, 0, LB_SIZE);
+}
+```
+
+It simply sets `curr_index` to 0, then fill the buffer with 0 as well.
+
+We're passing the argument with a pointer, so the target actually gets modified. Of course when playing with pointers you should always check for `NULL`, I omitted it for simplicity's sake, so do add your own when you have the chance.
+
+Next we need to add the function prototype to the header file to make it usable globally. The FP is exactly the same as the function declaration with a semicolon in the end, so just add this to `linear_buf.h`:
+
+```
+void linear_buf_reset(linear_buf *lb);
+```
+
+At this stage, `linear_buf.h` should look like this:
+
+![Alt text](resources/reseth.png)
+
+And `linear_buf.c` file should look like this:
+
+![Alt text](resources/resetc.png)
+
+Now that we can reset the buffer, next step is to add to it, cue `linear_buf_add()`:
+
+```
+void linear_buf_add(linear_buf *lb, char c)
+{
+  lb->buf[lb->curr_index] = c;
+  if(lb->curr_index < LB_SIZE - 1)
+    lb->curr_index++;
+}
+```
+
+This one is pretty simple too, it puts the incoming byte into the buffer, then increment the `curr_index` if it's not already at the end. Put it in `linear_buf.c`, and don't forget to add the function prototype in `linear_buf.h` as well.
+
+Finally, we need a function to check if we have what we want in the buffer. There are a lot ways of doing this, and it's highly dependent on your applications. Here are a few ideas:
+
+* Data is ready when newline is received
+
+* Data is ready when buffer is full
+
+* Data is ready when UART has been idle for a while
+
+* Data is ready when certain sequence is received
+
+In this example I'm going to implement the first scenario, which is often useful in text-based communications:
+
+```
+uint8_t linear_buf_ready(linear_buf *lb)
+{
+  if(lb->buf[lb->curr_index - 1] == '\n')
+    return 1;
+  return 0;
+}
+```
+
+Again, a really simple solution. It just checks if the last received character is a newline.
+
+That's it! We have implemented our own non-blocking UART receive function! In the end `linear_buf.h` should look like this:
+
+![Alt text](resources/doneh.png)
+
+And `linear_buf.c` should look like this:
+
+![Alt text](resources/donec.png)
+
+Let's try it out! In the `main.c`, declare a `linear_buf` struct to use as UART receive buffer:
+
+![Alt text](resources/lbpv.png)
+
+Before the main loop, start receiving from UART using interrupts:
+
+![Alt text](resources/lbstart.png)
+
+An interrupt will fire when a byte is received. Inside the ISR callback, we simply store it in our `uart_lb`:
+
+![Alt text](resources/lbint.png)
+
+Finally in the main loop, we check if the data is complete. Then print and clear the buffer:
+
+![Alt text](resources/lbloop.png)
+
+Type something in the terminal emulator ending with a newline, and the message will be echoed back:
+
+![Alt text](resources/working.png)
+
+You can find the [competed project here](sample_code_linear_buf/). This is a very simple yet practical implementation of interrupt-based UART receive. It's much faster than polling, frees up CPU time, and has a fast response time.
+
+Also, since we wrote everything in external files, we can reuse them whenever we want. This modular and reusable approach is another advantage of breaking code up.
+
+### Limitations
+
+I did try to keep the code as simple as possible, as a result there are a number of limitations to keep in mind if you want to use it as-is. After all, it's only 20 lines.
+
+Since `linear_buf_ready()` only checks the very last byte in the buffer, if new data comes in before this function is called, a previous `\n` might be missed. This can be remedied by checking `linear_buf_ready()` more frequently, or modifying the code to check for every byte in the buffer.
+
+The behavior when buffer is full is also not well defined in `linear_buf_add()`, right now it just stops accepting new data, but you can change it depending on your desired outcome.
+
+## Bonus: Sharing Variables with `extern`
+
+So far we created our own `.h` and `.c` file and used them in `main.c`, all is well.
+
+However, sometimes we want to go the other way and access variables in `main.c` from our `.h` and `.c` file too. One popular example is accessing device handles. We can do this by using the `extern` keyword. [Here is a refresher](https://stackoverflow.com/questions/1433204/how-do-i-use-extern-to-share-variables-between-source-files) regarding this topic.
+
+For example, if we want to access `huart1` device handle inside `main.c` from our `linear_buf.h` and `linear_buf.c`:
+
+* Make sure `linear_buf.h` is included in `main.c`
+
+* Find the declaration of `huart1` in `main.c`, which is `UART_HandleTypeDef huart1;`
+
+* Simply copy that declaration to `linear_buf.h`, then add `extern` in front of it: `extern UART_HandleTypeDef huart1;`
+
+* Now you can access `huart1` in `linear_buf.h` and `linear_buf.c` just like before.
+
+Note that you might want to `#include "stm32f0xx_hal.h"` in your own header file too, since it provides the definition of data structures in STM32 HAL libraries.
+
+## Conclusion and Homework
+
+In this lesson we looked at how to use interrupt to efficiently receive data from UART, and how to write and include external files to reduce clutter and improve code reusability. This is imperative as your project picks up complexity.
+
+For the homework, I suggest making some modifications to `linear_buf` files to improve it. Maybe add `NULL` checks for safety, or make some changes to `linear_buf_ready()` and `linear_buf_add()` to suit your particular need. Basically just play with it, it's open ended.
+
+## Next Steps
+
+Timer and PWM
+SPI and I2C
+RTOS

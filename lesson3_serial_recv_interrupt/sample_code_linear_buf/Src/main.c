@@ -50,6 +50,7 @@ UART_HandleTypeDef huart1;
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 uint8_t uart_byte_buf[1];
+linear_buf uart_lb;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -71,7 +72,7 @@ int fputc(int ch, FILE *f)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  printf("I received: %c\n", uart_byte_buf[0]);
+  linear_buf_add(&uart_lb, uart_byte_buf[0]);
   HAL_UART_Receive_IT(&huart1, uart_byte_buf, 1);
 }
 /* USER CODE END 0 */
@@ -118,11 +119,13 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-  	HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
-  	HAL_Delay(500);
+    if(linear_buf_ready(&uart_lb))
+    {
+      printf("I received: %s\n", uart_lb.buf);
+      linear_buf_reset(&uart_lb);
+    }
   }
   /* USER CODE END 3 */
-
 }
 
 /**
