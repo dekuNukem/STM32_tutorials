@@ -1,6 +1,18 @@
-# Lesson 2: External Interrupts
+# Lesson 2: External GPIO Interrupts
 
-Previous lesson: [UART and Hello World](../lesson1_serial_helloworld/README.md)
+[Landing Page: Intro and Required Hardwares](../README.md)
+
+[Lesson 0: Setup and Blinking LED](../lesson0_intro_blinkLED/README.md)
+
+[Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
+
+**`THIS LESSON`** Lesson 2: External GPIO Interrupts
+
+[Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
+
+[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
+
+## Introduction
 
 In this lesson we'll explore two ways of reading a GPIO pin, polling and external interrupt. As you shall see, polling is the simplest way but interrupt is ultimately more flexible and faster.
 

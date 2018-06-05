@@ -36,7 +36,7 @@ We'll get into details about this board in the next lesson.
 
 ### USB Serial adapter
 
-You probably already have one if you've been playing with Arduinos before. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other serial chips like CH340 or FTDI also works. It's just a matter of preference.
+You probably already have one if you've been playing with Arduinos before. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other chips like CH340 or FTDI also works. It's just a matter of preference.
 
 ## How to use this guide
 
@@ -44,9 +44,23 @@ Click "Download ZIP" on the top right corner to get lesson files, then just foll
 
 ![Alt text](resources/images/dl.png)
 
+If STM32CubeMX asks you what to do when opening `.ioc` files, always pick `Migrate`:
+
+![Alt text](resources/images/mig.png)
+
 ## What now?
 
-If you can't wait to get started, [click me to go to the next lesson](lesson0_intro_blinkLED/README.md).
+If you can't wait to get going, click a lesson below and get started!
+
+[Lesson 0: Setup and Blinking LED](./lesson0_intro_blinkLED/README.md)
+
+[Lesson 1: UART and Hello World](./lesson1_serial_helloworld/README.md)
+
+[Lesson 2: External GPIO Interrupts](./lesson2_external_interrupt/README.md)
+
+[Lesson 3: UART Receive and External Files](./lesson3_serial_recv_interrupt)
+
+[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
 
 If you're not in a hurry, I suggest keep reading while I talk about the issue of Arduino, the upcoming trend of 32-bit microcontrollers, and the naming scheme of STM32 parts.
 

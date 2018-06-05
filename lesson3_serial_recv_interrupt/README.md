@@ -6,9 +6,11 @@
 
 [Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
 
-[Lesson 2: External Interrupts](../lesson2_external_interrupt/README.md)
+[Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
 
-**`THIS LESSON`** Lesson 3: Interrupt-based UART Receive and External Files
+**`THIS LESSON`** Lesson 3: UART Receive and External Files
+
+[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
 
 ## Introduction
 
@@ -335,8 +337,6 @@ For the homework, I suggest making some modifications to `linear_buf` files to i
 
 ## Next Steps
 
-Timer and PWM
+In the next lesson we'll check out another common used peripheral: timers. We'll explore how to use timer interrupts as well as PWM outputs.
 
-SPI and I2C
-
-RTOS
+[CLICK ME TO GO TO NEXT LESSON](../lesson4_timers_and_pwm/README.md)

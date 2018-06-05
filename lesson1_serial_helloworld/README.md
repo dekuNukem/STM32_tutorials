@@ -1,6 +1,18 @@
 # Lesson 1: UART and Hello World
 
-Previous lesson: [A Complete Walkthrough of Board Detail, Software Setup, and Blinking LED](../lesson0_intro_blinkLED/README.md)
+[Landing Page: Intro and Required Hardwares](../README.md)
+
+[Lesson 0: Setup and Blinking LED](../lesson0_intro_blinkLED/README.md)
+
+**`THIS LESSON`** Lesson 1: UART and Hello World
+
+[Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
+
+[Lesson 3: Receive and External Files](../lesson3_serial_recv_interrupt)
+
+[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
+
+## Introduction
 
 In this lesson we'll set up the UART, then use `printf()` to print our `hello world` over serial. There is no need to elaborate on how important UARTs are in embedded systems, so let's get right to it!
 

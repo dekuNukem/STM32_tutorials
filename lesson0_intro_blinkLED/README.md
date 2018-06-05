@@ -1,6 +1,18 @@
 # Lesson 0: A Complete Walkthrough of Board Detail, Software Setup, and Blinking LED.
 
-Previous lesson: [Landing page and required hardwares](../README.md)
+[Landing Page: Intro and Required Hardwares](../README.md)
+
+**`THIS LESSON`** Lesson 0: Setup and Blinking LED
+
+[Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
+
+[Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
+
+[Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
+
+[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
+
+## Introduction
 
 In this lesson we're going to take a detailed look at the chip and the dev board, learn how to hook it up to the programmer, install required softwares, set up the microcontroller, and finally write our very own "Blink" program!
 
@@ -29,7 +41,7 @@ Now let's take a look at the pinout of this chip, taken from [the datasheet](../
 
 Unlike Arduino where pins are referred to by simply a number(pin 1, pin 2...), GPIO pins on bare microcontrollers like STM32 usually has a *port* and *number* associated with them. A *port* is a set of pins that are organized internally and can be controlled together. In STM32, GPIO ports are named alphabetically starting from A, and each port can have up to 16 pins from 0 to 15.
 
-As a result, GPIO pins on STM32 are named like `PXY`, which stand for 'Port X pin Y'. Due to size limits not all chips will have all the ports, and not every port will have all its 16 pins. In this case, most of the pins are from port A(PA0 to PA14). Port B only has 1 pin(PB1), and Port F has 2(PF0 and PF1).
+As a result, GPIO pins on STM32 are named like `PXY`, which stand for 'Port X Pin Y'. Due to size limits not all chips will have all the ports, and not every port will have all its 16 pins. In this case, most of the pins are from port A(PA0 to PA14). Port B only has 1 pin(PB1), and Port F has 2(PF0 and PF1).
 
 There are also some non-GPIO pins common to all STM32 chips that are worth mentioning:
 
