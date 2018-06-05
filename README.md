@@ -60,7 +60,7 @@ If you can't wait to get going, click a lesson below and get started!
 
 [Lesson 3: UART Receive and External Files](./lesson3_serial_recv_interrupt)
 
-[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
+[Lesson 4: Timers and PWM](./lesson4_timers_and_pwm/README.md)
 
 If you're not in a hurry, I suggest keep reading while I talk about the issue of Arduino, the upcoming trend of 32-bit microcontrollers, and the naming scheme of STM32 parts.
 

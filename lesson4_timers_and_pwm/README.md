@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Timers are another commonly used peripheral in microcontrollers. They are basically counters with programmable clock inputs. Timers are used to keep track of time, raise periodic interrupts, drive PWM outputs, and many more besides.
+Timers are another commonly used peripheral in microcontrollers. They are used to keep track of time, raise periodic interrupts, drive PWM outputs, and many more besides.
 
 In this lesson we'll take a look at two most common use cases: Timer interrupt and PWM output.
 
@@ -30,9 +30,9 @@ Each STM32 variant has several built-in timers. They are numbered from TIM1 to T
 
 * `Basic timers`: Barebone timers with no outputs. Usually used for timekeeping.
 
-* `Other timers`: Specialized chip-specific timers like low-power or high-resolution timers.
+* `Other timers`: Chip-specific timers like low-power or high-resolution timers.
 
-Usually the higher-end the chip, the more timer it has. The details of STM32 timers is quite a rabbit hole, but we'll keep it simple for the basic usages in this lesson.
+Usually the higher-end the chip, the more timer it has. The details of STM32 timers is quite a rabbit hole, but we'll keep it simple in this lesson.
 
 If you want to learn more, [Here is an cross-series overview](resources/timer_overview.pdf) of STM32 timers. There are also helpful information in the [timer section of the datasheet](resources/datasheet.pdf) of chip we're using.
 
@@ -52,7 +52,7 @@ Open the `test.ioc` file, to the left of the screen we can see the available tim
 
 If you bothered to look at [page 18 of the datasheet](resources/datasheet.pdf), you'll find TIM1 is an advanced timer, while the rest are general purpose timers. They all have 16-bit resolution. TIM1 and TIM3 has 4 channels, and the rest has only 1 channel.
 
-In this example I'm going to use TIM17, of course you can use whichever you want in your own project. Anyway, expand it and check the `Activated` box:
+In this example I'm going to use TIM17. Expand it and check the `Activated` box:
 
 ![Alt text](resources/t17a.png)
 
@@ -60,15 +60,15 @@ This enables timer 17. Now go to the `Configuration` tab, and click the newly ap
 
 ![Alt text](resources/config.png)
 
-Now we need to change some settings to ensure the counter behaves as intended:
+Now we have a bunch of settings change:
 
 ![Alt text](resources/t17config.png)
 
-There is going to be some math involved, but nothing too heady. Allow me to explain:
+Some maths is going to be involved, but nothing too heady. They are explained below.
 
 ### Timer prescaler
 
-As mentioned before, each timer is basically a counter with programmable clock input. At each clock period, the counter increments by 1.
+Each timer is essentially a counter with programmable clock input. At each clock period, the counter increments by 1.
 
 You can find timers' input clock speed on the `Clock Configuration` tab. In this case we see that the `APB1 Timer Clock` is 48MHz, same as system clock:
 
@@ -86,17 +86,17 @@ As you can see, the input clock is divided by `prescaler + 1`. Not too bad.
 
 Another thing to keep in mind is the `counter period`.
 
-The counter in timers will count up from 0 to `counter period` at the clock speed obtained from the `prescaler` we discussed above. Once the counter reaches the `counter period`, it will reset to 0 and start all over again. 
+The counter in timers will count up from 0 to `counter period` at the clock speed obtained with the `prescaler` above. Once the counter reaches the `counter period`, it will reset to 0 and start all over again. 
 
-If interrupt is enabled, a `PeriodElapsed` interrupt will be raised when the rollover happens. This is the periodic timer interrupt that we were talking about earlier. 
+If interrupt is enabled, a `PeriodElapsed` interrupt raise when the rollover happens. This is the periodic timer interrupt that we were talking about earlier. 
 
 ### Getting the right number
 
 It's easy to see that both `prescaler` and `counter period` affect the frequency of timer interrupts, and we need to calculate those two values based on our requirements.
 
-Generally, you use `prescaler` to get the clock speed in the ballpack, then use `counter period` to fine tune frequency.
+Generally, you use `prescaler` to get the clock speed in the ballpack, then use `counter period` to fine tune the frequency.
 
-As an example, we want our timer interrupt to happen every 100ms. To do this we want a 1KHz counter clock. Dividing input clock frequency by the desired output, we get a ratio of `48000000 / 1000 = 48000`. However since `prescaler` starts at 0, we need to subtract 1 from the ratio. Therefore our final `prescaler` is 47999, and this gives us a 1KHz clock to the timer counter.
+For example we want our timer interrupt to happen every 100ms. To do this we want a 1KHz counter clock. Dividing input clock frequency by the desired output, we get a ratio of `48000000 / 1000 = 48000`. However since `prescaler` starts at 0, we need to subtract 1 from the ratio. Therefore our final `prescaler` is 47999, and this gives us a 1KHz clock to the timer counter.
 
 Now that we have a counter clock with a period of 1ms, we can set `counter period` to 100. As a result the counter counts up to 100 then resets, generating an interrupt every 100ms.
 
