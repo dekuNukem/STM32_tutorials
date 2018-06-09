@@ -38,15 +38,11 @@ We'll get into details about this board in the next lesson.
 
 You probably already have one if you've been playing with Arduinos before. If you don't, go on ebay and search [CP2102](https://www.ebay.com/sch/i.html?_from=R40&_nkw=cp2102). Of course other chips like CH340 or FTDI also works. It's just a matter of preference.
 
-## How to use this guide
+### Get the files
 
 Click "Download ZIP" on the top right corner to get lesson files, then just follow along on this webpage.
 
 ![Alt text](resources/images/dl.png)
-
-If STM32CubeMX asks you what to do when opening `.ioc` files, always pick `Migrate`:
-
-![Alt text](resources/images/mig.png)
 
 ## What now?
 

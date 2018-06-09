@@ -16,7 +16,7 @@
 
 In this lesson we're going to take a detailed look at the chip and the dev board, learn how to hook it up to the programmer, install required softwares, set up the microcontroller, and finally write our very own "Blink" program!
 
-That's quite a bit of work, and it's going to take a while. However, this is the most important lesson of them all since it walks you through the entire process in detail. Once you persevere, you can use it on any other STM32 variant you want.
+Bit of warning before we start: This particular lesson is quite a bit of work, and it's going to take a while. However, this is the most important lesson of them all since it walks you through the entire process in detail. Once you persevere, you can use it on any other STM32 variant you want.
 
 ## The Chip
 
@@ -600,10 +600,18 @@ I mentioned before that Keil MDK has a 32KB code size limit unless you pay for a
 
 Sometimes STM32CubeMX will update itself, and you need to run it in Administrator mode to finish the process. To do so right-click the icon and select `Run as Administrator` from the context menu.
 
+And from time to time when you open older version `.ioc` files, STM32CubeMX will ask you what to do. Always pick `Migrate`:
+
+![Alt text](resources/mig.png)
+
 ## Next Steps
 
-Now that we have everything set up, the subsequent lessons will be a significantly shorter than this one.
+Now that we have everything set up, the subsequent lessons will be a significantly shorter.
 
 Next up we'll take a look at setting up UART and print "Hello World" over serial. 
 
 [CLICK ME TO GO TO NEXT LESSON](../lesson1_serial_helloworld/README.md)
+
+## Questions?
+
+If you have any questions, feel free to [open an issue](https://github.com/dekuNukem/stm32_the_easy_way/issues) or email me at `dekunukem gmail com`. The former is preferable since it helps other people too.

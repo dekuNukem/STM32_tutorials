@@ -74,7 +74,7 @@ int fputc(int ch, FILE *f)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
+  printf("hello world\n");
 }
 /* USER CODE END 0 */
 
@@ -122,8 +122,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-  	// HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
-  	// printf("CNT: %d\n", htim17.Instance->CNT);
+  	HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
   	HAL_Delay(500);
   }
   /* USER CODE END 3 */
@@ -192,9 +191,9 @@ static void MX_TIM17_Init(void)
 {
 
   htim17.Instance = TIM17;
-  htim17.Init.Prescaler = 479;
+  htim17.Init.Prescaler = 47999;
   htim17.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim17.Init.Period = 10000 + 20;
+  htim17.Init.Period = 100;
   htim17.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim17.Init.RepetitionCounter = 0;
   htim17.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;

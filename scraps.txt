@@ -1,3 +1,16 @@
+
+### Bonus: Reading 
+
+If STM32CubeMX asks you what to do when opening `.ioc` files, always pick `Migrate`:
+
+![Alt text](resources/images/mig.png)
+
+## How to use this guide
+
+Click "Download ZIP" on the top right corner to get lesson files, then just follow along on this webpage.
+
+![Alt text](resources/images/dl.png)
+
 We don't actually have to put anything else in it right now, you can leave the `linear_buf.c` empty as well for the time being.
 Put it between `USER CODE` comment blocks, in this case the PV section:
 We'll focus more on the interrupt part in order to show you h

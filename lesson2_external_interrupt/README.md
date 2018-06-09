@@ -169,3 +169,7 @@ Go back to SMT32CubeMX to add and configure a new pin, regenerate the code. You 
 We'll utilize another interrupt, this time internal, in the next lesson to implement an efficient UART receiving algorithm.
 
 [CLICK ME TO GO TO NEXT LESSON](../lesson3_serial_recv_interrupt/README.md)
+
+## Questions?
+
+If you have any questions, feel free to [open an issue](https://github.com/dekuNukem/stm32_the_easy_way/issues) or email me at `dekunukem gmail com`. The former is preferable since it helps other people too.

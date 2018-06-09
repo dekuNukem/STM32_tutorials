@@ -132,3 +132,7 @@ As a reminder, you can get the millisecond reading from `HAL_GetTick()`, and [ta
 We'll take a look at reading GPIO pins and using external interrupts in the next lesson.
 
 [CLICK ME TO GO TO NEXT LESSON](../lesson2_external_interrupt/README.md)
+
+## Questions?
+
+If you have any questions, feel free to [open an issue](https://github.com/dekuNukem/stm32_the_easy_way/issues) or email me at `dekunukem gmail com`. The former is preferable since it helps other people too.

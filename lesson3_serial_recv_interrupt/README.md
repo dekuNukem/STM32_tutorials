@@ -340,3 +340,7 @@ For the homework, I suggest making some modifications to `linear_buf` files to i
 In the next lesson we'll check out another common used peripheral: timers. We'll explore how to use timer interrupts as well as PWM outputs.
 
 [CLICK ME TO GO TO NEXT LESSON](../lesson4_timers_and_pwm/README.md)
+
+## Questions?
+
+If you have any questions, feel free to [open an issue](https://github.com/dekuNukem/stm32_the_easy_way/issues) or email me at `dekunukem gmail com`. The former is preferable since it helps other people too.
