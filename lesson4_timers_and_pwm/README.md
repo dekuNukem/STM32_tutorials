@@ -1,4 +1,4 @@
-# Lesson 4: Timers and PWM
+# Lesson 4: Timer Interrupts, PWM, and Watchdogs
 
 [Landing Page: Intro and Required Hardwares](../README.md)
 
@@ -8,9 +8,9 @@
 
 [Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
 
-[Lesson 3: Receive and External Files](../lesson3_serial_recv_interrupt)
+[Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
 
-**`THIS LESSON`** Lesson 4: Timers and PWM
+**`THIS LESSON`** Lesson 4: Timer Interrupts, PWM, and Watchdogs
 
 ## Introduction
 
@@ -239,7 +239,7 @@ htim14.Instance->CCR1 = 900;
 ```
 CCR1 is for channel 1, change it to CCR2, CCR3, CCR4 if you you're using other channels.
 
-Low-level peripheral registers is another massive rabbit hole that I'm not going into. After all, abstracting them is what HAL library is for in the first place.
+Low-level peripheral registers is another massive rabbit hole that I'm not going into. After all, abstracting them is the job for HAL library in the first place.
 
 However if you're feeling adventurous, feel free to dive in the thousand-page [reference manual](../resources/datasheets/stm32f0_reference_manual.pdf) and find out the details about every single peripheral registers. Then you can find their `typedef`s in the beginning of [device header file](sample_code_pwm/Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f030x6.h) and manipulate them directly.
 
@@ -263,3 +263,59 @@ It ramps up the duty cycle, then back down again, resulting in a smooth "breathi
 ![Alt text](resources/breath.gif)
 
 You can find the [finished code here](sample_code_pwm)
+
+What we're doing here is fairly similar to just calling `analogWrite()` in Arduino. However, even in this simple example we have much more control of our PWM properties. We can set the PWM frequency to whatever we like, while Arduino is fixed to a measly 490Hz or 980Hz. We also have control of the PWM resolution by changing `counter period` from 0 to 65535, while Arduino is fixed to 255.
+
+Of course what we're covering here is the very basics of STM32 timers, and they can do much more than that. If you're interested in experimenting with advanced timer functions feel free to go back to [timer overview](resources/timer_overview.pdf) and the [datasheet](resources/datasheet.pdf) 
+
+## Watchdog Timer
+
+Watchdog timers(WDT) are often used to reset the system when a malfunction occurs. In normal operation the WDT counts up, while your program periodically resets it. This is called "kicking the dog". If your program crashed and did not kick WDT in time, it will overflow and generate a hardware reset signal. This restarts the system and recovers it from the crash.
+
+### STM32 watchdog timers
+
+STM32 has two watchdog timers: **Independent Watchdog** (IWDG) and **System Window Watchdog** (WWDG).
+
+IWDG is a 12-bit down-counter clocked from an independent internal clock source. It counts down from 4095 and resets the system if it reaches 0. All in all a fairly standard WDT.
+
+WWDG has more bells and whistles, featuring fancy stuff like early warning interrupt and so on.
+
+Usually IWDG is more than enough, so that's what we're looking at.
+
+### IWDG setup
+
+Enable the IWDG:
+
+![Alt text](resources/iwdg.png)
+
+Click its button:
+
+![Alt text](resources/ibut.png)
+
+And now we're at its configuration window:
+
+![Alt text](resources/icon.png)
+
+Usually there is no need to change `IWDG window value` and `IWDG reload value`. Of course you can [read more here](resources/en.STM32L4_WDG_TIMERS_IWDG.pdf).
+
+The bit we're interested in is, again, the prescaler. This determine how fast the IWDG counts down towards reset. Assuming you didn't change the other two values, you can consult the table below to see how long is the reset window:
+
+![Alt text](resources/itab.png)
+
+After regenerating the code, simply use `HAL_IWDG_Refresh(&hiwdg)` to kick the dog before the countdown reaches 0.
+
+Here is a simple [finished project](sample_code_pwm) with IWDG. It prints out an incrementing number while also kicking the dog. If you comment out the `HAL_IWDG_Refresh()` function, you'll see that the counting restarts every 3 seconds or so, indicating the IWDG is resetting the chip.
+
+## Homework
+
+Now that we have covered the basics about STM32 timers, it's up to you to implement something useful with them. This homework is a bit longer than usual, but it does challenge you to put everything you learned into use.
+
+The goal is to **implement an accurate microsecond timebase with STM32 timers**.
+
+In the end you should have a **`uint32_t micros()`** function which returns the number of microseconds since start-up, and a **`delay_us(uint32_t us)`** function which delays the number of microseconds in the argument.
+
+I suggest implementing the functions in separate files [like we did last time](../lesson3_serial_recv_interrupt), so you can reuse them afterwards.
+
+You can access the counter value in a timer with `htim14.Instance->CNT`.
+
+For further hints, click here.
