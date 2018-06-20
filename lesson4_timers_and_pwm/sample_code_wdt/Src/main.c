@@ -111,13 +111,17 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   uint16_t count = 0;
+  printf("started!!\n");
   while (1)
   {
 
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-    HAL_IWDG_Refresh(&hiwdg); // kicking the dog, comment it out to see the count reset
+
+    // kicking the dog, comment this out to see IWDG in action
+    HAL_IWDG_Refresh(&hiwdg);
+
   	HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
   	printf("count: %d\n", count++);
   	HAL_Delay(500);

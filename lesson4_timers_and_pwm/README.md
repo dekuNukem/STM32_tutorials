@@ -316,6 +316,17 @@ In the end you should have a **`uint32_t micros()`** function which returns the 
 
 I suggest implementing the functions in separate files [like we did last time](../lesson3_serial_recv_interrupt), so you can reuse them afterwards.
 
-You can access the counter value in a timer with `htim14.Instance->CNT`.
+You can access the current counter value in a timer with `htimXX.Instance->CNT`, where `XX` is the timer number.
 
-For further hints, click here.
+For further hints and the answer, [click here](./homework_hints.md).
+
+
+## Next Steps
+
+In the next lesson we'll look at how to communicate using SPI and I2C with our STM32 chip.
+
+[CLICK ME TO GO TO NEXT LESSON](../lesson5_spi_i2c/README.md)
+
+## Questions?
+
+If you have any questions, feel free to [open an issue](https://github.com/dekuNukem/stm32_the_easy_way/issues) or email me at `dekunukem gmail com`. The former is preferable since it helps other people too.
