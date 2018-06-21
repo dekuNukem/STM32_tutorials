@@ -96,8 +96,52 @@ You can examine the waveform using a logic analyzer:
 
 ![Alt text](resources/logic.png)
 
-That's pretty much it for the SPI! With this knowledge you can write your own library or easily port Arduino libraries to STM32 now.
+That's pretty much it for the SPI! You can find the [sample project here](./sample_code_spi).
+
+With this knowledge, you can easily write your own library or port Arduino libraries to STM32 now.
 
 ## STM32 I2C Communication
 
-Compared to SPI
+Compared to simple and straightforward signaling of SPI, I2C uses fancy open drain outputs and different slave addresses to allow multiple devices on the same bus. The clock speed is often much slower than SPI, and you need additional pull-up resistors with appropriate values. However up to 127 devices can be used on the same two-wire I2C bus, massively simplifying the wiring compared to SPI.
+
+Just like before, we'll be expanding upon [Lesson 1](../lesson1_serial_helloworld/README.md), so make another copy of the [project file](../lesson1_serial_helloworld/sample_code).
+
+### STM32 I2C Setup
+
+In the `Pinout` page, we'll find `I2C1` section covered in red and unavailable:
+
+![Alt text](resources/noi2c.png)
+
+This is because the I2C pins are used by UART1 on PA10 and PA9. You can either try [switching them to alternative locations](../lesson1_serial_helloworld/alt_locations.md), so just disable the peripheral.
+
+I'm going to disable it in this example. Simply left click on PA10 and PA9 and change their function to `Reset_State`:
+
+![Alt text](resources/res.png)
+
+We can enable I2C now after both of them are freed:
+
+![Alt text](resources/i2cok.png)
+
+Go to `Configuration` page and click on the newly appeared `I2C1` button to configure it:
+
+![Alt text](resources/i2cconfig.png)
+
+`I2C Speed Mode` and `I2C Speed Frequency` depend on the device you're using, read the datasheet to see what it needs.
+
+There are also some fancy adjustable timing parameters, leave them at default if you don't know what you're doing.
+
+Regenerate the code and launch Keil MDK.
+
+### Using I2C
+
+I sure hope I've hammered the idea home by now. You should go straight to provided library file to see what you can use.
+
+A bunch of functions are provided near the end of [stm32f0xx_hal_i2c.h](sample_code_i2c/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c.h):
+
+![Alt text](resources/i2cfun.png)
+
+Generally, you use `HAL_I2C_IsDeviceReady()` to see if a device is on the I2C bus, then use `HAL_I2C_Master_Transmit()` and `HAL_I2C_Master_Receive()` to read or write to them. 
+
+`HAL_I2C_Mem_Write()` and `HAL_I2C_Mem_Read()` are also available for reading and writing to a certain memory location.
+
+Thanks to its relatively complicated signaling and protocol, a logic analyzer is your best bet when it comes to I2C debugging. 
