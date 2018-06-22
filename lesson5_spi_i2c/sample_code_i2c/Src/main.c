@@ -112,6 +112,9 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+
+    // I don't have a I2C device right now
+    // so there isn't actually I2C code :(
   	HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
   	HAL_Delay(500);
   }

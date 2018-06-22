@@ -145,3 +145,15 @@ Generally, you use `HAL_I2C_IsDeviceReady()` to see if a device is on the I2C bu
 `HAL_I2C_Mem_Write()` and `HAL_I2C_Mem_Read()` are also available for reading and writing to a certain memory location.
 
 Thanks to its relatively complicated signaling and protocol, a logic analyzer is your best bet when it comes to I2C debugging. 
+
+The [sample project is here](./sample_code_spi), however I didn't have any I2C devices with me at the moment, there isn't a code example inside.
+
+## Homeworks
+
+You might have noticed that I didn't use any actual SPI and I2C devices while giving examples in the sections above. There are just too many of them and every application uses different ones. However if you do have a SPI or I2C peripheral chip that you want to use, why not use what you learned above to try to get it to work?
+
+Again, it's very likely that things does not work at first, it's really handy to have a logic analyzer to see what's exactly going on. They are very cheap ones on ebay, but you might want to get a good one and be done with it. The one I have is [Saleae Logic Pro 16](https://www.saleae.com/)
+
+## Next Steps
+
+In the next lesson we're going to look at the holy grail embedded development: Real-Time Operating Systems. By using a RTOS and splitting your program into self-contained tasks that runs in parallel, you can achieve much more sophisticated program behavior while reducing the code complexity, compared to the single threaded approach we've been using so far. 
