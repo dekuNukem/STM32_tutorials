@@ -1,4 +1,4 @@
-# Lesson 3: SPI and I2C
+# Lesson 5: SPI and I2C
 
 [Landing Page: Intro and Required Hardwares](../README.md)
 
@@ -13,6 +13,8 @@
 [Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
 
 **`THIS LESSON`** Lesson 5: SPI and I2C
+
+[Lesson 6: Real-time Operating Systems (RTOS)](../lesson6_rtos/README.md)
 
 ## Introduction
 
@@ -150,10 +152,18 @@ The [sample project is here](./sample_code_spi), however I didn't have any I2C d
 
 ## Homeworks
 
-You might have noticed that I didn't use any actual SPI and I2C devices while giving examples in the sections above. There are just too many of them and every application uses different ones. However if you do have a SPI or I2C peripheral chip that you want to use, why not use what you learned above to try to get it to work?
+You might have noticed that I didn't use any actual SPI and I2C devices while giving examples above. There are just too many of them and every application is different. However if you do have a SPI or I2C peripheral chip why not use what you learned above to try to get it to work?
 
-Again, it's very likely that things does not work at first, it's really handy to have a logic analyzer to see what's exactly going on. They are very cheap ones on ebay, but you might want to get a good one and be done with it. The one I have is [Saleae Logic Pro 16](https://www.saleae.com/)
+Again, it's very likely that things does not work at first, therefore it's really handy to have a logic analyzer to see what's exactly going on. They are very cheap ones on ebay, but you might want to get a good one and be done with it. The one I have is [Saleae Logic Pro 16](https://www.saleae.com/)
 
 ## Next Steps
 
-In the next lesson we're going to look at the holy grail embedded development: Real-Time Operating Systems. By using a RTOS and splitting your program into self-contained tasks that runs in parallel, you can achieve much more sophisticated program behavior while reducing the code complexity, compared to the single threaded approach we've been using so far. 
+In the next lesson we're going to look at the holy grail embedded development: Real-Time Operating System. 
+
+Instead of running everything inside one big loop, with RTOS you can split your program into self-contained tasks that are executed in parallel. As a result, you can achieve much more sophisticated behavior while reducing the code complexity.
+
+[CLICK ME TO GO TO NEXT LESSON](../lesson6_rtos/README.md)
+
+## Questions?
+
+If you have any questions, feel free to [open an issue](https://github.com/dekuNukem/stm32_the_easy_way/issues) or email me at `dekunukem gmail com`. The former is preferable since it helps other people too.

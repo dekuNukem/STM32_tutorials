@@ -58,7 +58,10 @@ If you can't wait to get going, click a lesson below and get started!
 
 [Lesson 4: Timers and PWM](./lesson4_timers_and_pwm/README.md)
 
-[Lesson 5: SPI and I2C](../lesson5_spi_i2c/README.md)
+[Lesson 5: SPI and I2C](./lesson5_spi_i2c/README.md)
+
+[Lesson 6: RTOS](./lesson6_rtos/README.md)
+
 
 If you're not in a hurry, I suggest keep reading while I talk about the issue of Arduino, the upcoming trend of 32-bit microcontrollers, and the naming scheme of STM32 parts.
 

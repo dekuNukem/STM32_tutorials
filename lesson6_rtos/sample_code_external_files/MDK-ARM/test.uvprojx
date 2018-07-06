@@ -536,10 +536,17 @@
               <FileType>1</FileType>
               <FilePath>../Src/stm32f0xx_hal_timebase_TIM.c</FilePath>
             </File>
+            <File>
+              <FileName>my_tasks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\my_tasks.c</FilePath>
+            </File>
+            <File>
+              <FileName>my_tasks.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Inc\my_tasks.h</FilePath>
+            </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
           <GroupName>Drivers/CMSIS</GroupName>
@@ -600,6 +607,9 @@
               <FilePath>../Middlewares/Third_Party/FreeRTOS/Source/queue.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
     </Target>

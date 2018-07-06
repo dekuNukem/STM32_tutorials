@@ -1,138 +1,105 @@
-# Lesson 1: UART and Hello World
+# Lesson 6: UART and Hello World
 
 [Landing Page: Intro and Required Hardwares](../README.md)
 
 [Lesson 0: Setup and Blinking LED](../lesson0_intro_blinkLED/README.md)
 
-**`THIS LESSON`** Lesson 1: UART and Hello World
+[Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
 
 [Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
 
-[Lesson 3: Receive and External Files](../lesson3_serial_recv_interrupt)
+[Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
 
 [Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
 
+[Lesson 5: SPI and I2C Communication](../lesson5_spi_i2c/README.md)
+
+**`THIS LESSON`** Lesson 6: Real-time Operating Systems (RTOS)
+
 ## Introduction
 
-In this lesson we'll set up the UART, then use `printf()` to print our `hello world` over serial. There is no need to elaborate on how important UARTs are in embedded systems, so let's get right to it!
+So far, we have been writing programs and executing them inside a big `while` loop in `main.c`. This single-threaded approach is simple, straightforward, and more than adequate for a large portion of embedded applications.
+
+However, this becomes inadequate or overly complicated in some situations.  Imagine you're designing a control panel that needs to carry out a number of tasks such as reading key inputs, updating a display, reading sensors, parse incoming data, setting outputs, etc.
+
+Those tasks take different amount of time to complete, and need to be executed at different intervals with different priorities. I guess you can imagine it would be a nightmare to set up in a single-threaded environment, and if one task bogs down or hangs, the entire system crashes.
+
+This is where **Real-time Operating System** comes in. Just like the desktop OS you're using, RTOS allows you to define tasks that **run in parallel**. Thus freeing you from having to manage the timing yourself.
+
+RTOS achieves the illusion of concurrent execution by running each task for a short time then switch to another. By doing this hundreds of times a second, it feels like all the tasks are executing at the same time. The job of determining which task to run (and for how long) and which task to put to sleep is called **task scheduling**.
+
+To witness RTOS in action, we're going to set up the open-source FreeRTOS on our STM32 board and create two tasks in this lesson.
 
 ## Recommended Readings
 
-If you need a refresher on serial communications, Speakfun has an [excellent tutorial](https://learn.sparkfun.com/tutorials/serial-communication).
+Predictively, the description of RTOS above is extremely simplified and generalized. You can find some introductory guides with slightly more details below:
 
-[CoolTerm](http://freeware.the-meiers.org/) is used to view our serial messages, so check out [this guide](https://learn.sparkfun.com/tutorials/terminal-basics/coolterm-windows-mac-linux). Of course you can use your preferred terminal emulators too.
+* [What is RTOS?](https://www.freertos.org/about-RTOS.html)
+
+* (Another one) [What is RTOS?](https://www.highintegritysystems.com/rtos/what-is-an-rtos/)
+
+* [FreeRTOS Tutorial](https://www.freertos.org/tutorial/)
+
+And of course, there's always Wikipedia:
+
+* [Real-time operating system](https://en.wikipedia.org/wiki/Real-time_operating_system)
+
+* [Task (computing)](https://en.wikipedia.org/wiki/Task_(computing))
+
+* [Real-time computing](https://en.wikipedia.org/wiki/Real-time_computing)
 
 ## Hookup
 
-A serial-to-USB adapter is used in this lesson, connect the **RXD on the adapter** to the **TXD on the dev board**, and connect the **GND of dev board and adapter** together. See the black and white wires below:
+Once again, we'll be expanding upon [Lesson 1](../lesson1_serial_helloworld/README.md), so make a copy of the [project file](../lesson1_serial_helloworld/sample_code) and double check [the hookup](../lesson1_serial_helloworld/README.md#hookup).
 
-![Alt text](resources/hookup.jpg)
+## FreeRTOS setup in STM32CubeMX
 
-## UART setup in STM32CubeMX
+In the `Pinout` page, simply check the `Enabled` box under `FREERTOS`.
 
-We will be reusing the entire project from the last lesson, so just **make a new copy of the project folder**. After that, double click and open the `.ioc` file.
+![Alt text](resources/enabled.png)
 
-![Alt text](resources/ioc.png)
+For some reason, FreeRTOS doesn't like to use the default `SysTick` timer for internal timekeeping, so we have to select another timer as the time base. If you don't do this, STM32Cube will warn you at code generation, so we might as well do it now.
 
-Which will take you back to the pin view page:
+Expand `SYS`, and change the `Timebase Source` to one of the lesser-used timers:
 
-![Alt text](resources/cubehome.png)
+![Alt text](resources/tim.png)
 
-This time we expand `USART1` and select `Asynchronous` mode. Two more pins are now in use. `PA2` is TX, while `PA3` is RX.
+Click the newly appeared `FREERTOS` button in `Configuration` page:
 
-![Alt text](resources/cubeuart.png)
+![Alt text](resources/button.png)
 
-Normally that would be enough. However, the UART header on our board is actually connected to PA9/PA10 instead of PA2/PA3. **[Follow this short guide](alt_locations.md) to switch them around.**
+A huge configuration window appears. Fortunately most of the defaults are already good, although you might want to adjust the `Memory Management settings` to suit your need.
 
-Next we go to the configuration page. Click the newly appeared button to adjust a few settings.
+The `TOTAL_HEAP_SIZE` is the total amount of memory that can be used by your tasks. Remember on this chip we only have 4KB RAM, so 2KB for the RTOS is a good choice.
 
-![Alt text](resources/cubeconfig.png)
+`Memory management scheme` determines how memory can be allocated and freed with `malloc()` and `free()`. [Do read this page for details](https://www.freertos.org/a00111.html), but most of the time `heap_1.c` is enough.
 
-Only thing actually needs changing is the baud rate, 115200bps is used in this case.
+![Alt text](resources/mem.png)
 
-While you're here take a look at the `Advanced Features`, so many options! It even has TX/RX pin swapping for when you forget to cross the wires! What a world we're living in.
+With the RTOS setting finished, we can define some tasks now. Click on the `Tasks and Queues` tab:
 
-![Alt text](resources/cubesetup.png)
+![Alt text](resources/tq.png)
 
-That's it for the CubeMX! **Make sure the Keil MDK is closed**, and regenerate the code: 
+We can see there is already a task called `defaultTask`. Let's make another one. Click on the `Add` button:
 
-![Alt text](resources/cubecode.png)
+![Alt text](resources/t2.png)
 
-The best practice to **keep Keil MDK closed while regenerating the code in STM32CubeMX**, this keep things consistent and less likely to corrupt the project files. After it's done, click `Open Project` button to launch Keil MDK.
+You can change the `Task Name` to anything you like.
 
-![Alt text](resources/cubecode2.png)
+High `Priority` tasks will have shorter response time, and able to interrupt lower priority tasks, so set it based on your needs.
 
-## Printing "Hello World"
+`Stack Size` determines the available stack for this task. Too little your task will crash, too much you're wasting memory. I suggest start from the default and turn it up if your task starts to behave erroneously.
 
-Now we're ready to code our "Hello World" program. Remember what to do when encountering a new peripheral? Yep, we go and see what functions we can use in the HAL library files.
+`Entry Function` is the name of the actual function that you're going to write your code in, so name it accordingly.
 
-Looking at the [stm32f0xx_hal_uart.h](sample_code/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h), we find the following functions:
-
-```
-/* IO operation functions *****************************************************/
-HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-```
-
-That's a lot of choices ending in `_Transmit` and `_Receive`. However, they are all suffixed with either nothing, or `_IT`, or `_DMA`. **[Take a look at this guide](hal_io_modes.md) to learn about the I/O modes in STM32 HAL.**
-
-We'll be using blocking mode in this lesson, and interrupt mode in the upcoming ones. DMA is an advanced topic and currently not covered in this series. Therefore, we're simply using `HAL_UART_Transmit()`. [Click here for details about this function](HAL_UART_Transmit_details.md).
-
-You can use this function on its own, however since serial is mostly used to print debug messages, it's a better idea to get `printf()` working instead. And all you have to do is provide your own `fputc()` function:
-
-```
-int fputc(int ch, FILE *f)
-{
-    HAL_UART_Transmit(&huart1, (unsigned char *)&ch, 1, 100);
-    return ch;
-}
-```
-This is called for each character that `printf` tries to print, and in this case just sends the character through serial.
-
-You can put this anywhere in `main.c`, but I like to put it inside `/* USER CODE 0 */` block just before `main()` function.
-
-After that you'll be able to use `printf()` just like everywhere else, that means we can now get `hello world` out of the way:
-
-```
-printf("hello world\n");
-HAL_Delay(500);
-```
-
-Put it in the `while` loop in `main()`, compile and upload. You can see the [finished file here](sample_code/Src/main.c).
-
-Launch CoolTerm and select the correct serial port, set the baud rate to 115200 as before, and observe:
-
-![Alt text](resources/coolterm.png)
-
-![Alt text](resources/helloworld.gif)
-
-Congratulations, you got UART and `printf` working! And this is the proper full-fat `printf` instead of the neutered version in Arduino that doesn't even work with floating numbers!
-
-## Homework
-
-Try printing out the current millisecond once every 500ms using formatted `printf`. The results should look like this:
-
-```
-current time: 500
-current time: 1000
-current time: 1500
-.........
-```
-
-As a reminder, you can get the millisecond reading from `HAL_GetTick()`, and [take a look at this](https://fresh2refresh.com/c-programming/c-printf-and-scanf/) if you're not familiar with formatted `printf`.
-
-[Click me to see the answer](homework_answer.md).
+By default STM32Cube put task functions in `main.c`. However generally the code for each task is quite long, so you don't want it to clutter up `main.c`. Therefore I suggest changing `Code Generation Option` to `Weak` so you can put the code in external files.
 
 ## Next Steps
 
-We'll take a look at reading GPIO pins and using external interrupts in the next lesson.
+A WORD ON WHEN TO USE RTOS
 
-[CLICK ME TO GO TO NEXT LESSON](../lesson2_external_interrupt/README.md)
+not always necessary, a lot of the simple projects dont use it
 
-## Questions?
+takes very little space, can even run on this
 
-If you have any questions, feel free to [open an issue](https://github.com/dekuNukem/stm32_the_easy_way/issues) or email me at `dekunukem gmail com`. The former is preferable since it helps other people too.
+if you do end up in the while loop something is wrong, check stack and heap size.
