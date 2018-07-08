@@ -3,7 +3,7 @@
 <title>Static Call Graph - [test\test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image test\test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Fri Jun 22 15:58:32 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Sun Jul 08 16:11:43 2018
 <BR><P>
 <H3>Maximum Stack Usage =        248 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -13,7 +13,6 @@ main &rArr; SystemClock_Config &rArr; HAL_RCC_ClockConfig &rArr; HAL_InitTick &r
 Mutually Recursive functions
 </H3> <LI><a href="#[10]">ADC1_IRQHandler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[10]">ADC1_IRQHandler</a><BR>
  <LI><a href="#[2]">HardFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[2]">HardFault_Handler</a><BR>
- <LI><a href="#[21]">StartTask02</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[21]">StartTask02</a><BR>
 </UL>
 <P>
 <H3>
@@ -36,8 +35,8 @@ Function Pointers
  <LI><a href="#[0]">Reset_Handler</a> from startup_stm32f030x6.o(.text) referenced from startup_stm32f030x6.o(RESET)
  <LI><a href="#[18]">SPI1_IRQHandler</a> from startup_stm32f030x6.o(.text) referenced from startup_stm32f030x6.o(RESET)
  <LI><a href="#[3]">SVC_Handler</a> from port.o(i.SVC_Handler) referenced from startup_stm32f030x6.o(RESET)
- <LI><a href="#[20]">StartDefaultTask</a> from my_tasks.o(i.StartDefaultTask) referenced from main.o(.constdata)
- <LI><a href="#[21]">StartTask02</a> from my_tasks.o(i.StartTask02) referenced from main.o(.constdata)
+ <LI><a href="#[20]">StartLEDtask</a> from my_tasks.o(i.StartLEDtask) referenced from main.o(.constdata)
+ <LI><a href="#[21]">StartUARTtask</a> from my_tasks.o(i.StartUARTtask) referenced from main.o(.constdata)
  <LI><a href="#[5]">SysTick_Handler</a> from stm32f0xx_it.o(i.SysTick_Handler) referenced from startup_stm32f030x6.o(RESET)
  <LI><a href="#[1b]">SystemInit</a> from system_stm32f0xx.o(i.SystemInit) referenced from startup_stm32f030x6.o(.text)
  <LI><a href="#[14]">TIM14_IRQHandler</a> from startup_stm32f030x6.o(.text) referenced from startup_stm32f030x6.o(RESET)
@@ -200,7 +199,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[4b]"></a>HAL_GPIO_TogglePin</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, stm32f0xx_hal_gpio.o(i.HAL_GPIO_TogglePin))
-<BR><BR>[Called By]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartDefaultTask
+<BR><BR>[Called By]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartLEDtask
 </UL>
 
 <P><STRONG><a name="[54]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f0xx_hal_gpio.o(i.HAL_GPIO_WritePin))
@@ -431,23 +430,19 @@ Global Symbols
 <P><STRONG><a name="[3]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, port.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f030x6.o(RESET)
 </UL>
-<P><STRONG><a name="[20]"></a>StartDefaultTask</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, my_tasks.o(i.StartDefaultTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = StartDefaultTask &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<P><STRONG><a name="[20]"></a>StartLEDtask</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, my_tasks.o(i.StartLEDtask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = StartLEDtask &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_TogglePin
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
-<P><STRONG><a name="[21]"></a>StartTask02</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, my_tasks.o(i.StartTask02))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64 + In Cycle
-<LI>Call Chain = StartTask02 &rArr;  StartTask02 (Cycle)
+<P><STRONG><a name="[21]"></a>StartUARTtask</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, my_tasks.o(i.StartUARTtask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = StartUARTtask &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartTask02
-<LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
+<BR>[Calls]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartTask02
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
@@ -526,7 +521,7 @@ Global Symbols
 <P><STRONG><a name="[4d]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, printfb.o(i.__0printf$bare))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartTask02
+<BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartUARTtask
 </UL>
 
 <P><STRONG><a name="[82]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
@@ -561,8 +556,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartTask02
-<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartDefaultTask
+<BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartUARTtask
+<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartLEDtask
 </UL>
 
 <P><STRONG><a name="[57]"></a>osKernelStart</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, cmsis_os.o(i.osKernelStart))

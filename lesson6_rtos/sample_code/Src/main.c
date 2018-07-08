@@ -58,8 +58,8 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
 
-osThreadId defaultTaskHandle;
-osThreadId myTask02Handle;
+osThreadId LEDtaskHandle;
+osThreadId UARTtaskHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -70,8 +70,8 @@ osThreadId myTask02Handle;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
-void StartDefaultTask(void const * argument);
-void StartTask02(void const * argument);
+void StartLEDtask(void const * argument);
+void StartUARTtask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -133,13 +133,13 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 96);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* definition and creation of LEDtask */
+  osThreadDef(LEDtask, StartLEDtask, osPriorityNormal, 0, 96);
+  LEDtaskHandle = osThreadCreate(osThread(LEDtask), NULL);
 
-  /* definition and creation of myTask02 */
-  osThreadDef(myTask02, StartTask02, osPriorityNormal, 0, 96);
-  myTask02Handle = osThreadCreate(osThread(myTask02), NULL);
+  /* definition and creation of UARTtask */
+  osThreadDef(UARTtask, StartUARTtask, osPriorityAboveNormal, 0, 96);
+  UARTtaskHandle = osThreadCreate(osThread(UARTtask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -163,8 +163,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-  	HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
-  	printf("hello world\n");
+  	printf("FreeRTOS failed to start\n");
   	HAL_Delay(500);
   }
   /* USER CODE END 3 */
@@ -281,8 +280,8 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE END 4 */
 
-/* StartDefaultTask function */
-__weak void StartDefaultTask(void const * argument)
+/* StartLEDtask function */
+__weak void StartLEDtask(void const * argument)
 {
 
   /* USER CODE BEGIN 5 */
@@ -290,22 +289,22 @@ __weak void StartDefaultTask(void const * argument)
   for(;;)
   {
   	HAL_GPIO_TogglePin(USER_LED_GPIO_Port, USER_LED_Pin);
-    osDelay(100);
+    osDelay(200);
   }
   /* USER CODE END 5 */ 
 }
 
-/* StartTask02 function */
-__weak void StartTask02(void const * argument)
+/* StartUARTtask function */
+__weak void StartUARTtask(void const * argument)
 {
-  /* USER CODE BEGIN StartTask02 */
+  /* USER CODE BEGIN StartUARTtask */
   /* Infinite loop */
   for(;;)
   {
-  	printf("hello world\n");
-    osDelay(250);
+    printf("This is UART task\n");
+    osDelay(500);
   }
-  /* USER CODE END StartTask02 */
+  /* USER CODE END StartUARTtask */
 }
 
 /**

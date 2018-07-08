@@ -2,7 +2,7 @@
 FREERTOS.FootprintOK=true
 FREERTOS.HEAP_NUMBER=1
 FREERTOS.IPParameters=Tasks01,HEAP_NUMBER,FootprintOK
-FREERTOS.Tasks01=defaultTask,0,96,StartDefaultTask,As weak,NULL,Dynamic,NULL,NULL;myTask02,0,96,StartTask02,As weak,NULL,Dynamic,NULL,NULL
+FREERTOS.Tasks01=LEDtask,0,96,StartLEDtask,As weak,NULL,Dynamic,NULL,NULL;UARTtask,1,96,StartUARTtask,As weak,NULL,Dynamic,NULL,NULL
 File.Version=6
 KeepUserPlacement=false
 Mcu.Family=STM32F0

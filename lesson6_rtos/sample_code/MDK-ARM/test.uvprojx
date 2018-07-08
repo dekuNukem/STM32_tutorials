@@ -373,7 +373,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F030x6</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;   ../Drivers/STM32F0xx_HAL_Driver/Inc;   ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy;   ../Drivers/CMSIS/Device/ST/STM32F0xx/Include;   ../Drivers/CMSIS/Include;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM0;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</IncludePath>
+              <IncludePath>../Inc;    ../Drivers/STM32F0xx_HAL_Driver/Inc;    ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy;    ../Drivers/CMSIS/Device/ST/STM32F0xx/Include;    ../Drivers/CMSIS/Include; ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM0; ../Middlewares/Third_Party/FreeRTOS/Source/include; ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -539,9 +539,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>::CMSIS</GroupName>
-        </Group>
-        <Group>
           <GroupName>Drivers/CMSIS</GroupName>
           <Files>
             <File>
@@ -600,6 +597,9 @@
               <FilePath>../Middlewares/Third_Party/FreeRTOS/Source/queue.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
     </Target>

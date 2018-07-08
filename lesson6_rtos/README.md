@@ -84,22 +84,75 @@ We can see there is already a task called `defaultTask`. Let's make another one.
 
 ![Alt text](resources/t2.png)
 
-You can change the `Task Name` to anything you like.
+`Task Name` is pretty self-explanatory.
 
-High `Priority` tasks will have shorter response time, and able to interrupt lower priority tasks, so set it based on your needs.
+`Priority` influences how a task is treated by the scheduler. High priority tasks will be able to interrupt lower priority tasks, and have a shorter response time. Generally you give time-critical or safety-critical tasks higher priorities.
 
 `Stack Size` determines the available stack for this task. Too little your task will crash, too much you're wasting memory. I suggest start from the default and turn it up if your task starts to behave erroneously.
 
-`Entry Function` is the name of the actual function that you're going to write your code in, so name it accordingly.
+`Entry Function` is the name of the actual function for the task that you're going to write your code in, so name it accordingly.
 
-By default STM32Cube put task functions in `main.c`. However generally the code for each task is quite long, so you don't want it to clutter up `main.c`. Therefore I suggest changing `Code Generation Option` to `Weak` so you can put the code in external files.
+At lastly, I suggest changing `Code Generation Option` to `Weak` so you can write the code for your tasks in external files. 
+
+In this case, I changed the default task name to `LEDtask`, then added another tasked called `UARTtask`:
+
+![Alt text](resources/finished.png)
+
+Note that `UARTtask` has a higher priority than `LEDtask`, so should those two tasks try to execute at the same time, the former will always get to run first.
+
+There are some useful information in other tabs too. For example `FreeRTOS Heap Usage` tab tells you how much memory your tasks are using, and how much left. Feel free to take a look at your own time.
+
+But for now that's all we need. Click `Ok` and generate the code.
+
+## Coding Tasks In FreeRTOS
+
+You will find generated task functions near the end of `main.c`:
+
+![Alt text](resources/tfunc.png)
+
+Note how instead of putting everything in the big `while` loop in `main()`, each task has its own infinite loop. All you have to do is put your own code in there.
+
+In this very simple case `LEDtask` blinks the LED every 0.2 seconds, and `UARTtask` prints out a message every 0.5 seconds. They will run concurrently, and everything will happen in their own time.
+
+Of course in real world projects things are a bit more complicated. For example you can have a `UIupdateTask` for taking care of the display, and a `sensorUpdateTask` with a higher priority for reading sensors, and so on.
+
+## Common Pitfalls
+
+Of course the convenience of RTOS doesn't mean it has no downsides, and here are a number of common pitfalls you need to be aware of.
+
+### Race Condition and Resource Control
+
+What happens if one task tries to write to an variable while another is reading it at the same time? What about two tasks trying to write to UART at the same time?
+
+Two common way of controlling shared resources is [mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)) and [Semaphore](https://en.wikipedia.org/wiki/Semaphore_(programming)). Both are [Supported by FreeRTOS](https://www.freertos.org/a00113.html).
+
+But of course this topic is an entire field of study in computer science, so if you want to read more about it, there are tons of wikipedia articles to spend time on. Here are a few to get you started: [Race Condition](https://en.wikipedia.org/wiki/Race_condition), [Semaphore](https://en.wikipedia.org/wiki/Semaphore_(programming)), [Critical Section](https://en.wikipedia.org/wiki/Critical_section).
+
+### Memory Issues
+
+If you haven't noticed already, RTOS does need a lot more memory than bare metal programming. Take a look at the `FreeRTOS Heap Usage` tab:
+
+![Alt text](resources/heap.png)
+
+Even with just two simple tasks that barely does anything, we've used 1488 bytes of RAM. As a result, if you're planning to do something actually useful with FreeRTOS, I suggest using a higher-end STM32 chip with more than 8KB of RAM.
+
+Also note the FreeRTOS launch code in `main.c`:
+
+![Alt text](resources/fail.png)
+
+Notice how it mentions you should never get to the `while` loop, since the scheduler takes over when `osKernelStart()` is called? 
+
+If you do end up in the `while` loop, or your task is behaving erratically or not working at all, it's usually because of insufficient memory. Check your total FreeRTOS heap is large enough, and try increasing the stack size for the offending task in STM32Cube. Don't forget to regenerate the code and recompile.
+
+## External Files
+
+More often than not, if you're using RTOS in the first place, your project is already pretty complicated. Right now STM32Cube puts all the task functions are in `main.c`, while in reality it's better to put them in separate files.
+
+That's why we selected `As Weak` when generating them. Simply declare the same function in an external file, and the compiler will use the new one instead.
+
+[Here is an example](sample_code_external_files), where I put the task functions inside [my_task.h](sample_code_external_files/Inc/my_tasks.h) and [my_task.c](sample_code_external_files/Src/my_tasks.c).
+
 
 ## Next Steps
 
-A WORD ON WHEN TO USE RTOS
-
-not always necessary, a lot of the simple projects dont use it
-
-takes very little space, can even run on this
-
-if you do end up in the while loop something is wrong, check stack and heap size.
+with that, we have covered the basics of STM32 development, feel the advantages over arduino, what's next?

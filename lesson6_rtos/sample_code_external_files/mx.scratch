@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-<ProjectName>C:\Users\Allen\Desktop\repos\stm32_the_easy_way\lesson6_rtos\sample_code\\test</ProjectName>
+<ProjectName>C:\Users\Allen\Desktop\repos\stm32_the_easy_way\lesson6_rtos\sample_code_external_files\\test</ProjectName>
 <ProjectNature>C</ProjectNature> 
 <CMSIS>..\Drivers\CMSIS</CMSIS>
 <HAL_Driver>C:\Users\Allen\STM32Cube\Repository\STM32Cube_FW_F0_V1.9.0\Drivers\CMSIS</HAL_Driver>
@@ -11,7 +11,6 @@
 <filestoremove>
     <file>
     <name>..\Drivers\CMSIS\Device\ST\STM32F0xx\Source\Templates\arm\startup_stm32f030x6.s</name>
-    <name>..\Src\system_stm32f0xx.c</name>
     </file>
 </filestoremove>
 

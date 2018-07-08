@@ -3,8 +3,8 @@
 
 #include "stm32f0xx_hal.h"
 
-void StartDefaultTask(void const * argument);
-void StartTask02(void const * argument);
+void StartLEDtask(void const * argument);
+void StartUARTtask(void const * argument);
 
 #endif
 
