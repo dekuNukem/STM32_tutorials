@@ -146,7 +146,7 @@ If you do end up in the `while` loop, or your task is behaving erratically or no
 
 ## External Files
 
-More often than not, if you're using RTOS in the first place, your project is already pretty complicated. Right now STM32Cube puts all the task functions are in `main.c`, while in reality it's better to put them in separate files.
+More often than not, if you're using RTOS in the first place, your project is already pretty complicated. Right now STM32Cube puts all the task functions in `main.c`, while in reality it's better to put them in separate files.
 
 That's why we selected `As Weak` when generating them. Simply declare the same function in an external file, and the compiler will use the new one instead.
 
