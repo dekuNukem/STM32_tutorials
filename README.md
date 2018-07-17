@@ -1,10 +1,10 @@
-# STM32, The Easy Way
+# From Arduino to STM32: Intro to ARM Embedded Dev
 
 Do you already have some experience with Arduino, and want to step up the game into proper ARM embedded system developments? If so, you're in the right place!
 
 We're going to take a look how to get started with STM32 microcontrollers using STM32Cube and Keil MDK-ARM, which is considered "canon", and only $4 worth of hardwares.
 
-This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and teaches you to figure things out yourself.
+This tutorial is designed to be detailed and easy to follow. However, it is **NOT** meant to be a comprehensive guide. Instead it aims to cover the basics to get you going quickly, and teaches you how to figure things out yourself.
 
 ## Prerequisites
 
@@ -50,18 +50,19 @@ If you can't wait to get going, click a lesson below and get started!
 
 [Lesson 0: Setup and Blinking LED](./lesson0_intro_blinkLED/README.md)
 
-[Lesson 1: UART and Hello World](./lesson1_serial_helloworld/README.md)
+[Lesson 1: UART Transmit](./lesson1_serial_helloworld/README.md)
 
 [Lesson 2: External GPIO Interrupts](./lesson2_external_interrupt/README.md)
 
 [Lesson 3: UART Receive and External Files](./lesson3_serial_recv_interrupt)
 
-[Lesson 4: Timers and PWM](./lesson4_timers_and_pwm/README.md)
+[Lesson 4: Timers, PWM and Watchdog](./lesson4_timers_and_pwm/README.md)
 
 [Lesson 5: SPI and I2C](./lesson5_spi_i2c/README.md)
 
 [Lesson 6: RTOS](./lesson6_rtos/README.md)
 
+[Lesson 255: Movin' On Up](../lesson255_movin'_on_up/README.md)
 
 If you're not in a hurry, I suggest keep reading while I talk about the issue of Arduino, the upcoming trend of 32-bit microcontrollers, and the naming scheme of STM32 parts.
 

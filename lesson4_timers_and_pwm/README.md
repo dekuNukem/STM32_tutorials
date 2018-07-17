@@ -1,16 +1,22 @@
-# Lesson 4: Timer Interrupts, PWM, and Watchdogs
+# Lesson 4: STM32 Timer Interrupts, PWM, and Watchdog
 
 [Landing Page: Intro and Required Hardwares](../README.md)
 
 [Lesson 0: Setup and Blinking LED](../lesson0_intro_blinkLED/README.md)
 
-[Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
+[Lesson 1: UART Transmit](../lesson1_serial_helloworld/README.md)
 
 [Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
 
 [Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
 
-**`THIS LESSON`** Lesson 4: Timer Interrupts, PWM, and Watchdogs
+**`THIS LESSON`** Lesson 4: Timer Interrupts, PWM, and Watchdog
+
+[Lesson 5: SPI and I2C Communication](../lesson5_spi_i2c/README.md)
+
+[Lesson 6: Real-time Operating Systems (RTOS)](../lesson6_rtos/README.md)
+
+[Lesson 255: Movin' On Up](../lesson255_movin'_on_up/README.md)
 
 ## Introduction
 
@@ -90,7 +96,7 @@ Another thing to keep in mind while setting up timer interrupts is the `counter 
 
 In other words, the counter will count up from 0 to `counter period`, at the clock speed obtained with the `prescaler` above. Once the counter reaches the `counter period`, it will reset to 0 and start all over again.
 
-If interrupt is enabled, a `PeriodElapsed` interrupt raise when the rollover happens. This is the periodic timer interrupt that we were talking about earlier. 
+If interrupt is enabled, a `PeriodElapsed` interrupt will raise when the rollover happens. This is the periodic timer interrupt that we were talking about earlier. 
 
 ### Getting the right number
 
@@ -192,7 +198,7 @@ Just like last time, we have `prescaler` and `counter period`. Except in this ca
 
 Let's say we want the PWM frequency of our LED to be 1KHz. One option is to use `prescaler` of 47 and `counter period` of 1000.
 
-The `prescaler` of 47 divides the 48MHz system clock down to 1MHz for the TIM14 counter, making it count up every 1us. And the `counter period` of 1000 makes the counter reset once the count has reached 1000. This way the counter resets every 1000uS, which is 1ms, which is a frequency of 1KHz.
+The `prescaler` of 47 divides the 48MHz system clock down to 1MHz for the TIM14 counter, making it count up every 1us. And the `counter period` of 1000 makes the counter reset once the count has reached 1000. This way the counter resets every 1000uS, which is 1ms, resulting in a PWM frequency of 1KHz.
 
 The new parameter `pulse` determines the duty cycle of the PWM output, calculated as `pulse / counter_period`.
 
@@ -270,13 +276,13 @@ Of course what we're covering here is the very basics of STM32 timers, and they 
 
 ## Watchdog Timer
 
-Watchdog timers(WDT) are often used to reset the system when a malfunction occurs. In normal operation the WDT counts up, while your program periodically resets it. This is called "kicking the dog". If your program crashed and did not kick WDT in time, it will overflow and generate a hardware reset signal. This restarts the system and recovers it from the crash.
+Watchdog timers(WDT) are often used to reset the system when a malfunction occurs. In normal operation the WDT counts up(or down) while your program periodically resets it. This is called "kicking the dog". If your program crashed and did not kick WDT in time, it will overflow and generate a hardware reset signal. This restarts the system and recovers it from the crash.
 
 ### STM32 watchdog timers
 
 STM32 has two watchdog timers: **Independent Watchdog** (IWDG) and **System Window Watchdog** (WWDG).
 
-IWDG is a 12-bit down-counter clocked from an independent internal clock source. It counts down from 4095 and resets the system if it reaches 0. All in all a fairly standard WDT.
+IWDG is a 12-bit down-counter clocked from an independent internal clock source. It counts down from 4095 and resets the system if it reaches 0.
 
 WWDG has more bells and whistles, featuring fancy stuff like early warning interrupt and so on.
 
@@ -304,6 +310,8 @@ The bit we're interested in is, again, the prescaler. This determine how fast th
 
 After regenerating the code, simply use `HAL_IWDG_Refresh(&hiwdg)` to kick the dog before the countdown reaches 0.
 
+Keep in mind that the internal 40KHz clock powering the IWDG is not very accurate, and can vary as much as ±10%. So leave some slack when setting IWDG parameters.
+
 Here is a simple [finished project](sample_code_pwm) with IWDG. It prints out an incrementing number while also kicking the dog. If you comment out the `HAL_IWDG_Refresh()` function, you'll see that the counting restarts every 3 seconds or so, indicating the IWDG is resetting the chip.
 
 ## Homework
@@ -319,7 +327,6 @@ I suggest implementing the functions in separate files [like we did last time](.
 You can access the current counter value in a timer with `htimXX.Instance->CNT`, where `XX` is the timer number.
 
 For further hints and the answer, [click here](./homework_hints.md).
-
 
 ## Next Steps
 

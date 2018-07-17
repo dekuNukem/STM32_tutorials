@@ -4,17 +4,23 @@
 
 **`THIS LESSON`** Lesson 0: Setup and Blinking LED
 
-[Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
+[Lesson 1: UART Transmit](../lesson1_serial_helloworld/README.md)
 
 [Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
 
 [Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
 
-[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
+[Lesson 4: Timers, PWM and Watchdog](../lesson4_timers_and_pwm/README.md)
+
+[Lesson 5: SPI and I2C Communication](../lesson5_spi_i2c/README.md)
+
+[Lesson 6: Real-time Operating Systems (RTOS)](../lesson6_rtos/README.md)
+
+[Lesson 255: Movin' On Up](../lesson255_movin'_on_up/README.md)
 
 ## Introduction
 
-In this lesson we're going to take a detailed look at the chip and the dev board, learn how to hook it up to the programmer, install required softwares, set up the microcontroller, and finally write our very own "Blink" program!
+In this lesson we're going to take a detailed look at the STM32 chip and the dev board, learn how to hook it up to the programmer, install required softwares, set up the microcontroller, and finally write our very own "Blink" program!
 
 Bit of warning before we start: This particular lesson is quite a bit of work, and it's going to take a while. However, this is the most important lesson of them all since it walks you through the entire process in detail. Once you persevere, you can use it on any other STM32 variant you want.
 

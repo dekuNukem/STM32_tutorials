@@ -4,25 +4,27 @@
 
 [Lesson 0: Setup and Blinking LED](../lesson0_intro_blinkLED/README.md)
 
-[Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
+[Lesson 1: UART Transmit](../lesson1_serial_helloworld/README.md)
 
 [Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
 
 [Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
 
-[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
+[Lesson 4: Timers, PWM and Watchdog](../lesson4_timers_and_pwm/README.md)
 
 [Lesson 5: SPI and I2C Communication](../lesson5_spi_i2c/README.md)
 
 **`THIS LESSON`** Lesson 6: Real-time Operating Systems (RTOS)
 
+[Lesson 255: Movin' On Up](../lesson255_movin'_on_up/README.md)
+
 ## Introduction
 
-So far, we have been writing programs and executing them inside a big `while` loop in `main.c`. This single-threaded approach is simple, straightforward, and more than adequate for a large portion of embedded applications.
+So far, we have been writing programs and executing them inside a big `while` loop in `main.c`. This single-threaded approach is simple, straightforward, and more than enough for a large portion of embedded applications.
 
-However, this becomes inadequate or overly complicated in some situations.  Imagine you're designing a control panel that needs to carry out a number of tasks such as reading key inputs, updating a display, reading sensors, parse incoming data, setting outputs, etc.
+However, this becomes inadequate or overly complicated in some situations.  Imagine you're designing a controller that needs to carry out a number of tasks such as reading key inputs, updating a display, reading sensors, process incoming data, generating outputs, etc.
 
-Those tasks take different amount of time to complete, and need to be executed at different intervals with different priorities. I guess you can imagine it would be a nightmare to set up in a single-threaded environment, and if one task bogs down or hangs, the entire system crashes.
+Those tasks take different amount of time to complete, and need to be executed at different intervals with different priorities. I guess you can imagine the nightmare to code this in a single-threaded environment, and if one task bogs down or hangs, the entire system crashes.
 
 This is where **Real-time Operating System** comes in. Just like the desktop OS you're using, RTOS allows you to define tasks that **run in parallel**. Thus freeing you from having to manage the timing yourself.
 
@@ -114,11 +116,15 @@ Note how instead of putting everything in the big `while` loop in `main()`, each
 
 In this very simple case `LEDtask` blinks the LED every 0.2 seconds, and `UARTtask` prints out a message every 0.5 seconds. They will run concurrently, and everything will happen in their own time.
 
-Of course in real world projects things are a bit more complicated. For example you can have a `UIupdateTask` for taking care of the display, and a `sensorUpdateTask` with a higher priority for reading sensors, and so on.
+It is very important to remember to use `osDelay()` instead of `HAL_Delay()` when using FreeRTOS. The former will allow task scheduler to run other tasks in the meantime, while the latter will just block in a busy loop.
+
+`osDelay()` is actually another abstraction used by STM32HAL, and it's often better to use FreeRTOS-specific API calls such as `vTaskDelay()`. You can find the [comprehensive API docs here](https://www.freertos.org/a00112.html).
+
+Of course in real world projects things are a bit more complicated than this. For example you can have a `UIupdateTask` for taking care of the display, and a `sensorUpdateTask` with a higher priority for reading sensors, and so on.
 
 ## Common Pitfalls
 
-Of course the convenience of RTOS doesn't mean it has no downsides, and here are a number of common pitfalls you need to be aware of.
+The convenience of RTOS doesn't mean it has no downsides, and there are a number of common pitfalls you need to be aware of.
 
 ### Race Condition and Resource Control
 
@@ -155,4 +161,9 @@ That's why we selected `As Weak` when generating them. Simply declare the same f
 
 ## Next Steps
 
-with that, we have covered the basics of STM32 development, feel the advantages over arduino, what's next?
+With that, we have covered the common topics 
+
+ the basics of STM32 development, feel the advantages over arduino, what's next?
+
+[CLICK ME TO GO TO NEXT LESSON](../lesson255_movin'_on_up)
+

@@ -1,20 +1,26 @@
-# Lesson 2: External GPIO Interrupts
+# Lesson 2: STM32 External GPIO Interrupts
 
 [Landing Page: Intro and Required Hardwares](../README.md)
 
 [Lesson 0: Setup and Blinking LED](../lesson0_intro_blinkLED/README.md)
 
-[Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
+[Lesson 1: UART Transmit](../lesson1_serial_helloworld/README.md)
 
 **`THIS LESSON`** Lesson 2: External GPIO Interrupts
 
 [Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
 
-[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
+[Lesson 4: Timers, PWM and Watchdog](../lesson4_timers_and_pwm/README.md)
+
+[Lesson 5: SPI and I2C Communication](../lesson5_spi_i2c/README.md)
+
+[Lesson 6: Real-time Operating Systems (RTOS)](../lesson6_rtos/README.md)
+
+[Lesson 255: Movin' On Up](../lesson255_movin'_on_up/README.md)
 
 ## Introduction
 
-In this lesson we'll explore two ways of reading a GPIO pin, polling and external interrupt. As you shall see, polling is the simplest way but interrupt is ultimately more flexible and faster.
+In this lesson we'll explore two ways of reading a STM32 GPIO pin: polling and external interrupt. As you shall see, polling is the simplest way but interrupt is ultimately more flexible and faster.
 
 ## Hookup
 
@@ -166,7 +172,7 @@ Go back to SMT32CubeMX to add and configure a new pin, regenerate the code. You 
 
 ## Next Steps
 
-We'll utilize another interrupt, this time internal, in the next lesson to implement an efficient UART receiving algorithm.
+We'll look at another type of interrupt, this time internal, in the next lesson to implement an efficient UART receiving algorithm.
 
 [CLICK ME TO GO TO NEXT LESSON](../lesson3_serial_recv_interrupt/README.md)
 

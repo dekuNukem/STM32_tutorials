@@ -4,17 +4,19 @@
 
 [Lesson 0: Setup and Blinking LED](../lesson0_intro_blinkLED/README.md)
 
-[Lesson 1: UART and Hello World](../lesson1_serial_helloworld/README.md)
+[Lesson 1: UART Transmit](../lesson1_serial_helloworld/README.md)
 
 [Lesson 2: External GPIO Interrupts](../lesson2_external_interrupt/README.md)
 
 [Lesson 3: UART Receive and External Files](../lesson3_serial_recv_interrupt)
 
-[Lesson 4: Timers and PWM](../lesson4_timers_and_pwm/README.md)
+[Lesson 4: Timers, PWM and Watchdog](../lesson4_timers_and_pwm/README.md)
 
 **`THIS LESSON`** Lesson 5: SPI and I2C
 
 [Lesson 6: Real-time Operating Systems (RTOS)](../lesson6_rtos/README.md)
+
+[Lesson 255: Movin' On Up](../lesson255_movin'_on_up/README.md)
 
 ## Introduction
 
@@ -40,7 +42,7 @@ STM32 also supports `Hardware NSS Signal`, where the SPI CS pin is controlled by
 
 ![Alt text](resources/cubespi.png)
 
-I set PA3 as the CS pin, you can use whatever free GPIO pin you want.
+I set PA3 as the CS pin, you can use whatever free GPIO pin you want. Give it a descriptive name too.
 
 ![Alt text](resources/cubecs.png)
 
@@ -66,9 +68,9 @@ For this simple demo I used this configuration:
 
 ![Alt text](resources/cubedone.png)
 
-Press `OK` to save the setting. Then press the `GPIO` button to set up the new CS pin we just selected.
+Press `OK` to save the setting and go back. Then press the `GPIO` button to set up the new CS pin we just selected.
 
-We just need to change the initial output level to `High` so it doesn't assert the SPI device right away.
+We just need to change the initial output level to `High` so it doesn't assert the SPI device on power up.
 
 ![Alt text](resources/cubecspin.png)
 
@@ -120,7 +122,7 @@ I'm going to disable it in this example. Simply left click on PA10 and PA9 and c
 
 ![Alt text](resources/res.png)
 
-We can enable I2C now after both of them are freed:
+We can now enable I2C after both pins are freed:
 
 ![Alt text](resources/i2cok.png)
 
@@ -160,7 +162,7 @@ Again, it's very likely that things does not work at first, therefore it's reall
 
 In the next lesson we're going to look at the holy grail embedded development: Real-Time Operating System. 
 
-Instead of running everything inside one big loop, with RTOS you can split your program into self-contained tasks that are executed in parallel. As a result, you can achieve much more sophisticated behavior while reducing the code complexity.
+Instead of running everything inside one big loop, with RTOS you can split your program into self-contained tasks that are executed in parallel. As a result, you can achieve much more sophisticated program behavior while reducing the code complexity.
 
 [CLICK ME TO GO TO NEXT LESSON](../lesson6_rtos/README.md)
 
