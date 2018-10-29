@@ -15,3 +15,5 @@
 [Lesson 6: Real-time Operating Systems (RTOS)](../lesson6_rtos/README.md)
 
 **`THIS LESSON`** Lesson 99: Miscellaneous
+
+I might put miscellaneous bits and bobs of information here as questions come up.
