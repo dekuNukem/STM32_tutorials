@@ -16,4 +16,8 @@
 
 **`THIS LESSON`** Lesson 99: Miscellaneous
 
+# Under Construction!
+
 I might put miscellaneous bits and bobs of information here as questions come up.
+
+And if you do have some, open an issue or email me at `dekunukem gmail com`. I'll put the answers here if the question is common.

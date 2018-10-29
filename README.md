@@ -1,4 +1,6 @@
-# From Arduino to STM32: Intro to ARM Embedded Dev
+# From Arduino to STM32: Getting started with ARM Embedded Development
+
+![Alt text](resources/images/title.png)
 
 Do you already have some experience with Arduino, and want to step up the game into proper ARM embedded system developments? If so, you're in the right place!
 
@@ -153,6 +155,22 @@ By looking at the 2 characters just after ```STM32```, you can also tell what AR
 Note how you can eyeball the capability by just looking at the feature numbers. Generally speaking, the higher the number, the better the performance and the variety of peripherals, but also more expensive.
 
 [Click here](resources/datasheets/STM32_product_selection_guide.pdf) for a spec sheet for all STM32 chips.
+
+## What's wrong with Blue Pill?
+
+The [Blue Pill](https://wiki.stm32duino.com/index.php?title=Blue_Pill) is another very popular dev board with a STM32F103 chip. However personally I don't really like it for a number of reasons:
+
+* STM32F1 is a very old design (more than 10 years old in 2018), so a number of convenient features from later chips are missing, such as TX/RX pin inversion, build-in USB pullups, RTC date backup, and more.
+
+* Furthermore, lots of peripherals are simply missing when compared to the newer STM32F0 chips, such as analog comparators, I2S, HDMI_CEC, and so on. 
+
+* STM32F1 has some [nasty hardware design errors](https://www.st.com/content/ccc/resource/technical/document/errata_sheet/7d/02/75/64/17/fc/4d/fd/CD00190234.pdf/files/CD00190234.pdf/jcr:content/translations/en.CD00190234.pdf) that needs looking out for when using certain peripherals.
+
+* STM32F0 series is cheaper.
+
+* STM32F0 series has free Keil MDK license with no code size limit.
+
+Therefore, I recommend starting with newer STM32F0 chips at the beginning.
 
 ## Next steps
 

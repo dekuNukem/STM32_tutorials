@@ -569,6 +569,10 @@ Don't forget to save your project, but most importantly, always use the `Save Al
 
 ![Alt text](resources/mdksave.png)
 
+## Using External Editor
+
+You can turn on the auto-reload in MDK so changes you made in external editors show up immediately. [Click me to see how.](./mdk_auto_reload.md)
+
 ## Extra Tips
 
 Remember we named our PA4 pin `USER_LED` in the STM32CubeMX? You might think I forgot about it, but fear not! [Take a look at main.h](sample_code/Inc/main.h), and you'll find it generated some custom defines:
@@ -600,7 +604,9 @@ Read about its usage in [stm32f0xx_hal_gpio.c](sample_code/Drivers/STM32F0xx_HAL
 
 ## The Free MDK License
 
-I mentioned before that Keil MDK has a 32KB code size limit unless you pay for a license, and ST provides a free license for all F0 and L0 parts. Obviously the chip we're using only has 16KB of flash, so you don't have to do anything, but if you do start using larger chips, [follow this official guide](http://www2.keil.com/stmicroelectronics-stm32/mdk) to activate your MDK for free. Only follow the `Activation` section since we have already done everything else.
+I mentioned before that Keil MDK has a 32KB code size limit unless you pay for a license, and ST provides a free license for all F0 and L0 parts. Obviously the chip we're using only has 16KB of flash, so we don't have to do anything.
+
+But if you do start using larger chips, [follow this official guide](http://www2.keil.com/stmicroelectronics-stm32/mdk) to activate your MDK for free. Only follow the `Activation` section since we have already done everything else.
 
 ## STM32CubeMX Updates
 

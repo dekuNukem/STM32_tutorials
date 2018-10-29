@@ -164,7 +164,7 @@ With that, we have covered the basics of STM32 development, and you should be ab
 
 As for what's next, it's up to you to experiment and decide, at this stage you must have some ideas.
 
-[CLICK ME TO GO TO NEXT LESSON](../lesson255_movin'_on_up)
+[CLICK ME TO GO TO NEXT LESSON](../lesson99_miscellaneous/README.md)
 
 ## Questions?
 

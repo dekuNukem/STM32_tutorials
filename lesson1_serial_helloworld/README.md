@@ -116,7 +116,7 @@ Launch CoolTerm and select the correct serial port, set the baud rate to 115200 
 
 ![Alt text](resources/helloworld.gif)
 
-Congratulations, you got UART and `printf` working! And this is the proper full-fat `printf` instead of the neutered version in Arduino that doesn't even work with floating numbers!
+Congratulations, you got UART and `printf` working! And this is the full-fat `printf` instead of the neutered Arduino version that doesn't even work with floating numbers!
 
 ## Homework
 
