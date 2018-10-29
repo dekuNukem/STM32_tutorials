@@ -16,7 +16,7 @@
 
 **`THIS LESSON`** Lesson 6: Real-time Operating Systems (RTOS)
 
-[Lesson 255: Movin' On Up](../lesson255_movin'_on_up/README.md)
+[Lesson 99: Miscellaneous](../lesson99_miscellaneous/README.md)
 
 ## Introduction
 
@@ -158,12 +158,14 @@ That's why we selected `As Weak` when generating them. Simply declare the same f
 
 [Here is an example](sample_code_external_files), where I put the task functions inside [my_task.h](sample_code_external_files/Inc/my_tasks.h) and [my_task.c](sample_code_external_files/Src/my_tasks.c).
 
-
 ## Next Steps
 
-With that, we have covered the common topics 
+With that, we have covered the basics of STM32 development, and you should be able to take advantage of the power and flexibility of this 32-bit MCU line to achieve much more than Arduino could.
 
- the basics of STM32 development, feel the advantages over arduino, what's next?
+As for what's next, it's up to you to experiment and decide, at this stage you must have some ideas.
 
 [CLICK ME TO GO TO NEXT LESSON](../lesson255_movin'_on_up)
 
+## Questions?
+
+As always, if you have any questions, feel free to [open an issue](https://github.com/dekuNukem/stm32_the_easy_way/issues) or email me at `dekunukem gmail com`. The former is preferable since it helps other people too.

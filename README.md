@@ -62,7 +62,7 @@ If you can't wait to get going, click a lesson below and get started!
 
 [Lesson 6: RTOS](./lesson6_rtos/README.md)
 
-[Lesson 255: Movin' On Up](../lesson255_movin'_on_up/README.md)
+[Lesson 99: Miscellaneous](./lesson99_miscellaneous/README.md)
 
 If you're not in a hurry, I suggest keep reading while I talk about the issue of Arduino, the upcoming trend of 32-bit microcontrollers, and the naming scheme of STM32 parts.
 

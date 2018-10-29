@@ -14,4 +14,4 @@
 
 [Lesson 6: Real-time Operating Systems (RTOS)](../lesson6_rtos/README.md)
 
-**`THIS LESSON`** Lesson 255: Movin' On Up
+**`THIS LESSON`** Lesson 99: Miscellaneous
