@@ -140,9 +140,9 @@ If everything works, congrats! You can move on to the next software now. There a
 
 STM32CubeMX is an interactive configuration tool and code generator. It lets you set up the microcontroller in a straightforward graphical interface, then generates the initialization code so you don't have to write any. Pretty neat!
 
-Just like the first one, go to the official link below, click the blue "Get Software" button near the bottom, and download it:
+[Click me](resources/en.stm32cubemx.zip) to download STM32CubeMS from this repo.
 
-http://www.st.com/en/development-tools/stm32cubemx.html
+You can also download it from the [official website](http://www.st.com/en/development-tools/stm32cubemx.html). But in my opinion they completely butchered the UI in the latest version. I'd rather stick with the old one.
 
 Inside the zip there are 3 copies for different platforms. You'll want to run the windows one:
 
