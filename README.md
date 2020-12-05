@@ -166,6 +166,8 @@ The [Blue Pill](https://wiki.stm32duino.com/index.php?title=Blue_Pill) is anothe
 
 * STM32F1 has some [nasty hardware design errors](https://www.st.com/content/ccc/resource/technical/document/errata_sheet/7d/02/75/64/17/fc/4d/fd/CD00190234.pdf/files/CD00190234.pdf/jcr:content/translations/en.CD00190234.pdf) that needs looking out for when using certain peripherals.
 
+* There are tons of [fake STM32F103 chips!](https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/)
+
 * STM32F0 series is cheaper.
 
 * STM32F0 series has free Keil MDK license with no code size limit.
