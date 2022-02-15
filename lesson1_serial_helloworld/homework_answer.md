@@ -1,6 +1,6 @@
 In the main loop:
 
 ```
-printf("current time: %d\n", HAL_GetTick());
+printf("current time: %lu\n", HAL_GetTick());
 HAL_Delay(500);
 ```
